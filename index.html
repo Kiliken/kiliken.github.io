@@ -1,4 +1,7 @@
 <head>
+	<link rel="stylesheet" href="./highlight/styles/github-dark.css">
+	<script src="./highlight/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style>
 		pre{
@@ -23,275 +26,279 @@
 <h4 style="color: #c9d1d9;">　単語リストのCSVをゲームに読み込むためのスクリプトです。WordsPullというクラスで一つのの単語の正しい答え、正しくない答えが保存されます。WordListというクラスは単語リストのためwordsPullをリスト化されてeasyWords、normalWords、hardWords、bossPhrasesという4つのリストになります。Unity EditorからプレイするとReadCsv関数を使ってWebGLビルドでプレイするとReadCSVFromWeb関数を使います。
 </h4>
 <div class="code">
-<pre style="font-family:monospace;color: rgb(201, 209, 217); background-color: rgb(13, 17, 23); font-weight: 400; "><span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> System.Collections;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> System.Collections.Generic;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> System.IO;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> TMPro;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> Unity.VisualScripting;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> Unity.VisualScripting.FullSerializer;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> UnityEngine;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> UnityEngine.Networking;
+<pre style="font-family:monospace;color: rgb(201, 209, 217); background-color: rgb(13, 17, 23); font-weight: 400; ">
+<code class="language-csharp">
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using TMPro;
+using Unity.VisualScripting;
+using Unity.VisualScripting.FullSerializer;
+using UnityEngine;
+using UnityEngine.Networking;
 
-<span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">class</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">CSVReader</span> : <span style="color: rgb(210, 168, 255); font-weight: 400;">MonoBehaviour</span>
+public class CSVReader : MonoBehaviour
 {
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">System.Serializable</span>]
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">class</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">WordsPull</span> {
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span> mainWord;
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span> correctWord;
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span>[] dummyWords;
+    [System.Serializable]
+    public class WordsPull {
+        public string mainWord;
+        public string correctWord;
+        public string[] dummyWords;
     }
 
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">System.Serializable</span>]
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">class</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">WordList</span> {
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> List&lt;WordsPull&gt; wordsPull;
+    [System.Serializable]
+    public class WordList {
+        public List&lt;WordsPull&gt; wordsPull;
     }
 
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> WordList easyWords = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> WordList();
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> WordList normalWords = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> WordList();
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> WordList hardWords = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> WordList();
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> WordList bossPhrases = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> WordList();
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> WordList[] wordLists;
+    public WordList easyWords = new WordList();
+    public WordList normalWords = new WordList();
+    public WordList hardWords = new WordList();
+    public WordList bossPhrases = new WordList();
+    public WordList[] wordLists;
 
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">Awake</span>()</span> {
-        <span style="color: rgb(139, 148, 158); font-weight: 400;">// handling CSV reloading</span>
-        GameObject[] objs = GameObject.FindGameObjectsWithTag(<span style="color: rgb(165, 214, 255); font-weight: 400;">"CSV"</span>);
+    void Awake() {
+        // handling CSV reloading
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("CSV");
 
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(objs.Length &gt; <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>){
-            Debug.Log(<span style="color: rgb(165, 214, 255); font-weight: 400;">"CSV reader already exists."</span>);
-            Destroy(<span style="color: rgb(255, 123, 114); font-weight: 400;">this</span>.gameObject);
+        if(objs.Length &gt; 1){
+            Debug.Log("CSV reader already exists.");
+            Destroy(this.gameObject);
         }
-        DontDestroyOnLoad(<span style="color: rgb(255, 123, 114); font-weight: 400;">this</span>.gameObject);
+        DontDestroyOnLoad(this.gameObject);
 
 
-<span style="color: rgb(121, 192, 255); font-weight: 400;">#<span style="color: rgb(255, 123, 114); font-weight: 400;">if</span> UNITY_EDITOR</span>
-        ReadCSVFromWeb(easyWords, <span style="color: rgb(165, 214, 255); font-weight: 400;">"easyList"</span>);
-        ReadCSVFromWeb(normalWords, <span style="color: rgb(165, 214, 255); font-weight: 400;">"normalList"</span>);
-        ReadCSVFromWeb(hardWords, <span style="color: rgb(165, 214, 255); font-weight: 400;">"hardList"</span>);
-        ReadCSVFromWeb(bossPhrases, <span style="color: rgb(165, 214, 255); font-weight: 400;">"bossPhrases"</span>, <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
-<span style="color: rgb(121, 192, 255); font-weight: 400;">#<span style="color: rgb(255, 123, 114); font-weight: 400;">else</span></span>
-        ReadCSVFromWeb(easyWords, <span style="color: rgb(165, 214, 255); font-weight: 400;">"easyList"</span>);
-        ReadCSVFromWeb(normalWords, <span style="color: rgb(165, 214, 255); font-weight: 400;">"normalList"</span>);
-        ReadCSVFromWeb(hardWords, <span style="color: rgb(165, 214, 255); font-weight: 400;">"hardList"</span>);
-        ReadCSVFromWeb(bossPhrases, <span style="color: rgb(165, 214, 255); font-weight: 400;">"bossPhrases"</span>, <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
-<span style="color: rgb(121, 192, 255); font-weight: 400;">#<span style="color: rgb(255, 123, 114); font-weight: 400;">endif</span></span>
-        wordLists = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> WordList[]{easyWords, normalWords, hardWords, bossPhrases};
+#if UNITY_EDITOR
+        ReadCSVFromWeb(easyWords, "easyList");
+        ReadCSVFromWeb(normalWords, "normalList");
+        ReadCSVFromWeb(hardWords, "hardList");
+        ReadCSVFromWeb(bossPhrases, "bossPhrases", true);
+#else
+        ReadCSVFromWeb(easyWords, "easyList");
+        ReadCSVFromWeb(normalWords, "normalList");
+        ReadCSVFromWeb(hardWords, "hardList");
+        ReadCSVFromWeb(bossPhrases, "bossPhrases", true);
+#endif
+        wordLists = new WordList[]{easyWords, normalWords, hardWords, bossPhrases};
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// editor内ならこの関数で読み込む</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">ReadCsv</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;">WordList selectedList, <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span> path, <span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> isPhrase = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span></span>)</span> {
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">try</span>{
-            StreamReader strReader = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> StreamReader(<span style="color: rgb(165, 214, 255); font-weight: 400;">"WordLists/"</span> + path);
+    // editor内ならこの関数で読み込む
+    void ReadCsv(WordList selectedList, string path, bool isPhrase = false) {
+        try{
+            StreamReader strReader = new StreamReader("WordLists/" + path);
 
-            <span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> endOfFile = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-            <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">-1</span>;
-            <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> dummyLenght = (isPhrase ? <span style="color: rgb(121, 192, 255); font-weight: 400;">4</span> : <span style="color: rgb(121, 192, 255); font-weight: 400;">5</span>);
-            selectedList.wordsPull = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> List&lt;WordsPull&gt;();
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">while</span> (!endOfFile)
+            bool endOfFile = false;
+            int i = -1;
+            int dummyLenght = (isPhrase ? 4 : 5);
+            selectedList.wordsPull = new List&lt;WordsPull&gt;();
+            while (!endOfFile)
             {
-                <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span> data_String = strReader.ReadLine();
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span> (data_String == <span style="color: rgb(121, 192, 255); font-weight: 400;">null</span>)
+                string data_String = strReader.ReadLine();
+                if (data_String == null)
                 {
-                    endOfFile = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">break</span>;
+                    endOfFile = true;
+                    break;
                 }
 
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span> (i &lt; <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>)
+                if (i &lt; 0)
                 {
                     i++;
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">continue</span>;
+                    continue;
                 }
 
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">var</span> data_values = data_String.Split(<span style="color: rgb(165, 214, 255); font-weight: 400;">','</span>);
+                var data_values = data_String.Split(',');
                 
-                selectedList.wordsPull.Add(<span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> WordsPull());
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span> (isPhrase)
+                selectedList.wordsPull.Add(new WordsPull());
+                if (isPhrase)
                 {
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span> (<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> j = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; j &lt; data_values.Length; j++)
+                    for (int j = 0; j &lt; data_values.Length; j++)
                     {
-                        data_values[j] = data_values[j].Replace(<span style="color: rgb(165, 214, 255); font-weight: 400;">"%"</span>, <span style="color: rgb(165, 214, 255); font-weight: 400;">","</span>);
+                        data_values[j] = data_values[j].Replace("%", ",");
                     }
                 }
 
-                selectedList.wordsPull[i].mainWord = data_values[<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>].ToString();
-                selectedList.wordsPull[i].correctWord = data_values[<span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>].ToString();
-                selectedList.wordsPull[i].dummyWords = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span>[dummyLenght];
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span> (<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> j = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; j &lt; dummyLenght; j++)
+                selectedList.wordsPull[i].mainWord = data_values[0].ToString();
+                selectedList.wordsPull[i].correctWord = data_values[1].ToString();
+                selectedList.wordsPull[i].dummyWords = new string[dummyLenght];
+                for (int j = 0; j &lt; dummyLenght; j++)
                 {
-                    selectedList.wordsPull[i].dummyWords[j] = data_values[<span style="color: rgb(121, 192, 255); font-weight: 400;">2</span> + j].ToString();
+                    selectedList.wordsPull[i].dummyWords[j] = data_values[2 + j].ToString();
                 }
                 
                 i++;
             }
         }
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">catch</span> {
-            Debug.LogError(<span style="color: rgb(165, 214, 255); font-weight: 400;">"ERROR: File not found"</span>);
+        catch {
+            Debug.LogError("ERROR: File not found");
         };
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">//　WebGLならこの関数で読み込む</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">ReadCSVFromWeb</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;">WordList selectedList, <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span> path, <span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> isPhrase = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span></span>)</span>{
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">try</span>{
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">var</span> csv = Resources.Load(path) <span style="color: rgb(255, 123, 114); font-weight: 400;">as</span> TextAsset;
+    //　WebGLならこの関数で読み込む
+    void ReadCSVFromWeb(WordList selectedList, string path, bool isPhrase = false){
+        try{
+            var csv = Resources.Load(path) as TextAsset;
 
-            <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> dummyLenght = (isPhrase ? <span style="color: rgb(121, 192, 255); font-weight: 400;">4</span> : <span style="color: rgb(121, 192, 255); font-weight: 400;">5</span>);
-            <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> b = (isPhrase ? <span style="color: rgb(121, 192, 255); font-weight: 400;">6</span> : <span style="color: rgb(121, 192, 255); font-weight: 400;">7</span>);
+            int dummyLenght = (isPhrase ? 4 : 5);
+            int b = (isPhrase ? 6 : 7);
 
-            <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span> results = csv.text;
+            string results = csv.text;
 
-            <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span>[] data = results.Split(<span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span>[] { <span style="color: rgb(165, 214, 255); font-weight: 400;">","</span>, <span style="color: rgb(165, 214, 255); font-weight: 400;">"\n"</span> }, System.StringSplitOptions.None);
+            string[] data = results.Split(new string[] { ",", "\n" }, System.StringSplitOptions.None);
 
-            <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> tableSize = data.Length / b - <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>;
+            int tableSize = data.Length / b - 1;
 
-            selectedList.wordsPull = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> List&lt;WordsPull&gt;();
+            selectedList.wordsPull = new List&lt;WordsPull&gt;();
 
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span> (<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i &lt; tableSize; i++)
+            for (int i = 0; i &lt; tableSize; i++)
             {
-                selectedList.wordsPull.Add(<span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> WordsPull());
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span> (isPhrase)
+                selectedList.wordsPull.Add(new WordsPull());
+                if (isPhrase)
                 {
-                    data[b * (i + <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>)] = data[b * (i + <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>)].Replace(<span style="color: rgb(165, 214, 255); font-weight: 400;">"%"</span>, <span style="color: rgb(165, 214, 255); font-weight: 400;">","</span>);
-                    data[b * (i + <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>) + <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>] = data[b * (i + <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>) + <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>].Replace(<span style="color: rgb(165, 214, 255); font-weight: 400;">"%"</span>, <span style="color: rgb(165, 214, 255); font-weight: 400;">","</span>);
+                    data[b * (i + 1)] = data[b * (i + 1)].Replace("%", ",");
+                    data[b * (i + 1) + 1] = data[b * (i + 1) + 1].Replace("%", ",");
                 }
-                selectedList.wordsPull[i].mainWord = data[b * (i + <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>)];
-                selectedList.wordsPull[i].correctWord = data[b * (i + <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>) + <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>];
-                selectedList.wordsPull[i].dummyWords = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span>[dummyLenght];
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span> (<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> j = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; j &lt; dummyLenght; j++)
+                selectedList.wordsPull[i].mainWord = data[b * (i + 1)];
+                selectedList.wordsPull[i].correctWord = data[b * (i + 1) + 1];
+                selectedList.wordsPull[i].dummyWords = new string[dummyLenght];
+                for (int j = 0; j &lt; dummyLenght; j++)
                 {
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span> (isPhrase)
-                        data[b * (i + <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>) + (j + <span style="color: rgb(121, 192, 255); font-weight: 400;">2</span>)] = data[b * (i + <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>) + (j + <span style="color: rgb(121, 192, 255); font-weight: 400;">2</span>)].Replace(<span style="color: rgb(165, 214, 255); font-weight: 400;">"%"</span>, <span style="color: rgb(165, 214, 255); font-weight: 400;">","</span>);
-                    selectedList.wordsPull[i].dummyWords[j] = data[b * (i + <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>) + (j + <span style="color: rgb(121, 192, 255); font-weight: 400;">2</span>)];
+                    if (isPhrase)
+                        data[b * (i + 1) + (j + 2)] = data[b * (i + 1) + (j + 2)].Replace("%", ",");
+                    selectedList.wordsPull[i].dummyWords[j] = data[b * (i + 1) + (j + 2)];
                 }
             }
 
         }
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">catch</span>
+        catch
         {
-            Debug.LogError(<span style="color: rgb(165, 214, 255); font-weight: 400;">"ERROR: File not found"</span>);
+            Debug.LogError("ERROR: File not found");
         };
     }
 
 }
-
+</code>
 </pre>
 </div>
 <h1 style="color: #c9d1d9;" id="Enemy">Enemy.cs</h1>
 <h4 style="color: #c9d1d9;">　ゲームの敵を管理するスクリプトです。SpawnEnemyとSpawnBoss関数で敵とボスを出します。MoveForward関数で敵を前に進めさせてMoveBackward関数で後ろに戻します。
 </h4>
 <div class="code">
-<pre style="font-family:monospace;color: rgb(201, 209, 217); background-color: rgb(13, 17, 23); font-weight: 400; "><span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> System;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> System.Collections;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> System.Collections.Generic;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> System.Linq;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> TMPro;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> Unity.VisualScripting;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> UnityEngine;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> UnityEngine.UI;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> Random=UnityEngine.Random;
+<pre style="font-family:monospace;color: rgb(201, 209, 217); background-color: rgb(13, 17, 23); font-weight: 400; ">
+<code class="language-csharp">
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UI;
+using Random=UnityEngine.Random;
 
-<span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">class</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">Enemy</span> : <span style="color: rgb(210, 168, 255); font-weight: 400;">MonoBehaviour</span>
+public class Enemy : MonoBehaviour
 {
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] Text wordText;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] GameObject sprite;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] Animator explosionAnimator;
+    [SerializeField] Text wordText;
+    [SerializeField] GameObject sprite;
+    [SerializeField] Animator explosionAnimator;
     CSVReader csvReader;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> AnswerManager answerManager;
+    public AnswerManager answerManager;
     AbilitiesManager abilitiesManager;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> EnemyManager enemyManager;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> difficulty = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; <span style="color: rgb(139, 148, 158); font-weight: 400;">// 0:easy, 1:normal, 2:hard, 3:easy boss, 4:normal boss, 5:hard boss</span>
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> finalBoss = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> currentEnemy = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> currentPos = <span style="color: rgb(121, 192, 255); font-weight: 400;">-1</span>;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> currentHP = <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">float</span> answerTime = <span style="color: rgb(121, 192, 255); font-weight: 400;">10f</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">float</span> speed = <span style="color: rgb(121, 192, 255); font-weight: 400;">1f</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> movingForward = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> movingBackward = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> Vector2 nextPoint = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> Vector2(<span style="color: rgb(121, 192, 255); font-weight: 400;">0f</span>, <span style="color: rgb(121, 192, 255); font-weight: 400;">0f</span>);
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> reachedPoint = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">float</span> nextScale = <span style="color: rgb(121, 192, 255); font-weight: 400;">0f</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> reachedScale = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span> mainWord;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span> correctWord;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span>[] dummyWords;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> listMaxWords = <span style="color: rgb(121, 192, 255); font-weight: 400;">293</span>; <span style="color: rgb(139, 148, 158); font-weight: 400;">// 26</span>
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> listMaxSen = <span style="color: rgb(121, 192, 255); font-weight: 400;">50</span>; <span style="color: rgb(139, 148, 158); font-weight: 400;">// 10</span>
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">private</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> lastWord = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> killPoints = <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> killScore = <span style="color: rgb(121, 192, 255); font-weight: 400;">100</span>;
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// enemy death</span>
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">private</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">float</span> deathTime = <span style="color: rgb(121, 192, 255); font-weight: 400;">1f</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">private</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">float</span> deathTimer = <span style="color: rgb(121, 192, 255); font-weight: 400;">0f</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> isDead = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">private</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">float</span> deadColor = <span style="color: rgb(121, 192, 255); font-weight: 400;">1f</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">private</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> scrollOpenAni = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
+    public EnemyManager enemyManager;
+    public int difficulty = 0; // 0:easy, 1:normal, 2:hard, 3:easy boss, 4:normal boss, 5:hard boss
+    public bool finalBoss = false;
+    public bool currentEnemy = false;
+    public int currentPos = -1;
+    [SerializeField] int currentHP = 1;
+    public float answerTime = 10f;
+    public float speed = 1f;
+    public bool movingForward = false;
+    public bool movingBackward = false;
+    public Vector2 nextPoint = new Vector2(0f, 0f);
+    public bool reachedPoint = false;
+    public float nextScale = 0f;
+    public bool reachedScale = false;
+    public string mainWord;
+    public string correctWord;
+    public string[] dummyWords;
+    public int listMaxWords = 293; // 26
+    public int listMaxSen = 50; // 10
+    private int lastWord = 0;
+    public int killPoints = 1;
+    public int killScore = 100;
+    // enemy death
+    private float deathTime = 1f;
+    private float deathTimer = 0f;
+    public bool isDead = false;
+    private float deadColor = 1f;
+    private bool scrollOpenAni = true;
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// Start is called before the first frame update</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">Start</span>()</span>
+    // Start is called before the first frame update
+    void Start()
     {
-        csvReader = GameObject.Find(<span style="color: rgb(165, 214, 255); font-weight: 400;">"/WordManager"</span>).GetComponent&lt;CSVReader&gt;();
-        abilitiesManager = GameObject.Find(<span style="color: rgb(165, 214, 255); font-weight: 400;">"/AbilityManager"</span>).GetComponent&lt;AbilitiesManager&gt;();
-        dummyWords = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span>[<span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>];
-        GetWord(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
+        csvReader = GameObject.Find("/WordManager").GetComponent&lt;CSVReader&gt;();
+        abilitiesManager = GameObject.Find("/AbilityManager").GetComponent&lt;AbilitiesManager&gt;();
+        dummyWords = new string[3];
+        GetWord(false);
     }
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// Update is called once per frame</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">Update</span>()</span>
+    // Update is called once per frame
+    void Update()
     {
-        <span style="color: rgb(139, 148, 158); font-weight: 400;">// 死亡</span>
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(isDead){
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(deathTimer &lt; deathTime){
+        // 死亡
+        if(isDead){
+            if(deathTimer &lt; deathTime){
                 deadColor -= Time.deltaTime;
                 deathTimer += Time.deltaTime;
-                sprite.GetComponent&lt;SpriteRenderer&gt;().color = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> Vector4(deadColor, deadColor, deadColor, deadColor);
+                sprite.GetComponent&lt;SpriteRenderer&gt;().color = new Vector4(deadColor, deadColor, deadColor, deadColor);
             }
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
+            else{
                 Death();
-                isDead = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
+                isDead = false;
             }
         }
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-            <span style="color: rgb(139, 148, 158); font-weight: 400;">// 前に進む</span>
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(movingForward){
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(reachedPoint &amp;&amp; reachedScale){
+        else{
+            // 前に進む
+            if(movingForward){
+                if(reachedPoint && reachedScale){
                     OnMoveFinish();
                 }
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(transform.position.y &gt; nextPoint.y){
+                else{
+                    if(transform.position.y &gt; nextPoint.y){
                     transform.position = Vector2.MoveTowards(transform.position, nextPoint, speed * Time.deltaTime);
                     }
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-                        reachedPoint = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
+                    else{
+                        reachedPoint = true;
                     }
 
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(sprite.transform.localScale.y &lt; nextScale){
-                        sprite.transform.localScale += <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> Vector3(speed * Time.deltaTime, speed * Time.deltaTime, <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>);
+                    if(sprite.transform.localScale.y &lt; nextScale){
+                        sprite.transform.localScale += new Vector3(speed * Time.deltaTime, speed * Time.deltaTime, 0);
                     }
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-                        reachedScale = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
+                    else{
+                        reachedScale = true;
                     }
                 }
             }
-            <span style="color: rgb(139, 148, 158); font-weight: 400;">// 後ろに戻る</span>
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(movingBackward){
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(reachedPoint &amp;&amp; reachedScale){
+            // 後ろに戻る
+            else if(movingBackward){
+                if(reachedPoint && reachedScale){
                     OnMoveFinish();
                 }
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(transform.position.y &lt; nextPoint.y){
+                else{
+                    if(transform.position.y &lt; nextPoint.y){
                     transform.position = Vector2.MoveTowards(transform.position, nextPoint, speed * Time.deltaTime);
                     }
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-                        reachedPoint = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
+                    else{
+                        reachedPoint = true;
                     }
 
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(sprite.transform.localScale.y &gt; nextScale){
-                        sprite.transform.localScale -= <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> Vector3(speed * Time.deltaTime, speed * Time.deltaTime, <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>);
+                    if(sprite.transform.localScale.y &gt; nextScale){
+                        sprite.transform.localScale -= new Vector3(speed * Time.deltaTime, speed * Time.deltaTime, 0);
                     }
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-                        reachedScale = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
+                    else{
+                        reachedScale = true;
                     }
                 }
             }
@@ -299,58 +306,58 @@
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// CSV Readerから単語をもらう</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">GetWord</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> different</span>)</span>{
-        <span style="color: rgb(139, 148, 158); font-weight: 400;">// ボスの文章</span>
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(difficulty &gt;= <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span> &amp;&amp; currentHP == <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>){
-            <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> r = Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, listMaxSen);
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(different &amp;&amp; r == lastWord){
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">while</span>(r == lastWord){
-                    r = Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, listMaxSen);
+    // CSV Readerから単語をもらう
+    public void GetWord(bool different){
+        // ボスの文章
+        if(difficulty &gt;= 3 && currentHP == 1){
+            int r = Random.Range(0, listMaxSen);
+            if(different && r == lastWord){
+                while(r == lastWord){
+                    r = Random.Range(0, listMaxSen);
                 }
             }
             lastWord = r;
-            mainWord = csvReader.wordLists[<span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>].wordsPull[r].mainWord;
-            correctWord = csvReader.wordLists[<span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>].wordsPull[r].correctWord;
+            mainWord = csvReader.wordLists[3].wordsPull[r].mainWord;
+            correctWord = csvReader.wordLists[3].wordsPull[r].correctWord;
 
-            List&lt;<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span>&gt; wordNo = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> List&lt;<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span>&gt; {<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>,<span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>,<span style="color: rgb(121, 192, 255); font-weight: 400;">2</span>,<span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>};
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span>(<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i &lt; <span style="color: rgb(121, 192, 255); font-weight: 400;">2</span>; i++){
-                <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span> word;
-                <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> n = Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, wordNo.Count);
-                <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> rd = wordNo[n];
-                word = csvReader.wordLists[<span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>].wordsPull[r].dummyWords[rd];
+            List&lt;int&gt; wordNo = new List&lt;int&gt; {0,1,2,3};
+            for(int i = 0; i &lt; 2; i++){
+                string word;
+                int n = Random.Range(0, wordNo.Count);
+                int rd = wordNo[n];
+                word = csvReader.wordLists[3].wordsPull[r].dummyWords[rd];
                 dummyWords[i] = word;
                 wordNo.RemoveAt(n);
             }
         }
-        <span style="color: rgb(139, 148, 158); font-weight: 400;">//　単語</span>
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-            <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> r = Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, listMaxWords);
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(different &amp;&amp; r == lastWord){
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">while</span>(r == lastWord){
-                    r = Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, listMaxWords);
+        //　単語
+        else{
+            int r = Random.Range(0, listMaxWords);
+            if(different && r == lastWord){
+                while(r == lastWord){
+                    r = Random.Range(0, listMaxWords);
                 }
             }
             lastWord = r;
-            <span style="color: rgb(139, 148, 158); font-weight: 400;">// ボスの単語</span>
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(difficulty &gt;= <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>){
-                mainWord = csvReader.wordLists[difficulty - <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>].wordsPull[r].mainWord;
-                correctWord = csvReader.wordLists[difficulty - <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>].wordsPull[r].correctWord;
+            // ボスの単語
+            if(difficulty &gt;= 3){
+                mainWord = csvReader.wordLists[difficulty - 3].wordsPull[r].mainWord;
+                correctWord = csvReader.wordLists[difficulty - 3].wordsPull[r].correctWord;
             }
-            <span style="color: rgb(139, 148, 158); font-weight: 400;">// 普通の単語</span>
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
+            // 普通の単語
+            else{
                 mainWord = csvReader.wordLists[difficulty].wordsPull[r].mainWord;
                 correctWord = csvReader.wordLists[difficulty].wordsPull[r].correctWord;
             }
 
-            List&lt;<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span>&gt; wordNo = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> List&lt;<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span>&gt; {<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>,<span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>,<span style="color: rgb(121, 192, 255); font-weight: 400;">2</span>,<span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>,<span style="color: rgb(121, 192, 255); font-weight: 400;">4</span>};
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span>(<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i &lt; <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>; i++){
-                <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span> word;
-                <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> n = Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, wordNo.Count);
-                <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> rd = wordNo[n];
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(difficulty &gt;= <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>)
-                    word = csvReader.wordLists[difficulty - <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>].wordsPull[r].dummyWords[rd];
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>
+            List&lt;int&gt; wordNo = new List&lt;int&gt; {0,1,2,3,4};
+            for(int i = 0; i &lt; 3; i++){
+                string word;
+                int n = Random.Range(0, wordNo.Count);
+                int rd = wordNo[n];
+                if(difficulty &gt;= 3)
+                    word = csvReader.wordLists[difficulty - 3].wordsPull[r].dummyWords[rd];
+                else
                     word = csvReader.wordLists[difficulty].wordsPull[r].dummyWords[rd];
                 dummyWords[i] = word;
                 wordNo.RemoveAt(n);
@@ -358,637 +365,646 @@
         }
 
         wordText.text = mainWord;
-        wordText.transform.parent.gameObject.SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
-        scrollOpenAni = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
+        wordText.transform.parent.gameObject.SetActive(false);
+        scrollOpenAni = true;
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// 敵が動き終わるとき呼ばれる</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">private</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">OnMoveFinish</span>()</span>{
-        reachedPoint = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-        reachedScale = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-        movingForward = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-        movingBackward = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(currentEnemy){
-            Debug.Log(<span style="color: rgb(165, 214, 255); font-weight: 400;">"finish"</span>);
+    // 敵が動き終わるとき呼ばれる
+    private void OnMoveFinish(){
+        reachedPoint = false;
+        reachedScale = false;
+        movingForward = false;
+        movingBackward = false;
+        if(currentEnemy){
+            Debug.Log("finish");
             sprite.GetComponent&lt;SpriteRenderer&gt;().color = Color.white;
-            wordText.transform.parent.gameObject.SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(scrollOpenAni){
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(difficulty &gt;= <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span> &amp;&amp; currentHP == <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>)
-                    wordText.transform.parent.GetComponent&lt;Animator&gt;().SetTrigger(<span style="color: rgb(165, 214, 255); font-weight: 400;">"SenScrollOpen"</span>);
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>
-                    wordText.transform.parent.GetComponent&lt;Animator&gt;().SetTrigger(<span style="color: rgb(165, 214, 255); font-weight: 400;">"ScrollOpen"</span>);
-                scrollOpenAni = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
+            wordText.transform.parent.gameObject.SetActive(true);
+            if(scrollOpenAni){
+                if(difficulty &gt;= 3 && currentHP == 1)
+                    wordText.transform.parent.GetComponent&lt;Animator&gt;().SetTrigger("SenScrollOpen");
+                else
+                    wordText.transform.parent.GetComponent&lt;Animator&gt;().SetTrigger("ScrollOpen");
+                scrollOpenAni = false;
             }
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(difficulty &gt;= <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span> &amp;&amp; currentHP == <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>)
-                answerManager.SetAnswersSentence(correctWord, dummyWords, answerTime, <span style="color: rgb(255, 123, 114); font-weight: 400;">this</span>);
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>
-                answerManager.SetAnswers(correctWord, dummyWords, answerTime, <span style="color: rgb(255, 123, 114); font-weight: 400;">this</span>);
+            if(difficulty &gt;= 3 && currentHP == 1)
+                answerManager.SetAnswersSentence(correctWord, dummyWords, answerTime, this);
+            else
+                answerManager.SetAnswers(correctWord, dummyWords, answerTime, this);
 
-            <span style="color: rgb(139, 148, 158); font-weight: 400;">// リデューススキルのリセット</span>
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(!abilitiesManager.reduceUsable){
-                abilitiesManager.reduceUsable = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
+            // リデューススキルのリセット
+            if(!abilitiesManager.reduceUsable){
+                abilitiesManager.reduceUsable = true;
                 abilitiesManager.UpdateUI();
             }
         }
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
+        else{
             sprite.GetComponent&lt;SpriteRenderer&gt;().color = Color.grey;
-            wordText.transform.parent.gameObject.SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
+            wordText.transform.parent.gameObject.SetActive(false);
         }
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// 敵をアクティブまたは非アクティブにする</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">SetActive</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> active</span>)</span>{
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(active){
-            sprite.SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
-            wordText.transform.parent.gameObject.SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
+    // 敵をアクティブまたは非アクティブにする
+    public void SetActive(bool active){
+        if(active){
+            sprite.SetActive(true);
+            wordText.transform.parent.gameObject.SetActive(true);
         }
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-            sprite.SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
-            wordText.transform.parent.gameObject.SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
+        else{
+            sprite.SetActive(false);
+            wordText.transform.parent.gameObject.SetActive(false);
             sprite.GetComponent&lt;SpriteRenderer&gt;().color = Color.grey;
         }
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// ダメージ受ける</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">TakeDamage</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> dmg</span>)</span>{
+    // ダメージ受ける
+    public void TakeDamage(int dmg){
         currentHP -= dmg;
-        explosionAnimator.SetTrigger(<span style="color: rgb(165, 214, 255); font-weight: 400;">"explode"</span>);
-        <span style="color: rgb(139, 148, 158); font-weight: 400;">// 死亡</span>
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(currentHP &lt;= <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>){
-            GetComponent&lt;Animator&gt;().speed = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>;
-            isDead = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(difficulty &gt;= <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>)
-                wordText.transform.parent.GetComponent&lt;Animator&gt;().SetTrigger(<span style="color: rgb(165, 214, 255); font-weight: 400;">"SenScrollClose"</span>);
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>
-                wordText.transform.parent.GetComponent&lt;Animator&gt;().SetTrigger(<span style="color: rgb(165, 214, 255); font-weight: 400;">"ScrollClose"</span>);
+        explosionAnimator.SetTrigger("explode");
+        // 死亡
+        if(currentHP &lt;= 0){
+            GetComponent&lt;Animator&gt;().speed = 0;
+            isDead = true;
+            if(difficulty &gt;= 3)
+                wordText.transform.parent.GetComponent&lt;Animator&gt;().SetTrigger("SenScrollClose");
+            else
+                wordText.transform.parent.GetComponent&lt;Animator&gt;().SetTrigger("ScrollClose");
 
-            <span style="color: rgb(139, 148, 158); font-weight: 400;">// スコア追加</span>
+            // スコア追加
             answerManager.AddScore(killScore);
         }
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-            GetWord(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
+        else{
+            GetWord(false);
             StartCoroutine(problemDelay());
         }
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// アニメーションのため遅延</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> IEnumerator <span style="color: rgb(210, 168, 255); font-weight: 400;">problemDelay</span>()</span>{
-        wordText.transform.parent.gameObject.SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(difficulty &gt;= <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span> &amp;&amp; currentHP == <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>)
-            wordText.transform.parent.GetComponent&lt;Animator&gt;().SetTrigger(<span style="color: rgb(165, 214, 255); font-weight: 400;">"SenScrollOpen"</span>);
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>
-            wordText.transform.parent.GetComponent&lt;Animator&gt;().SetTrigger(<span style="color: rgb(165, 214, 255); font-weight: 400;">"ScrollOpen"</span>);
-        scrollOpenAni = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
+    // アニメーションのため遅延
+    public IEnumerator problemDelay(){
+        wordText.transform.parent.gameObject.SetActive(true);
+        if(difficulty &gt;= 3 && currentHP == 1)
+            wordText.transform.parent.GetComponent&lt;Animator&gt;().SetTrigger("SenScrollOpen");
+        else
+            wordText.transform.parent.GetComponent&lt;Animator&gt;().SetTrigger("ScrollOpen");
+        scrollOpenAni = false;
 
-        <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">yield</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">return</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">WaitForSeconds</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(121, 192, 255); font-weight: 400;">0.8f</span></span>)</span>;
+        yield return new WaitForSeconds(0.8f);
 
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(difficulty &gt;= <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span> &amp;&amp; currentHP == <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>){
-            answerManager.SetAnswersSentence(correctWord, dummyWords, answerTime, <span style="color: rgb(255, 123, 114); font-weight: 400;">this</span>);
+        if(difficulty &gt;= 3 && currentHP == 1){
+            answerManager.SetAnswersSentence(correctWord, dummyWords, answerTime, this);
         }
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-            answerManager.SetAnswers(correctWord, dummyWords, answerTime, <span style="color: rgb(255, 123, 114); font-weight: 400;">this</span>);
+        else{
+            answerManager.SetAnswers(correctWord, dummyWords, answerTime, this);
         }
     }
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// 死亡</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">private</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">Death</span>()</span>{
+    // 死亡
+    private void Death(){
         Destroy(gameObject);
         abilitiesManager.AddSP(killPoints);
-        enemyManager.spawnedEnemies.RemoveAt(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>);
-        <span style="color: rgb(139, 148, 158); font-weight: 400;">// 最後のボスでしたらゲームクリア</span>
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(finalBoss){
-            Debug.Log(<span style="color: rgb(165, 214, 255); font-weight: 400;">"Game Clear"</span>);
+        enemyManager.spawnedEnemies.RemoveAt(0);
+        // 最後のボスでしたらゲームクリア
+        if(finalBoss){
+            Debug.Log("Game Clear");
             enemyManager.gameClearScreen.GameOver(answerManager.currentScore);
         }
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
+        else{
             enemyManager.MoveForward();
         }
     }
 }
+</code>
 </pre>
 </div>
 <h1 style="color: #c9d1d9;" id="EnemyManager">EnemyManager.cs</h1>
 <h4 style="color: #c9d1d9;">　ゲームの敵を管理するスクリプトです。SpawnEnemyとSpawnBoss関数で敵とボスを出します。MoveForward関数で敵を前に進めさせてMoveBackward関数で後ろに戻します。
 </h4>
 <div class="code">
-<pre style="font-family:monospace;color: rgb(201, 209, 217); background-color: rgb(13, 17, 23); font-weight: 400; "><span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> System.Collections;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> System.Collections.Generic;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> UnityEngine;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> UnityEngine.Rendering;
+<pre style="font-family:monospace;color: rgb(201, 209, 217); background-color: rgb(13, 17, 23); font-weight: 400; ">
+<code class="language-csharp">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Rendering;
 
-<span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">class</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">EnemyManager</span> : <span style="color: rgb(210, 168, 255); font-weight: 400;">MonoBehaviour</span>
+public class EnemyManager : MonoBehaviour
 {
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] Transform point0;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] Transform point1;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] Transform point2;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] Transform point3;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] Transform point4;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] GameObject[] easyEnemies;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] GameObject[] normalEnemies;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] GameObject[] hardEnemies;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] GameObject[] bosses;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> startingNo = <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>; <span style="color: rgb(139, 148, 158); font-weight: 400;">// how many enemies the game starts with - 1</span>
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">private</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> enemiesSpawned = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> easyBossSpawn = <span style="color: rgb(121, 192, 255); font-weight: 400;">20</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> normalBossSpawn = <span style="color: rgb(121, 192, 255); font-weight: 400;">45</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> hardBossSpawn = <span style="color: rgb(121, 192, 255); font-weight: 400;">75</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> List&lt;GameObject&gt; spawnedEnemies = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> List&lt;GameObject&gt;();
+    [SerializeField] Transform point0;
+    [SerializeField] Transform point1;
+    [SerializeField] Transform point2;
+    [SerializeField] Transform point3;
+    [SerializeField] Transform point4;
+    [SerializeField] GameObject[] easyEnemies;
+    [SerializeField] GameObject[] normalEnemies;
+    [SerializeField] GameObject[] hardEnemies;
+    [SerializeField] GameObject[] bosses;
+    public int startingNo = 1; // how many enemies the game starts with - 1
+    private int enemiesSpawned = 0;
+    public int easyBossSpawn = 20;
+    public int normalBossSpawn = 45;
+    public int hardBossSpawn = 75;
+    public List&lt;GameObject&gt; spawnedEnemies = new List&lt;GameObject&gt;();
     AnswerManager answerManager;
     GameOverScreen gameOverScreen;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> GameOverScreen gameClearScreen;
+    public GameOverScreen gameClearScreen;
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// Start is called before the first frame update</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">Start</span>()</span>
+    // Start is called before the first frame update
+    void Start()
     {
-        answerManager = GameObject.Find(<span style="color: rgb(165, 214, 255); font-weight: 400;">"/Canvas/AnswerManager"</span>).GetComponent&lt;AnswerManager&gt;();
-        gameOverScreen = GameObject.Find(<span style="color: rgb(165, 214, 255); font-weight: 400;">"/Canvas/GameOverScreen"</span>).GetComponent&lt;GameOverScreen&gt;();
-        gameClearScreen = GameObject.Find(<span style="color: rgb(165, 214, 255); font-weight: 400;">"/Canvas/GameClearScreen"</span>).GetComponent&lt;GameOverScreen&gt;();
+        answerManager = GameObject.Find("/Canvas/AnswerManager").GetComponent&lt;AnswerManager&gt;();
+        gameOverScreen = GameObject.Find("/Canvas/GameOverScreen").GetComponent&lt;GameOverScreen&gt;();
+        gameClearScreen = GameObject.Find("/Canvas/GameClearScreen").GetComponent&lt;GameOverScreen&gt;();
         StartSpawn();
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// 敵を前に進めさせる</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">MoveForward</span>()</span>{
-        <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> firstPos = spawnedEnemies[<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>].GetComponent&lt;Enemy&gt;().currentPos;
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(firstPos &lt; <span style="color: rgb(121, 192, 255); font-weight: 400;">4</span>){
-            spawnedEnemies[<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>].GetComponent&lt;Enemy&gt;().currentEnemy = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
-            <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> lastPos = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>;
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span>(<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i &lt; spawnedEnemies.Count; i++){
-                <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> pos = spawnedEnemies[i].GetComponent&lt;Enemy&gt;().currentPos + <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>;
-                SetEnemy(spawnedEnemies[i].GetComponent&lt;Enemy&gt;(), pos, <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(pos &gt;= <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>){
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(pos == <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>){
-                        spawnedEnemies[i].GetComponent&lt;Enemy&gt;().SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
+    // 敵を前に進めさせる
+    public void MoveForward(){
+        int firstPos = spawnedEnemies[0].GetComponent&lt;Enemy&gt;().currentPos;
+        if(firstPos &lt; 4){
+            spawnedEnemies[0].GetComponent&lt;Enemy&gt;().currentEnemy = true;
+            int lastPos = 0;
+            for(int i = 0; i &lt; spawnedEnemies.Count; i++){
+                int pos = spawnedEnemies[i].GetComponent&lt;Enemy&gt;().currentPos + 1;
+                SetEnemy(spawnedEnemies[i].GetComponent&lt;Enemy&gt;(), pos, true);
+                if(pos &gt;= 0){
+                    if(pos == 0){
+                        spawnedEnemies[i].GetComponent&lt;Enemy&gt;().SetActive(true);
                     }
                 }
                 lastPos = pos;
             }
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(lastPos &gt;= <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>){
-                enemiesSpawned += <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>;
+            if(lastPos &gt;= 0){
+                enemiesSpawned += 1;
 
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(enemiesSpawned &lt;= hardBossSpawn){
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">switch</span>(<span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>){
-                        <span style="color: rgb(255, 123, 114); font-weight: 400;">case</span> <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">when</span> enemiesSpawned == easyBossSpawn:
-                            SpawnBoss(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>);
-                            <span style="color: rgb(255, 123, 114); font-weight: 400;">break</span>;
-                        <span style="color: rgb(255, 123, 114); font-weight: 400;">case</span> <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">when</span> enemiesSpawned == normalBossSpawn:
-                            SpawnBoss(<span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>);
-                            <span style="color: rgb(255, 123, 114); font-weight: 400;">break</span>;
-                        <span style="color: rgb(255, 123, 114); font-weight: 400;">case</span> <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">when</span> enemiesSpawned == hardBossSpawn:
-                            SpawnBoss(<span style="color: rgb(121, 192, 255); font-weight: 400;">2</span>);
-                            <span style="color: rgb(255, 123, 114); font-weight: 400;">break</span>;
-                        <span style="color: rgb(121, 192, 255); font-weight: 400;">default</span>:
+                if(enemiesSpawned &lt;= hardBossSpawn){
+                    switch(true){
+                        case true when enemiesSpawned == easyBossSpawn:
+                            SpawnBoss(0);
+                            break;
+                        case true when enemiesSpawned == normalBossSpawn:
+                            SpawnBoss(1);
+                            break;
+                        case true when enemiesSpawned == hardBossSpawn:
+                            SpawnBoss(2);
+                            break;
+                        default:
                             SpawnEnemy();
-                            <span style="color: rgb(255, 123, 114); font-weight: 400;">break</span>;
+                            break;
                     }
                 }
             }
         }
-        <span style="color: rgb(139, 148, 158); font-weight: 400;">// 一番前に到達したらゲームオーバー</span>
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
+        // 一番前に到達したらゲームオーバー
+        else{
             gameOverScreen.GameOver(answerManager.currentScore);
-            Debug.Log(<span style="color: rgb(165, 214, 255); font-weight: 400;">"Enemies reached the castle. Game Over"</span>);
+            Debug.Log("Enemies reached the castle. Game Over");
         }
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// 敵を後ろいに戻す</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">MoveBackward</span>()</span>{
-        <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> firstPos = spawnedEnemies[<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>].GetComponent&lt;Enemy&gt;().currentPos;
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(firstPos &gt; <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>){
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span>(<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i &lt; spawnedEnemies.Count; i++){
-                <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> pos = spawnedEnemies[i].GetComponent&lt;Enemy&gt;().currentPos - <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>;
-                SetEnemy(spawnedEnemies[i].GetComponent&lt;Enemy&gt;(), pos, <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
+    // 敵を後ろいに戻す
+    public void MoveBackward(){
+        int firstPos = spawnedEnemies[0].GetComponent&lt;Enemy&gt;().currentPos;
+        if(firstPos &gt; 0){
+            for(int i = 0; i &lt; spawnedEnemies.Count; i++){
+                int pos = spawnedEnemies[i].GetComponent&lt;Enemy&gt;().currentPos - 1;
+                SetEnemy(spawnedEnemies[i].GetComponent&lt;Enemy&gt;(), pos, false);
             }
         }
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// 最初に敵を出す</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">StartSpawn</span>()</span>{
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span>(<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = startingNo; i &gt;= <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i--){
-            GameObject enemy = Instantiate(easyEnemies[Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, easyEnemies.Length)], point0);
+    // 最初に敵を出す
+    public void StartSpawn(){
+        for(int i = startingNo; i &gt;= 0; i--){
+            GameObject enemy = Instantiate(easyEnemies[Random.Range(0, easyEnemies.Length)], point0);
             enemy.transform.parent = gameObject.transform;
             spawnedEnemies.Add(enemy);
-            SetEnemy(enemy.GetComponent&lt;Enemy&gt;(), i, <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(i == startingNo){
-                enemy.GetComponent&lt;Enemy&gt;().currentEnemy = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
+            SetEnemy(enemy.GetComponent&lt;Enemy&gt;(), i, true);
+            if(i == startingNo){
+                enemy.GetComponent&lt;Enemy&gt;().currentEnemy = true;
             }
-            enemy.GetComponent&lt;Enemy&gt;().enemyManager = <span style="color: rgb(255, 123, 114); font-weight: 400;">this</span>;
+            enemy.GetComponent&lt;Enemy&gt;().enemyManager = this;
             enemy.GetComponent&lt;Enemy&gt;().answerManager = answerManager;
-            enemiesSpawned += <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>;
+            enemiesSpawned += 1;
         }
         SpawnEnemy();
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// 敵を出す</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">private</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">SpawnEnemy</span>()</span>{
-        GameObject enemy = <span style="color: rgb(121, 192, 255); font-weight: 400;">null</span>;
-        <span style="color: rgb(139, 148, 158); font-weight: 400;">// easy</span>
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(enemiesSpawned &lt; easyBossSpawn){
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>,<span style="color: rgb(121, 192, 255); font-weight: 400;">5</span>) == <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>)
-                enemy = Instantiate(normalEnemies[Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, normalEnemies.Length)], point0); 
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>
-                enemy = Instantiate(easyEnemies[Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, easyEnemies.Length)], point0);
+    // 敵を出す
+    private void SpawnEnemy(){
+        GameObject enemy = null;
+        // easy
+        if(enemiesSpawned &lt; easyBossSpawn){
+            if(Random.Range(0,5) == 0)
+                enemy = Instantiate(normalEnemies[Random.Range(0, normalEnemies.Length)], point0); 
+            else
+                enemy = Instantiate(easyEnemies[Random.Range(0, easyEnemies.Length)], point0);
         }
-        <span style="color: rgb(139, 148, 158); font-weight: 400;">// normal</span>
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(enemiesSpawned &gt; easyBossSpawn &amp;&amp; enemiesSpawned &lt; normalBossSpawn){
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>,<span style="color: rgb(121, 192, 255); font-weight: 400;">5</span>) == <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>)
-                enemy = Instantiate(hardEnemies[Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, hardEnemies.Length)], point0); 
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>,<span style="color: rgb(121, 192, 255); font-weight: 400;">4</span>) == <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>)
-                enemy = Instantiate(easyEnemies[Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, easyEnemies.Length)], point0); 
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>
-                enemy = Instantiate(normalEnemies[Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, normalEnemies.Length)], point0);
+        // normal
+        else if(enemiesSpawned &gt; easyBossSpawn && enemiesSpawned &lt; normalBossSpawn){
+            if(Random.Range(0,5) == 0)
+                enemy = Instantiate(hardEnemies[Random.Range(0, hardEnemies.Length)], point0); 
+            else if(Random.Range(0,4) == 0)
+                enemy = Instantiate(easyEnemies[Random.Range(0, easyEnemies.Length)], point0); 
+            else
+                enemy = Instantiate(normalEnemies[Random.Range(0, normalEnemies.Length)], point0);
         }
-        <span style="color: rgb(139, 148, 158); font-weight: 400;">// hard</span>
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>,<span style="color: rgb(121, 192, 255); font-weight: 400;">4</span>) == <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>)
-                enemy = Instantiate(normalEnemies[Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, normalEnemies.Length)], point0); 
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>
-                enemy = Instantiate(hardEnemies[Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, hardEnemies.Length)], point0);
+        // hard
+        else{
+            if(Random.Range(0,4) == 0)
+                enemy = Instantiate(normalEnemies[Random.Range(0, normalEnemies.Length)], point0); 
+            else
+                enemy = Instantiate(hardEnemies[Random.Range(0, hardEnemies.Length)], point0);
         }
         enemy.transform.parent = gameObject.transform;
         spawnedEnemies.Add(enemy);
-        SetEnemy(enemy.GetComponent&lt;Enemy&gt;(), <span style="color: rgb(121, 192, 255); font-weight: 400;">-1</span>, <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
-        enemy.GetComponent&lt;Enemy&gt;().enemyManager = <span style="color: rgb(255, 123, 114); font-weight: 400;">this</span>;
+        SetEnemy(enemy.GetComponent&lt;Enemy&gt;(), -1, true);
+        enemy.GetComponent&lt;Enemy&gt;().enemyManager = this;
         enemy.GetComponent&lt;Enemy&gt;().answerManager = answerManager;
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// ボスを出す</span>
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// 0 - easy, 1 - normal, 2 - hard</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">private</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">SpawnBoss</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> bossNo</span>)</span>{
+    // ボスを出す
+    // 0 - easy, 1 - normal, 2 - hard
+    private void SpawnBoss(int bossNo){
         GameObject enemy = Instantiate(bosses[bossNo], point0);
         enemy.transform.parent = gameObject.transform;
         spawnedEnemies.Add(enemy);
-        SetEnemy(enemy.GetComponent&lt;Enemy&gt;(), <span style="color: rgb(121, 192, 255); font-weight: 400;">-1</span>, <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
-        enemy.GetComponent&lt;Enemy&gt;().enemyManager = <span style="color: rgb(255, 123, 114); font-weight: 400;">this</span>;
+        SetEnemy(enemy.GetComponent&lt;Enemy&gt;(), -1, true);
+        enemy.GetComponent&lt;Enemy&gt;().enemyManager = this;
         enemy.GetComponent&lt;Enemy&gt;().answerManager = answerManager;
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// 敵の目的地と大きさを設定する</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">private</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">SetEnemy</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;">Enemy enemy, <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> pos, <span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> forward</span>)</span>{
+    // 敵の目的地と大きさを設定する
+    private void SetEnemy(Enemy enemy, int pos, bool forward){
         enemy.currentPos = pos;
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(pos &gt; <span style="color: rgb(121, 192, 255); font-weight: 400;">-1</span>){
+        if(pos &gt; -1){
             enemy.GetComponent&lt;SortingGroup&gt;().sortingOrder = pos;
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">switch</span>(pos){
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">case</span> <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>:
+            switch(pos){
+                case 0:
                     enemy.nextPoint = point0.position;
-                    enemy.nextScale = <span style="color: rgb(121, 192, 255); font-weight: 400;">0.2f</span>;
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">break</span>;
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">case</span> <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>:
+                    enemy.nextScale = 0.2f;
+                    break;
+                case 1:
                     enemy.nextPoint = point1.position;
-                    enemy.nextScale = <span style="color: rgb(121, 192, 255); font-weight: 400;">0.4f</span>;
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">break</span>;
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">case</span> <span style="color: rgb(121, 192, 255); font-weight: 400;">2</span>:
+                    enemy.nextScale = 0.4f;
+                    break;
+                case 2:
                     enemy.nextPoint = point2.position;
-                    enemy.nextScale = <span style="color: rgb(121, 192, 255); font-weight: 400;">0.6f</span>;
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">break</span>;
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">case</span> <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>:
+                    enemy.nextScale = 0.6f;
+                    break;
+                case 3:
                     enemy.nextPoint = point3.position;
-                    enemy.nextScale = <span style="color: rgb(121, 192, 255); font-weight: 400;">0.8f</span>;
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">break</span>;
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">case</span> <span style="color: rgb(121, 192, 255); font-weight: 400;">4</span>:
+                    enemy.nextScale = 0.8f;
+                    break;
+                case 4:
                     enemy.nextPoint = point4.position;
-                    enemy.nextScale = <span style="color: rgb(121, 192, 255); font-weight: 400;">1f</span>;
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">break</span>;
+                    enemy.nextScale = 1f;
+                    break;
             }
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(forward)
-                enemy.movingForward = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>
-                enemy.movingBackward = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
+            if(forward)
+                enemy.movingForward = true;
+            else
+                enemy.movingBackward = true;
 
         }
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
+        else{
             enemy.nextPoint = point0.position;
-            enemy.nextScale = <span style="color: rgb(121, 192, 255); font-weight: 400;">0.2f</span>;
-            enemy.SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
+            enemy.nextScale = 0.2f;
+            enemy.SetActive(false);
         }
     }
 }
+</code>
 </pre>
 </div>
 <h1 style="color: #c9d1d9;" id="AnswerManager">AnswerManager.cs</h1>
 <h4 style="color: #c9d1d9;">　プレイヤーの答えの選択肢管理するスクリプトです。一番前の敵が出した単語の選択肢をSetAnswersとSetAnswersSentence関数で設定します。プレイヤーの選択が正しかったらOnCorrectAnswer関数が呼ばれて敵にダメージを与えます。間違ったらOnIncorrectAnswer関数が呼ばれて敵を前に進めさせます。
 </h4>
 <div class="code">
-<pre style="font-family:monospace;color: rgb(201, 209, 217); background-color: rgb(13, 17, 23); font-weight: 400; "><span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> System.Collections;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> System.Collections.Generic;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> TMPro;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> UnityEngine;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> UnityEngine.UI;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> UnityEngine.UIElements;
+<pre style="font-family:monospace;color: rgb(201, 209, 217); background-color: rgb(13, 17, 23); font-weight: 400; ">
+<code class="language-csharp">
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
-<span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">class</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">AnswerManager</span> : <span style="color: rgb(210, 168, 255); font-weight: 400;">MonoBehaviour</span>
+public class AnswerManager : MonoBehaviour
 {
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// normal buttons</span>
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] AnswerButton button1;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] AnswerButton button2;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] AnswerButton button3;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] AnswerButton button4;
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// sentence buttons</span>
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] AnswerButton senButton1;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] AnswerButton senButton2;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] AnswerButton senButton3;
+    // normal buttons
+    [SerializeField] AnswerButton button1;
+    [SerializeField] AnswerButton button2;
+    [SerializeField] AnswerButton button3;
+    [SerializeField] AnswerButton button4;
+    // sentence buttons
+    [SerializeField] AnswerButton senButton1;
+    [SerializeField] AnswerButton senButton2;
+    [SerializeField] AnswerButton senButton3;
     GameObject normalButtons;
     GameObject senButtons;
-    GameObject currentButtons;  <span style="color: rgb(139, 148, 158); font-weight: 400;">// normal or sentence</span>
+    GameObject currentButtons;  // normal or sentence
     AnswerTimer answerTimer;
     EnemyManager enemyManager;
     AudioManager audioManager;
     PauseGame pauseScreen;
     Text scoreText;
     ScorePlusText scorePlusText;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> Enemy currentEnemy;
+    public Enemy currentEnemy;
     Animator witch;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">float</span> answerTime = <span style="color: rgb(121, 192, 255); font-weight: 400;">10f</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">float</span> answerTimeMax = <span style="color: rgb(121, 192, 255); font-weight: 400;">10f</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> problemActive = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">private</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> sentenceActive = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-    <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> correctAnswer = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> currentScore = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>;
+    public float answerTime = 10f;
+    public float answerTimeMax = 10f;
+    public bool problemActive = false;
+    private bool sentenceActive = false;
+    int correctAnswer = 0;
+    public int currentScore = 0;
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// Start is called before the first frame update</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">Awake</span>()</span>
+    // Start is called before the first frame update
+    void Awake()
     {
-        normalButtons = transform.GetChild(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>).gameObject;
-        senButtons = transform.GetChild(<span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>).gameObject;
+        normalButtons = transform.GetChild(0).gameObject;
+        senButtons = transform.GetChild(1).gameObject;
         currentButtons = normalButtons;
     }
 
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">Start</span>()</span>{
-        answerTimer = GameObject.Find(<span style="color: rgb(165, 214, 255); font-weight: 400;">"/Canvas/AnswerTimer"</span>).GetComponent&lt;AnswerTimer&gt;();
-        scoreText = GameObject.Find(<span style="color: rgb(165, 214, 255); font-weight: 400;">"/Canvas/ScoreText"</span>).GetComponent&lt;Text&gt;();
-        pauseScreen = GameObject.Find(<span style="color: rgb(165, 214, 255); font-weight: 400;">"/Canvas/PauseScreen"</span>).GetComponent&lt;PauseGame&gt;();
-        scorePlusText = scoreText.transform.GetChild(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>).GetComponent&lt;ScorePlusText&gt;();
-        enemyManager = GameObject.Find(<span style="color: rgb(165, 214, 255); font-weight: 400;">"/EnemyManager"</span>).GetComponent&lt;EnemyManager&gt;();
-        audioManager = GameObject.Find(<span style="color: rgb(165, 214, 255); font-weight: 400;">"/AudioManager"</span>).GetComponent&lt;AudioManager&gt;();
-        witch = GameObject.Find(<span style="color: rgb(165, 214, 255); font-weight: 400;">"/Witch"</span>).GetComponent&lt;Animator&gt;();
-        SetSentenceActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
-        audioManager.SetBGM(<span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>);
+    void Start(){
+        answerTimer = GameObject.Find("/Canvas/AnswerTimer").GetComponent&lt;AnswerTimer&gt;();
+        scoreText = GameObject.Find("/Canvas/ScoreText").GetComponent&lt;Text&gt;();
+        pauseScreen = GameObject.Find("/Canvas/PauseScreen").GetComponent&lt;PauseGame&gt;();
+        scorePlusText = scoreText.transform.GetChild(0).GetComponent&lt;ScorePlusText&gt;();
+        enemyManager = GameObject.Find("/EnemyManager").GetComponent&lt;EnemyManager&gt;();
+        audioManager = GameObject.Find("/AudioManager").GetComponent&lt;AudioManager&gt;();
+        witch = GameObject.Find("/Witch").GetComponent&lt;Animator&gt;();
+        SetSentenceActive(false);
+        audioManager.SetBGM(1);
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// Update is called once per frame</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">Update</span>()</span>{
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(problemActive &amp;&amp; !pauseScreen.paused){
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(answerTime &gt; <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>){
+    // Update is called once per frame
+    void Update(){
+        if(problemActive && !pauseScreen.paused){
+            if(answerTime &gt; 0){
                 answerTime -= Time.deltaTime;
-                answerTimer.SetTimerText(Mathf.Max(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, Mathf.RoundToInt(answerTime)).ToString());
+                answerTimer.SetTimerText(Mathf.Max(0, Mathf.RoundToInt(answerTime)).ToString());
             }
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-                Debug.Log(<span style="color: rgb(165, 214, 255); font-weight: 400;">"Time Out"</span>);
-                StartCoroutine(OnIncorrectAnswer(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>));
+            else{
+                Debug.Log("Time Out");
+                StartCoroutine(OnIncorrectAnswer(false));
             }
         }
     }
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// 答えの選択肢の設定</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">SetAnswers</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 166, 87); font-weight: 400;">string</span> correctWord, <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span>[] dummyWords, <span style="color: rgb(255, 166, 87); font-weight: 400;">float</span> time, Enemy enemy</span>)</span>{
+    // 答えの選択肢の設定
+    public void SetAnswers(string correctWord, string[] dummyWords, float time, Enemy enemy){
         currentEnemy = enemy;
         answerTime = time;
         answerTimeMax = time;
-        <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span>[] answers = {correctWord, dummyWords[<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>], dummyWords[<span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>], dummyWords[<span style="color: rgb(121, 192, 255); font-weight: 400;">2</span>]};
+        string[] answers = {correctWord, dummyWords[0], dummyWords[1], dummyWords[2]};
 
-        correctAnswer = Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, normalButtons.transform.childCount);
-        (answers[<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>], answers[correctAnswer]) = (answers[correctAnswer], answers[<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>]);
-        SetSentenceActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span>(<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i &lt; normalButtons.transform.childCount; i++){
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(i == correctAnswer){
-                <span style="color: rgb(139, 148, 158); font-weight: 400;">// 正しい答え</span>
-                normalButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().SetButton(answers[i], <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
-                Debug.Log(<span style="color: rgb(165, 214, 255); font-weight: 400;">"correct answer in "</span> + (i + <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>));
+        correctAnswer = Random.Range(0, normalButtons.transform.childCount);
+        (answers[0], answers[correctAnswer]) = (answers[correctAnswer], answers[0]);
+        SetSentenceActive(false);
+        for(int i = 0; i &lt; normalButtons.transform.childCount; i++){
+            if(i == correctAnswer){
+                // 正しい答え
+                normalButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().SetButton(answers[i], true);
+                Debug.Log("correct answer in " + (i + 1));
             }
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-                <span style="color: rgb(139, 148, 158); font-weight: 400;">// 間違っている答え</span>
-                normalButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().SetButton(answers[i], <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
+            else{
+                // 間違っている答え
+                normalButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().SetButton(answers[i], false);
             }
-            normalButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().buttonActive = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
+            normalButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().buttonActive = true;
         }
-        problemActive = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
-        answerTimer.SetTimerTextActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
+        problemActive = true;
+        answerTimer.SetTimerTextActive(true);
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// 文章答えの選択肢の設定</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">SetAnswersSentence</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 166, 87); font-weight: 400;">string</span> correctSen, <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span>[] dummySen, <span style="color: rgb(255, 166, 87); font-weight: 400;">float</span> time, Enemy enemy</span>)</span>{
+    // 文章答えの選択肢の設定
+    public void SetAnswersSentence(string correctSen, string[] dummySen, float time, Enemy enemy){
         currentEnemy = enemy;
         answerTime = time;
-        <span style="color: rgb(255, 166, 87); font-weight: 400;">string</span>[] answers = {correctSen, dummySen[<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>], dummySen[<span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>]};
+        string[] answers = {correctSen, dummySen[0], dummySen[1]};
 
-        correctAnswer = Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, senButtons.transform.childCount);
-        (answers[<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>], answers[correctAnswer]) = (answers[correctAnswer], answers[<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>]);
-        SetSentenceActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span>(<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i &lt; senButtons.transform.childCount; i++){
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(i == correctAnswer){
-                <span style="color: rgb(139, 148, 158); font-weight: 400;">// 正しい答え</span>
-                senButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().SetButton(answers[i], <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
-                Debug.Log(<span style="color: rgb(165, 214, 255); font-weight: 400;">"correct answer in "</span> + (i + <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>));
+        correctAnswer = Random.Range(0, senButtons.transform.childCount);
+        (answers[0], answers[correctAnswer]) = (answers[correctAnswer], answers[0]);
+        SetSentenceActive(true);
+        for(int i = 0; i &lt; senButtons.transform.childCount; i++){
+            if(i == correctAnswer){
+                // 正しい答え
+                senButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().SetButton(answers[i], true);
+                Debug.Log("correct answer in " + (i + 1));
             }
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-                <span style="color: rgb(139, 148, 158); font-weight: 400;">// 間違っている答え</span>
-                senButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().SetButton(answers[i], <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
+            else{
+                // 間違っている答え
+                senButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().SetButton(answers[i], false);
             }
-            senButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().buttonActive = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
+            senButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().buttonActive = true;
         }
-        problemActive = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
-        answerTimer.SetTimerTextActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
+        problemActive = true;
+        answerTimer.SetTimerTextActive(true);
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// プレイヤーが正しい答えを選ぶ</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> IEnumerator <span style="color: rgb(210, 168, 255); font-weight: 400;">OnCorrectAnswer</span>()</span>{
-        SetButtonsActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
+    // プレイヤーが正しい答えを選ぶ
+    public IEnumerator OnCorrectAnswer(){
+        SetButtonsActive(false);
         FadeOutText();
-        answerTimer.SetTimerTextActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
-        problemActive = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-        witch.SetTrigger(<span style="color: rgb(165, 214, 255); font-weight: 400;">"Attack"</span>);
-        audioManager.PlaySFX(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>);
+        answerTimer.SetTimerTextActive(false);
+        problemActive = false;
+        witch.SetTrigger("Attack");
+        audioManager.PlaySFX(0);
 
-        <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">yield</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">return</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">WaitForSeconds</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(121, 192, 255); font-weight: 400;">1f</span></span>)</span>;
+        yield return new WaitForSeconds(1f);
 
-        currentEnemy.TakeDamage(<span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>);
+        currentEnemy.TakeDamage(1);
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// プレイヤーが間違っている答えを選ぶ</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> IEnumerator <span style="color: rgb(210, 168, 255); font-weight: 400;">OnIncorrectAnswer</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> pressed</span>)</span>{
-        SetButtonsActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
+    // プレイヤーが間違っている答えを選ぶ
+    public IEnumerator OnIncorrectAnswer(bool pressed){
+        SetButtonsActive(false);
         FadeOutText();
-        answerTimer.SetTimerTextActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
-        problemActive = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(pressed)
-            witch.SetTrigger(<span style="color: rgb(165, 214, 255); font-weight: 400;">"Attack"</span>);
-        audioManager.PlaySFX(<span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>);
+        answerTimer.SetTimerTextActive(false);
+        problemActive = false;
+        if(pressed)
+            witch.SetTrigger("Attack");
+        audioManager.PlaySFX(1);
 
-        <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">yield</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">return</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">WaitForSeconds</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(121, 192, 255); font-weight: 400;">1f</span></span>)</span>;
+        yield return new WaitForSeconds(1f);
 
         enemyManager.MoveForward();
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// 選ばれなかった選択肢のフェード</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">private</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">FadeOutText</span>()</span>{
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(sentenceActive)
+    // 選ばれなかった選択肢のフェード
+    private void FadeOutText(){
+        if(sentenceActive)
             currentButtons = senButtons;
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>
+        else
             currentButtons = normalButtons;
 
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span>(<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i &lt; currentButtons.transform.childCount; i++){
-            currentButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().ButtonTextFade(<span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
+        for(int i = 0; i &lt; currentButtons.transform.childCount; i++){
+            currentButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().ButtonTextFade(true);
         }
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// ボタンをアクティブまたは非アクティブにする</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">SetButtonsActive</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> active</span>)</span>{
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(sentenceActive)
+    // ボタンをアクティブまたは非アクティブにする
+    public void SetButtonsActive(bool active){
+        if(sentenceActive)
             currentButtons = senButtons;
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>
+        else
             currentButtons = normalButtons;
         
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span>(<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i &lt; normalButtons.transform.childCount; i++){
+        for(int i = 0; i &lt; normalButtons.transform.childCount; i++){
             normalButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().buttonActive = active;
         }
         
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(active == <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>){
+        if(active == false){
             FadeOutText();
         }
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// 文章ボタンをアクティブまたは非アクティブにする</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">private</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">SetSentenceActive</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> active</span>)</span>{
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(active){
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span>(<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i &lt; normalButtons.transform.childCount; i++){
+    // 文章ボタンをアクティブまたは非アクティブにする
+    private void SetSentenceActive(bool active){
+        if(active){
+            for(int i = 0; i &lt; normalButtons.transform.childCount; i++){
                 normalButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().ButtonReset();
             }
-            normalButtons.SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
-            senButtons.SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span>(<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i &lt; senButtons.transform.childCount; i++){
-                senButtons.transform.GetChild(i).GetComponent&lt;Animator&gt;().SetTrigger(<span style="color: rgb(165, 214, 255); font-weight: 400;">"SenDefault"</span>);
+            normalButtons.SetActive(false);
+            senButtons.SetActive(true);
+            for(int i = 0; i &lt; senButtons.transform.childCount; i++){
+                senButtons.transform.GetChild(i).GetComponent&lt;Animator&gt;().SetTrigger("SenDefault");
             }
-            sentenceActive = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
+            sentenceActive = true;
         }
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span>(<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i &lt; senButtons.transform.childCount; i++){
+        else{
+            for(int i = 0; i &lt; senButtons.transform.childCount; i++){
                 senButtons.transform.GetChild(i).GetComponent&lt;AnswerButton&gt;().ButtonReset();
             }
-            normalButtons.SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
-            senButtons.SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
-            sentenceActive = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
+            normalButtons.SetActive(true);
+            senButtons.SetActive(false);
+            sentenceActive = false;
         }
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// 一つの間違っている選択肢を隠す（リデューススキル用）</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">HideRandomButton</span>()</span>{
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(sentenceActive)
+    // 一つの間違っている選択肢を隠す（リデューススキル用）
+    public void HideRandomButton(){
+        if(sentenceActive)
             currentButtons = senButtons;
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>
+        else
             currentButtons = normalButtons;
 
-        <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> r = Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, currentButtons.transform.childCount);
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">while</span> (r == correctAnswer){
-            r = Random.Range(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>, currentButtons.transform.childCount);
+        int r = Random.Range(0, currentButtons.transform.childCount);
+        while (r == correctAnswer){
+            r = Random.Range(0, currentButtons.transform.childCount);
         }
         
-        currentButtons.transform.GetChild(r).GetComponent&lt;AnswerButton&gt;().buttonActive = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-        currentButtons.transform.GetChild(r).GetComponent&lt;AnswerButton&gt;().ButtonTextFade(<span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
+        currentButtons.transform.GetChild(r).GetComponent&lt;AnswerButton&gt;().buttonActive = false;
+        currentButtons.transform.GetChild(r).GetComponent&lt;AnswerButton&gt;().ButtonTextFade(true);
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">//　スコアの追加</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">AddScore</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> score</span>)</span>{
-        <span style="color: rgb(139, 148, 158); font-weight: 400;">// 短時間で正解ならボーナススコア</span>
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(answerTime &gt;= answerTimeMax/<span style="color: rgb(121, 192, 255); font-weight: 400;">1.5</span>){
-            Debug.Log(<span style="color: rgb(165, 214, 255); font-weight: 400;">"Bonus score"</span>);
-            currentScore += score + score/<span style="color: rgb(121, 192, 255); font-weight: 400;">2</span>;
-            scorePlusText.SetText(score + score/<span style="color: rgb(121, 192, 255); font-weight: 400;">2</span>, <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
+    //　スコアの追加
+    public void AddScore(int score){
+        // 短時間で正解ならボーナススコア
+        if(answerTime &gt;= answerTimeMax/1.5){
+            Debug.Log("Bonus score");
+            currentScore += score + score/2;
+            scorePlusText.SetText(score + score/2, true);
         }
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
+        else{
             currentScore += score;
-            scorePlusText.SetText(score, <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
+            scorePlusText.SetText(score, false);
         }
-        scoreText.text = <span style="color: rgb(165, 214, 255); font-weight: 400;">"Score: "</span> + currentScore;
+        scoreText.text = "Score: " + currentScore;
     }
 }
+</code>
 </pre>
 </div>
 <h1 style="color: #c9d1d9;" id="AbilitiesManager">AbilitiesManager.cs</h1>
 <h4 style="color: #c9d1d9;">　プレイヤーが使える4つのスキルを管理するスクリプトです。プレイヤーが必要なSPを持ち、スキルボタンをスキル使用範囲にドラッグしたらUseAbility関数が呼ばれてスキルが使われます。
 </h4>
 <div class="code">
-<pre style="font-family:monospace;color: rgb(201, 209, 217); background-color: rgb(13, 17, 23); font-weight: 400; "><span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> System;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> System.Collections;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> System.Collections.Generic;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> TMPro;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> UnityEngine;
-<span style="color: rgb(255, 123, 114); font-weight: 400;">using</span> UnityEngine.UI;
+<pre style="font-family:monospace;color: rgb(201, 209, 217); background-color: rgb(13, 17, 23); font-weight: 400; ">
+<code class="language-csharp">
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
-<span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">class</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">AbilitiesManager</span> : <span style="color: rgb(210, 168, 255); font-weight: 400;">MonoBehaviour</span>
+public class AbilitiesManager : MonoBehaviour
 {
     Vector2 cursPos;
-    <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> isHolding = <span style="color: rgb(121, 192, 255); font-weight: 400;">-1</span>;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] Collider2D useHitbox;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] GameObject[] abilities;
+    int isHolding = -1;
+    [SerializeField] Collider2D useHitbox;
+    [SerializeField] GameObject[] abilities;
     Collider2D[] abilitiesPos;
     Vector2[] basePos;
     Text spText;
     AnswerManager answerManager;
     EnemyManager enemyManager;
     AudioManager audioManager;
-    [<span style="color: rgb(121, 192, 255); font-weight: 400;">SerializeField</span>] GameObject abilityUseUI;
+    [SerializeField] GameObject abilityUseUI;
     Text abilityInfoText;
-    String[] abilityInfo = {<span style="color: rgb(165, 214, 255); font-weight: 400;">"敵を吹っ飛ばす"</span>,<span style="color: rgb(165, 214, 255); font-weight: 400;">"時間を巻き戻す"</span>,<span style="color: rgb(165, 214, 255); font-weight: 400;">"違う単語を出す"</span>,<span style="color: rgb(165, 214, 255); font-weight: 400;">"答えを減らす"</span>};
+    String[] abilityInfo = {"敵を吹っ飛ばす","時間を巻き戻す","違う単語を出す","答えを減らす"};
     Animator witch;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> skillPoints = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> canUse = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>;
-    <span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 166, 87); font-weight: 400;">bool</span> reduceUsable = <span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>; 
+    public int skillPoints = 0;
+    public bool canUse = true;
+    public bool reduceUsable = true; 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// Start is called before the first frame update</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">Start</span>()</span>
+    // Start is called before the first frame update
+    void Start()
     {
-        answerManager = GameObject.Find(<span style="color: rgb(165, 214, 255); font-weight: 400;">"/Canvas/AnswerManager"</span>).GetComponent&lt;AnswerManager&gt;();
-        enemyManager = GameObject.Find(<span style="color: rgb(165, 214, 255); font-weight: 400;">"/EnemyManager"</span>).GetComponent&lt;EnemyManager&gt;();
-        audioManager = GameObject.Find(<span style="color: rgb(165, 214, 255); font-weight: 400;">"/AudioManager"</span>).GetComponent&lt;AudioManager&gt;();
-        spText = GameObject.Find(<span style="color: rgb(165, 214, 255); font-weight: 400;">"/Canvas/SP/SPText"</span>).GetComponent&lt;Text&gt;();
-        abilityInfoText = abilityUseUI.transform.GetChild(<span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>).GetComponent&lt;Text&gt;();
-        abilityUseUI.SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
-        abilitiesPos = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> Collider2D[abilities.Length];
-        basePos = <span style="color: rgb(255, 123, 114); font-weight: 400;">new</span> Vector2[abilities.Length];
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span> (<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i &lt; abilities.Length; i++) {
+        answerManager = GameObject.Find("/Canvas/AnswerManager").GetComponent&lt;AnswerManager&gt;();
+        enemyManager = GameObject.Find("/EnemyManager").GetComponent&lt;EnemyManager&gt;();
+        audioManager = GameObject.Find("/AudioManager").GetComponent&lt;AudioManager&gt;();
+        spText = GameObject.Find("/Canvas/SP/SPText").GetComponent&lt;Text&gt;();
+        abilityInfoText = abilityUseUI.transform.GetChild(1).GetComponent&lt;Text&gt;();
+        abilityUseUI.SetActive(false);
+        abilitiesPos = new Collider2D[abilities.Length];
+        basePos = new Vector2[abilities.Length];
+        for (int i = 0; i &lt; abilities.Length; i++) {
             abilitiesPos[i] = abilities[i].GetComponent&lt;Collider2D&gt;();
         }
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span> (<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i &lt; abilities.Length; i++)
+        for (int i = 0; i &lt; abilities.Length; i++)
         {
             basePos[i] = abilities[i].transform.position;
         }
-        witch = GameObject.Find(<span style="color: rgb(165, 214, 255); font-weight: 400;">"/Witch"</span>).GetComponent&lt;Animator&gt;();
+        witch = GameObject.Find("/Witch").GetComponent&lt;Animator&gt;();
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// Update is called once per frame</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">Update</span>()</span>
+    // Update is called once per frame
+    void Update()
     {
-        <span style="color: rgb(139, 148, 158); font-weight: 400;">// プレイヤーがスキルボタンを押しているかチェックする</span>
+        // プレイヤーがスキルボタンを押しているかチェックする
         cursPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span> (Input.GetMouseButtonDown(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>)) {
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span> (isHolding == <span style="color: rgb(121, 192, 255); font-weight: 400;">-1</span>) {
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span> (<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i &lt; abilitiesPos.Length; i++) {
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span> (abilitiesPos[i].bounds.Contains(cursPos))
-                        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(skillPoints &gt;= abilities[i].GetComponent&lt;Ability&gt;().skillCost){
-                            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(i != <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span> || (i == <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span> &amp;&amp; reduceUsable)){
+        if (Input.GetMouseButtonDown(0)) {
+            if (isHolding == -1) {
+                for (int i = 0; i &lt; abilitiesPos.Length; i++) {
+                    if (abilitiesPos[i].bounds.Contains(cursPos))
+                        if(skillPoints &gt;= abilities[i].GetComponent&lt;Ability&gt;().skillCost){
+                            if(i != 3 || (i == 3 && reduceUsable)){
                                 isHolding = i;
-                                abilityUseUI.SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
+                                abilityUseUI.SetActive(true);
                                 abilityInfoText.text = abilityInfo[isHolding];
                             }
                         }
@@ -996,57 +1012,57 @@
             }
         }
 
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span> (Input.GetMouseButtonUp(<span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>)){
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span> (isHolding != <span style="color: rgb(121, 192, 255); font-weight: 400;">-1</span>)
+        if (Input.GetMouseButtonUp(0)){
+            if (isHolding != -1)
             {
-                <span style="color: rgb(139, 148, 158); font-weight: 400;">// スキル使用範囲に入ったらスキルを使う</span>
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span> (useHitbox.bounds.Contains(cursPos) &amp;&amp; answerManager.problemActive &amp;&amp; canUse){
+                // スキル使用範囲に入ったらスキルを使う
+                if (useHitbox.bounds.Contains(cursPos) && answerManager.problemActive && canUse){
                     UseAbility(isHolding);
-                    witch.SetTrigger(<span style="color: rgb(165, 214, 255); font-weight: 400;">"Attack"</span>);
+                    witch.SetTrigger("Attack");
                 }
                 
                 abilities[isHolding].transform.position = basePos[isHolding];
-                isHolding = <span style="color: rgb(121, 192, 255); font-weight: 400;">-1</span>;
-                abilityUseUI.SetActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
+                isHolding = -1;
+                abilityUseUI.SetActive(false);
             }
         }
 
-        <span style="color: rgb(139, 148, 158); font-weight: 400;">//　元の場所にボタンを戻す</span>
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span> (isHolding != <span style="color: rgb(121, 192, 255); font-weight: 400;">-1</span>) {
+        //　元の場所にボタンを戻す
+        if (isHolding != -1) {
             abilities[isHolding].transform.position = cursPos;
         }
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// スキルを使う</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">UseAbility</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> index</span>)</span> {
-        Debug.Log(<span style="color: rgb(165, 214, 255); font-weight: 400;">$"Used ability n<span style="color: rgb(201, 209, 217); font-weight: 400;">{index}</span>"</span>);
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">switch</span> (index)
+    // スキルを使う
+    void UseAbility(int index) {
+        Debug.Log($"Used ability n{index}");
+        switch (index)
         {
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">case</span> <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>: <span style="color: rgb(139, 148, 158); font-weight: 400;">// トルネード</span>
-                answerManager.SetButtonsActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
+            case 0: // トルネード
+                answerManager.SetButtonsActive(false);
                 enemyManager.MoveBackward();
-                audioManager.PlaySFX(<span style="color: rgb(121, 192, 255); font-weight: 400;">2</span>);
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">break</span>;
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">case</span> <span style="color: rgb(121, 192, 255); font-weight: 400;">1</span>: <span style="color: rgb(139, 148, 158); font-weight: 400;">// リワインド</span>
+                audioManager.PlaySFX(2);
+                break;
+            case 1: // リワインド
                 answerManager.answerTime = answerManager.answerTimeMax;
-                audioManager.PlaySFX(<span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>);
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">break</span>;
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">case</span> <span style="color: rgb(121, 192, 255); font-weight: 400;">2</span>: <span style="color: rgb(139, 148, 158); font-weight: 400;">// サイレンス</span>
-                answerManager.SetButtonsActive(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
-                answerManager.currentEnemy.GetWord(<span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
-                audioManager.PlaySFX(<span style="color: rgb(121, 192, 255); font-weight: 400;">4</span>);
+                audioManager.PlaySFX(3);
+                break;
+            case 2: // サイレンス
+                answerManager.SetButtonsActive(false);
+                answerManager.currentEnemy.GetWord(true);
+                audioManager.PlaySFX(4);
                 StartCoroutine(answerManager.currentEnemy.problemDelay());
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">break</span>;
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">case</span> <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>: <span style="color: rgb(139, 148, 158); font-weight: 400;">// リデュース</span>
+                break;
+            case 3: // リデュース
                 answerManager.HideRandomButton();
-                reduceUsable = <span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>;
-                abilities[<span style="color: rgb(121, 192, 255); font-weight: 400;">3</span>].GetComponent&lt;Ability&gt;().SetUsable(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
-                audioManager.PlaySFX(<span style="color: rgb(121, 192, 255); font-weight: 400;">5</span>);
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">break</span>;
-            <span style="color: rgb(121, 192, 255); font-weight: 400;">default</span>:
-                Debug.LogError(<span style="color: rgb(165, 214, 255); font-weight: 400;">$"ERROR: <span style="color: rgb(201, 209, 217); font-weight: 400;">{index}</span> Out of bounds!"</span>);
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">break</span>;
+                reduceUsable = false;
+                abilities[3].GetComponent&lt;Ability&gt;().SetUsable(false);
+                audioManager.PlaySFX(5);
+                break;
+            default:
+                Debug.LogError($"ERROR: {index} Out of bounds!");
+                break;
         }
 
         skillPoints -= abilities[isHolding].GetComponent&lt;Ability&gt;().skillCost;
@@ -1054,30 +1070,31 @@
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">// SP追加</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">AddSP</span>(<span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> points</span>)</span>{
+    // SP追加
+    public void AddSP(int points){
         skillPoints += points;
         UpdateUI();
     }
 
 
-    <span style="color: rgb(139, 148, 158); font-weight: 400;">//　UI更新</span>
-    <span style="color: rgb(201, 209, 217); font-weight: 400;"><span style="color: rgb(255, 123, 114); font-weight: 400;">public</span> <span style="color: rgb(255, 123, 114); font-weight: 400;">void</span> <span style="color: rgb(210, 168, 255); font-weight: 400;">UpdateUI</span>()</span>{
+    //　UI更新
+    public void UpdateUI(){
         spText.text = skillPoints.ToString();
 
-        <span style="color: rgb(255, 123, 114); font-weight: 400;">for</span>(<span style="color: rgb(255, 166, 87); font-weight: 400;">int</span> i = <span style="color: rgb(121, 192, 255); font-weight: 400;">0</span>; i &lt; abilitiesPos.Length; i++){
-            <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(!abilities[i].GetComponent&lt;Ability&gt;().inCD){
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(skillPoints &gt;= abilities[i].GetComponent&lt;Ability&gt;().skillCost){
-                    <span style="color: rgb(255, 123, 114); font-weight: 400;">if</span>(i != <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span> || (i == <span style="color: rgb(121, 192, 255); font-weight: 400;">3</span> &amp;&amp; reduceUsable))
-                        abilities[i].GetComponent&lt;Ability&gt;().SetUsable(<span style="color: rgb(121, 192, 255); font-weight: 400;">true</span>);
+        for(int i = 0; i &lt; abilitiesPos.Length; i++){
+            if(!abilities[i].GetComponent&lt;Ability&gt;().inCD){
+                if(skillPoints &gt;= abilities[i].GetComponent&lt;Ability&gt;().skillCost){
+                    if(i != 3 || (i == 3 && reduceUsable))
+                        abilities[i].GetComponent&lt;Ability&gt;().SetUsable(true);
                 }
-                <span style="color: rgb(255, 123, 114); font-weight: 400;">else</span>{
-                    abilities[i].GetComponent&lt;Ability&gt;().SetUsable(<span style="color: rgb(121, 192, 255); font-weight: 400;">false</span>);
+                else{
+                    abilities[i].GetComponent&lt;Ability&gt;().SetUsable(false);
                 }
             }
         }
     }
 }
+</code>
 </pre>
 </div>
 </body>
