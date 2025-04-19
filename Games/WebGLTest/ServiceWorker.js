@@ -1,9 +1,9 @@
 const cacheName = "DefaultCompany-WebGLTest-0.1";
 const contentToCache = [
     "Build/WebGLTest.loader.js",
-    "Build/WebGLTest.framework.js.gz",
-    "Build/WebGLTest.data.gz",
-    "Build/WebGLTest.wasm.gz",
+    "Build/WebGLTest.framework.js.br",
+    "Build/WebGLTest.data.br",
+    "Build/WebGLTest.wasm.br",
     "TemplateData/style.css"
 
 ];
