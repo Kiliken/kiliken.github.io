@@ -1,0 +1,107 @@
+<html lang="en" data-bs-theme="dark">
+	<!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchBar" onkeyup="diveSearch()"> -->
+	<head>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+		<meta charset="utf-8">
+		<meta name="language" content="english">
+		
+		<title> Kiliken Games </title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="Mariani Francesco Paolo">
+	</head>
+	<body>
+		<header>
+			<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+				<div class="container-fluid">
+					<input class="form-control me-2 m-2" type="search" placeholder="Search" aria-label="Search" id="searchBar" onkeyup="gameSearch()">
+				</div>
+			</nav>
+		</header>
+		<main>
+			<div class="p-5 m-2">
+				
+			</div>
+			<div class="p-2 m-2" hidden>
+				<p class="d-inline-flex gap-1">
+					<a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+						Hints shortcut for searching
+					</a>
+				</p>
+				<div class="collapse" id="collapseExample">
+					<div class="card card-body">
+						Test
+					</div>
+				</div>
+			</div>
+			<div class="row row-cols-1 row-cols-md-2 g-4 m-2" id="¥pocchiaAsura¥">
+				<div class="card m-2 gameItem" style="width: 18rem;" id="0" hidden>
+					<img src="./img/SaturJamDark.png" class="card-img-top">
+					<div class="card-body">
+						<h5 class="card-title">Card Item</h5>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+					</div>
+					<div class="card-body text-end">
+						<a href="#" class="btn btn-primary">GITHUB</a>
+						<a href="#" class="btn btn-primary">PLAY</a>
+					</div>
+				</div>
+			</div>
+		</main>
+		<script type="module">
+			import data from './list.json' with { type: 'json' };
+			var mainDiv = document.getElementById("¥pocchiaAsura¥");
+			var gameElement;
+			
+			for (var i=0; i < Object.keys(data).length; i++) {
+				gameElement = document.createElement("div");
+				gameElement.setAttribute("class", "card m-2 gameItem");
+				gameElement.style.width = "18rem";
+				gameElement.setAttribute("id", "");
+				gameElement.innerHTML = `
+					<img src="./img/SaturJamDark.png" class="card-img-top">
+					<div class="card-body">
+						<h5 class="card-title">`+data[i].title+`</h5>
+						<p class="card-text">`+data[i].description+`</p>
+					</div>
+					<div class="card-body text-end">
+						<a href="https://github.com/Kiliken/`+data[i].git+`" class="btn btn-primary">GITHUB</a>
+						<a href="./`+data[i].play+`/index.html" class="btn btn-primary">PLAY</a>
+					</div>
+					`;
+				mainDiv.appendChild(gameElement);
+			}
+		</script>
+		<script>
+			function gameSearch() {
+				var input = document.getElementById("searchBar").value;
+				input = input.toLowerCase();
+				var x = document.getElementsByClassName("gameItem");
+				
+				for(i = 0; i < x.length; i++){
+					if(!x[i].id.toLowerCase().includes(input)) {
+						x[i].style.display = "none";
+					}
+					else {
+						x[i].style.display = "block";
+					}
+				}
+			}
+		</script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	</body>
+	<!-- <div class="card m-2 diveItem" style="width: 18rem;" id="44"> -->
+					<!-- <div class="card-body"> -->
+						<!-- <h5 class="card-title">Video 2</h5> -->
+						<!-- <p class="card-text text-end">No. 44<br>2024/5/2</p> -->
+						<!-- <p class="card-text">Place</p> -->
+					<!-- </div> -->
+					<!-- <ul class="list-group list-group-flush"> -->
+						<!-- <li class="list-group-item">Type: ???</li> -->
+						<!-- <li class="list-group-item">Max Depth: 22.2m</li> -->
+						<!-- <li class="list-group-item">Gear: ???</li> -->
+					<!-- </ul> -->
+					<!-- <div class="card-body text-end"> -->
+						<!-- <a href="#" class="btn btn-primary">Open</a> -->
+					<!-- </div> -->
+				<!-- </div> -->
+</html>
