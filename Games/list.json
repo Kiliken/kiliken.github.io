@@ -1,9 +1,16 @@
 [
 {
     "title" : "EndlessRunner",
-	"id": 7,
+	"id": 1,
 	"description" : "A SaturJam game",
 	"git" : "SaturJam_EndlessRunner",
 	"play" : "EndlessRunner_SJ"
+},
+{
+    "title" : "PuzzleGame",
+	"id": 2,
+	"description" : "A SaturJam game",
+	"git" : "SaturJam_PuzzleGame",
+	"play" : "PuzzleGame_SJ"
 }
 ]
