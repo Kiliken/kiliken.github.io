@@ -12,5 +12,12 @@
 	"description" : "A SaturJam game",
 	"git" : "SaturJam_PuzzleGame",
 	"play" : "PuzzleGame_SJ"
+},
+{
+    "title" : "QuizGame",
+	"id": 3,
+	"description" : "A SaturJam game",
+	"git" : "SaturJam_QuizGame",
+	"play" : "QuizGame_SJ"
 }
 ]
