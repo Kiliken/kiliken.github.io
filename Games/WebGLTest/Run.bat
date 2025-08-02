@@ -1,2 +1,0 @@
-set chromePath="C:\Program Files\Google\Chrome\Application\chrome.exe"
-%chromePath% --user-data-dir="C:\VirtualBrowserUser" --allow-file-access-from-files --allow-file-access --allow-cross-origin-auth-prompt --window-size=555,960 --hide-scrollbars --app="file:///%cd%/index.html"

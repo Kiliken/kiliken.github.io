@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="My personal website" />
+        <meta name="author" content="Mariani Francesco Paolo" />
+        <title>Paolo Mariani - Works</title>
+        <link rel="icon" type="image/x-icon" href="img/smolicon.png" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+            <!-- Posts -->
+            <section class="resume-section" id="works">
+                <div class="resume-section-content">
+				<h1 class="mb-0">
+                        <span class="text-primary"><img class="img-fluid img-profile mx-auto mb-2" width="75" src="img/mylogog.svg" alt="..." /> PAOLO MARIANI</span>
+                    </h1>
+                    <h2 class="mb-2">Works</h2>
+					<input class="form-control m-2" type="search" placeholder="Search" aria-label="Search" id="searchBar" onkeyup="diveSearch()">
+					<div id="workscreen">
+						
+					</div>
+            </section>
+           
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+		<script>
+			function diveSearch() {
+				var input = document.getElementById("searchBar").value;
+				input = input.toLowerCase();
+				var x = document.getElementsByClassName("workItem");
+				
+				for(i = 0; i < x.length; i++){
+					if(!x[i].id.toLowerCase().includes(input)) {
+						x[i].style.display = "none";
+					}
+					else {
+						x[i].style.display = "block";
+					}
+				}
+			}
+		
+		</script>
+		<script type="module" src="js/dataScript.js"></script>
+		<script type="module">
+			import { AllWorks } from "./js/dataScript.js";
+			
+			document.addEventListener('DOMContentLoaded', () => {
+				window.addEventListener('load', () => {
+						AllWorks();
+				} );
+				
+			});
+		</script>
+    </body>
+</html>
