@@ -42,7 +42,7 @@ export function AllWorks() {
 			continue;
 		
 		wkDiv.innerHTML += `
-			<div class="flex-grow-1 m-1 p-1 border-bottom workItem" id="`+data[i]+`">
+			<div class="flex-grow-1 m-1 p-1 border-bottom workItem" id="`+data[i].title+data[i].platform+data[i].description+`">
 			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" />
             <h3 class="mb-0">`+data[i].title+`</h3>
             <div class="subheading mb-3">`+data[i].platform+`</div>
