@@ -26,5 +26,12 @@
 	"description" : "A SaturJam game",
 	"git" : "SaturJam_RhythmGame",
 	"play" : "RhythmGame_SJ"
+},
+{
+    "title" : "FishingGame",
+	"id": 4,
+	"description" : "A SaturJam game",
+	"git" : "SaturJam_FishingGame",
+	"play" : "FishingGame_SJ"
 }
 ]
