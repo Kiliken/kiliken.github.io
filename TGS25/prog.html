@@ -9,7 +9,10 @@
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
+		
         <link href="css/styles.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../highlight/styles/github-dark.css">
+		<script src="../highlight/highlight.min.js"></script>
     </head>
     <body>
         <div class="d-flex" id="wrapper">
@@ -19,13 +22,20 @@
                 <div class="container-fluid">
                     <h1 class="mt-4">Programming</h1>
                     <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-                    <p>
+					
+					<p>
                         Make sure to keep all page content within the
                         <code>#page-content-wrapper</code>
                         . The top navbar is optional, and just for demonstration. Just create an element with the
                         <code>#sidebarToggle</code>
                         ID which will toggle the menu when clicked.
+						
                     </p>
+					
+					<div class="code-wrapper border rounded" style="background-color: #0d1117;">
+						<pre><code id="code-block" class="language-cs"></code></pre>
+					</div>
+					
                 </div>
             </div>
         </div>
@@ -33,5 +43,17 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
+		
+	<script>
+	fetch('https://raw.githubusercontent.com/Kiliken/SaturJam_SurvivalGame/refs/heads/main/Assets/Scripts/PlayerMovement.cs')
+    .then(response => response.text())
+    .then(data => {
+      const codeBlock = document.getElementById('code-block');
+      codeBlock.textContent = data;
+	  
+	  //delete codeBlock.dataset.highlighted;
+      hljs.highlightElement(codeBlock);
+    });
+	</script>
     </body>
 </html>

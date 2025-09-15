@@ -275,13 +275,11 @@ pre {
 }
 pre code {
   font-size: inherit;
-  color: inherit;
   word-break: normal;
 }
 
 code {
   font-size: 0.875em;
-  color: var(--bs-code-color);
   word-wrap: break-word;
 }
 a > code {
@@ -10866,4 +10864,20 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
     margin-left: -15rem;
   }
+}
+
+.code-wrapper {
+  max-height: 400px; /* Optional: limits vertical size */
+  overflow: auto;
+  white-space: pre; /* Prevents line wrapping */
+}
+
+.code-wrapper pre {
+  margin: 0;
+  padding: 0;
+}
+.code-wrapper code {
+  margin: 0;
+  padding: 0;
+  display: block; /* Ensures full-width layout */
 }
