@@ -21,21 +21,186 @@
                 <!-- Page content-->
                 <div class="container-fluid">
                     <h1 class="mt-4">Programming</h1>
-                    <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-					
-					<p>
-                        Make sure to keep all page content within the
-                        <code>#page-content-wrapper</code>
-                        . The top navbar is optional, and just for demonstration. Just create an element with the
-                        <code>#sidebarToggle</code>
-                        ID which will toggle the menu when clicked.
-						
-                    </p>
-					
+					<h2 class="mt-2">&gt; Zayar Aung</h2>
+					<h4># Overview</h4>
+                    <p>This game was developed using <b>Unity 2022.3.56</b>. In the early stages of development—before server implementation—the game was first designed as a split-screen local multiplayer. However, since the final product is an <b>online multiplayer game</b>, the programming architecture consists of two sides:</p>
+					<ul>
+							<li><b>Client Side</b> – the base game system and local player logic</li>
+							<li><b>Server Side</b> – handles data communication between the two players</li>
+					</ul>
+					<hr>
+					<h4># CLIENT SIDE</h4>
+                    <p>The client side handles the core gameplay systems. This includes the implementation of fundamental mechanics like player control and item interaction. Two major components are:</p>
+					<ul>
+							<li>The <b>Player</b> (the controllable character)</li>
+							<li>The <b>Throwable Items</b> (interactable weapons)</li>
+					</ul>
+					<hr>
+					<h4># PLAYER</h4>
+                    <p>This is the character controlled by the local (client-side) player. The Player GameObject consists of multiple scripts that work together. The <b>Camera</b>, although separate from the Player object, follows it and has its own logic.</p>
+					<h5>Player Object</h5>
+                    <ul>
+							<li><b>Player.cs</b>
+							<br>Manages basic information (e.g., HP, Player Number) and handles object detection, grabbing, and throwing.</li>
+							<li><b>PlayerMovement.cs</b>
+							<br>Controls player movement (walking, sprinting, jumping, dashing) and performs collision checks.</li>
+							<li><b>ObjHolder.cs</b>
+							<br>Updates the position of held items and adjusts holding positions when necessary.</li>
+							<li><b>PlayerSFXPlayer.cs</b>
+							<br>Plays sound effects related to the player.</li>
+							<li><b>ControlManager.cs</b>
+							<br>Determines the player's control scheme (e.g., Xbox or PlayStation).</li>
+					</ul>
+					<h5>Camera Object</h5>
+                    <ul>
+							<li><b>CameraController.cs</b>
+							<br>A robust third-person camera system that smoothly follows the player.</li>
+					</ul>
+					<hr>
+					<h5>🛠 Technical Highlights</h5>
+					<p><b>Dashing Mechanic</b> (<i>PlayerMovement.cs</i>)
+					<br>The dash coroutine moves the player rapidly while performing raycast checks to prevent clipping through walls or terrain. If an obstacle is detected, the player will only dash up to the point of collision. During the dash, the player's hurtbox is disabled to prevent damage.</p>
+					</p>
 					<div class="code-wrapper border rounded" style="background-color: #0d1117;">
-						<pre><code id="code-block" class="language-cs"></code></pre>
+						<pre><code id="cb4" class="language-cs"></code></pre>
 					</div>
-					
+					<p><b>Custom Camera Controller</b> (<i>CameraController.cs</i>)
+					<br>Instead of using Unity's Cinemachine, this camera system is built from scratch. It provides a modern third-person shooter feel, with adjustable settings (distance, offset, rotation limits, inversion, shoulder swap, etc.) all tweakable via the Unity Inspector.
+					</p><div class="code-wrapper border rounded" style="background-color: #0d1117;">	
+						<pre><code id="cb5" class="language-cs"></code></pre>
+					</div>
+					<hr>
+					<h4># NET PLAYER</h4>
+                    <p>This is the character controlled by the opponent through the server. Unlike the client-side Player, the Net Player is essentially a <b>"puppet"</b> that acts based on server commands. It is not a separate object but is converted from a regular Player object by the <b>NetController</b>.
+					</p>
+					<h5>Net Player Scripts</h5>
+                    <ul>
+							<li><b>NETPlayer.cs</b>
+							<br>Receives opponent data from the NetController and performs corresponding actions like movement, grabbing, and throwing.</li>
+							<li><b>ObjHolder.cs</b>
+							<br>Same function as on the client side – manages held object positions.</li>
+							<li><b>PlayerSFXPlayer.cs</b>
+							<br>Plays sound effects for the Net Player.</li>
+					</ul>
+					<h5>NetController Object</h5>
+                    <ul>
+							<li><b>NetController.cs</b>
+							<br>Handles all data exchange between clients. Based on the player's ID (Player 1 or 2), it turns the opposing Player object into a Net Player, removing unnecessary scripts/components.</li>
+					</ul>
+					<hr>
+					<h5>🛠 Technical Highlights</h5>
+					<p><b>Net Player Movement</b> (<i>NETPlayer.cs</i>)
+					<br>The <code>UpdatePosition()</code> method moves the Net Player to the location received from the server and updates its facing direction. It also calculates movement direction based on position deltas and updates the appropriate animation state.</p>
+					</p>
+					<div class="code-wrapper border rounded" style="background-color: #0d1117;">
+						<pre><code id="cb6" class="language-cs"></code></pre>
+					</div>
+					<hr>
+					<h4># THROWABLE ITEMS</h4>
+                    <p>These are objects players throw at each other. They are divided into three classes: <b>small</b>, <b>medium</b>, and <b>large</b>, each differing in size, damage, and speed. Some items are <b>variants</b> with special effects.
+					</p>
+					<h5>Base Throwable Object</h5>
+                    <ul>
+							<li><b>ThrowableObject.cs</b>
+							<br>Core script managing the grabbing and throwing mechanics. Attributes like damage, throw speed, held position/rotation can be adjusted in the Inspector.</li>
+							<li><b>ObjHitbox.cs</b>
+							<br>Handles collision and damage to opponents.</li>
+							<li><b>ObjSFXPlayer.cs</b>
+							<br>Manages sound effects for items.</li>
+					</ul>
+					<h5>Variant Objects (inherit from <code>ThrowableObject.cs</code>)</h5>
+                    <ul>
+							<li><b>ThrowableGrenade.cs</b>
+							<br>Explodes after being thrown and deals area damage.</li>
+							<li><b>ThrowableSpear.cs</b>
+							<br>Splits into multiple copies after being thrown.</li>
+							<li><b>ThrowableSkull.cs</b>
+							<br>Homes in on the opponent after being thrown.</li>
+							<li><b>ThrowableMeteor.cs</b>
+							<br>Summons a giant meteor that crashes at the impact location.</li>
+							<li><b>ThrowableFlan.cs</b>
+							<br>Launches players high into the air when jumped on.</li>
+					</ul>
+					<hr>
+					<h2 class="mt-2">&gt; Francesco Paolo Mariani</h2>
+					<h4># SERVER SIDE</h4>
+					<p>The physical setup follows a client-server model, with one server and two clients connected via Ethernet cables through a switch hub.</p>
+					<img class="img-fluid" src="./assets/netsetup.png" />
+					<p>We developed a basic UDP client-server application in C#, where the server acts as a bridge between the clients by receiving an array of bytes from Client A and forwarding it to Client B, and vice versa. The server performs very minimal data processing.
+					<br>The reason for the limited processing is that the server was designed primarily for a LAN-based setup, so we decided to keep the implementation simple.</p>
+					<div class="code-wrapper border rounded" style="background-color: #0d1117;">
+						<pre><code id="cb1" class="language-cs"></code></pre>
+					</div>
+					<br>
+					<h4># CLIENT THREADING</h4>
+					<p>On the client side, we implemented data sending and receiving using a separate thread that leverages basic UDP data exchange functionality from C# System.Net library.
+					</br>We also added a stopwatch to measure the transmission time and make the thread wait accordingly, which helps avoid unnecessary processing and reduces memory usage on the client's machine.</p>
+					<div class="code-wrapper border rounded" style="background-color: #0d1117;">
+						<pre><code id="cb2" class="language-cs"></code></pre>
+					</div>
+					<br>
+					<h4># PROCEDURAL TERRAIN</h4>
+					<p>To make each game session feel unique, we used Perlin noise and a simple heightmap mesh generation algorithm to create procedural terrain based on a randomly generated seed.
+					<br>Initially, we considered using the Marching Cubes algorithm for more advanced terrain destructibility, but we discarded this idea when we switched to an online multiplayer setup due to time constraints.</p>
+					<div class="code-wrapper border rounded" style="background-color: #0d1117;">
+						<pre><code id="cb3" class="language-cs"></code></pre>
+					</div>
+					<br>
+					<hr>
+					<h2 class="mt-2">&gt; Chen Yu Ren</h2>
+					<h4># UI Features Implemented</h4>
+					<ul>
+						<li>Title screen navigable with controllers (Xbox/PlayStation) and mouse/keyboard, with background music and sound effects.</li>
+						<ul>
+							<li>TitleScreen.cs</li>
+							<li>HoverOnlyButton.cs</li>
+						</ul>
+						<br>
+						<li>Settings screen for adjusting background music volume, controller type, and sensitivity.</li>
+						<ul>
+							<li>GameSettings.cs</li>
+							<li>ControllerColumn.cs</li>
+							<li>SliderColumn.cs</li>
+						</ul>
+						<br>
+						<li>Tutorial screen introducing controls, with reactive controller icons that highlight the selected control type and a language toggle (English/Japanese).</li>
+						<ul>
+							<li>Tutorial.cs</li>
+							<li>ControllerIcon.cs</li>
+							<li>TutorialText.cs</li>
+
+						</ul>
+						<br>
+						<li>Countdown animation at the start of each game.</li>
+						<ul>
+							<li>Countdown.cs</li>
+							<li>CountdownEffect.cs</li>
+
+						</ul>
+						<br>
+						<li>HUD displaying jump/dash charges and a cell-based health bar that shakes and flashes red on damage.</li>
+						<ul>
+							<li>CellHPBar.cs</li>
+							<li>DashDotsUI.cs</li>
+							<li>JumpDotsUI.cs</li>
+							<li>Triangle.cs</li>
+
+						</ul>
+						<br>
+						<li>Pause menu allowing players to quit, disabling movement inputs while preserving online sync.</li>
+						<ul>
+							<li>InGameMenu.cs 
+							<br>(with parts in Player.cs, PlayerMovement.cs, CameraControl.cs)</li>
+
+						</ul>
+						<br>
+						<li>End screen showing winner/loser and returning to the title screen with settings preserved.</li>
+						<ul>
+							<li>WinnerDisplay.cs</li>
+						</ul>
+						
+						
+					</ul>
                 </div>
             </div>
         </div>
@@ -45,10 +210,55 @@
         <script src="js/scripts.js"></script>
 		
 	<script>
-	fetch('https://raw.githubusercontent.com/Kiliken/SaturJam_SurvivalGame/refs/heads/main/Assets/Scripts/PlayerMovement.cs')
+	fetch('https://raw.githubusercontent.com/Kiliken/PsychicShowdown/refs/heads/onlineMode/ServerSide/src/Server.cs')
     .then(response => response.text())
     .then(data => {
-      const codeBlock = document.getElementById('code-block');
+      codeBlock = document.getElementById('cb1');
+      codeBlock.textContent = data;
+	  
+	  //delete codeBlock.dataset.highlighted;
+      hljs.highlightElement(codeBlock);
+    });
+	fetch('https://raw.githubusercontent.com/Kiliken/PsychicShowdown/refs/heads/onlineMode/Assets/Scripts/Net/NetController.cs')
+    .then(response => response.text())
+    .then(data => {
+      codeBlock = document.getElementById('cb2');
+      codeBlock.textContent = data;
+	  
+	  //delete codeBlock.dataset.highlighted;
+      hljs.highlightElement(codeBlock);
+    });
+	fetch('https://raw.githubusercontent.com/Kiliken/PsychicShowdown/refs/heads/onlineMode/Assets/Scripts/World/Noise.cs')
+    .then(response => response.text())
+    .then(data => {
+      codeBlock = document.getElementById('cb3');
+      codeBlock.textContent = data;
+	  
+	  //delete codeBlock.dataset.highlighted;
+      hljs.highlightElement(codeBlock);
+    });
+	fetch('https://raw.githubusercontent.com/Kiliken/PsychicShowdown/refs/heads/onlineMode/Assets/Scripts/Player/PlayerMovement.cs')
+    .then(response => response.text())
+    .then(data => {
+      codeBlock = document.getElementById('cb4');
+      codeBlock.textContent = data;
+	  
+	  //delete codeBlock.dataset.highlighted;
+      hljs.highlightElement(codeBlock);
+    });
+	fetch('https://raw.githubusercontent.com/Kiliken/PsychicShowdown/refs/heads/onlineMode/Assets/Scripts/Player/CameraController.cs')
+    .then(response => response.text())
+    .then(data => {
+      codeBlock = document.getElementById('cb5');
+      codeBlock.textContent = data;
+	  
+	  //delete codeBlock.dataset.highlighted;
+      hljs.highlightElement(codeBlock);
+    });
+	fetch('https://raw.githubusercontent.com/Kiliken/PsychicShowdown/refs/heads/onlineMode/Assets/Scripts/Player/NETPlayer.cs')
+    .then(response => response.text())
+    .then(data => {
+      codeBlock = document.getElementById('cb6');
       codeBlock.textContent = data;
 	  
 	  //delete codeBlock.dataset.highlighted;
