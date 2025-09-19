@@ -10881,3 +10881,17 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   padding: 0;
   display: block; /* Ensures full-width layout */
 }
+
+.vid-fluid {
+  width: 640px;
+  height: 360px;
+}
+
+@media (max-width: 720px){
+
+.vid-fluid {
+  width: 256px;
+  height: 144px;
+}
+
+}
