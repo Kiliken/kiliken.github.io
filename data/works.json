@@ -1,5 +1,14 @@
 [
 {
+    "title" : "Psychic Showdown",
+	"img" : "",
+	"url" : "HMy0Zgg9xYg",
+	"platform" : "Unity Engine",
+	"description" : "This is a game project made by the students at the Tokyo Design Technology Center for Tokyo Game Show 2025. For more information, please check out the GitHub repository where you can find a detailed portfolio.",
+	"git" : "https://github.com/Kiliken/PsychicShowdown",
+	"about" : ""
+},
+{
     "title" : "SaturJam Games",
 	"img" : "",
 	"url" : "",

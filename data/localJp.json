@@ -1,0 +1,89 @@
+[
+{
+    "conts" : "東京でゲームプログラマーをやってます。子どもの頃からずっとプログラミングに夢中です！今はノイズとかプロシージャル生成を自分で勉強してるんですが、コードの文字だけで無限の世界が作れるって、マジで すごいですよね。"
+},
+{
+    "conts" : [{
+		"job" : "ゲームデバッガー",
+		"company" : "ポールトゥウィン株式会社",
+		"time" : "2024年9月 - 2025年5月"
+	},
+	{
+		"job" : "LQA（言語デバッグ）",
+		"company" : "キーワーズ・インターナショナル株式会社",
+		"time" : "2023年9月 - 2024年3月"
+	},
+	{
+		"job" : "ジュニアエンジニア",
+		"company" : "BonassisaLab S.p.A.",
+		"time" : "2021年3月 - 2021年6月"
+	}
+	]
+},
+{
+    "conts" : [{
+		"name" : "MOS: Microsoft Excel (Office 2019)",
+		"extra" : "Microsoft",
+		"data" : "2025年2月"
+	},
+	{
+		"name" : "Microsoft Azure AI Fundamental",
+		"extra" : "Microsoft",
+		"data" : "2025年2月"
+	},
+	{
+		"name" : "日本語能力試験 (N2)",
+		"extra" : "総合得点 : 116 / 180",
+		"data" : "2023年7月"
+	},
+	{
+		"name" : "TOEIC Listening & Reading Test",
+		"extra" : "総合得点 : 820 / 990",
+		"data" : "2022年12月"
+	},
+	{
+		"name" : "PCAP: Programming Essentials in Python",
+		"extra" : "Cisco Networking Academy",
+		"data" : "2019年3月"
+	},
+	{
+		"name" : "Introduction to Cybersecurity",
+		"extra" : "Cisco Networking Academy",
+		"data" : "2018年6月"
+	}
+	]
+},
+{
+    "conts" : [{
+		"school" : "TECH.C.東京デザインテクノロジーセンター専門学校",
+		"type" : "専門学校",
+		"time" : "2024年4月 - 2027年3月",
+		"degree" : "ゲームプログラマー専攻",
+		"extra" : "出席率: 90%~"
+	},
+	{
+		"school" : "インターカルト日本語学校",
+		"type" : "日本語学校",
+		"time" : "2021年10月 - 2024年3月",
+		"degree" : "長期コース",
+		"extra" : "GPA: A"
+	},
+	{
+		"school" : "ITT Altamura - Da Vinci高校",
+		"type" : "工業高等学校",
+		"time" : "2014年9月 - 2020年6月",
+		"degree" : "計算機科学専攻",
+		"extra" : "成績: 100 / 100"
+	}
+	]
+},
+{
+    "title" : "SPLASH!!!",
+    "img" : "splash.jpg",
+	"url" : "6Z6VitPUXv0",
+	"platform" : "Unity Engine",
+	"description" : "Game type: 2D Action Scroller<br>My role: Level Designer, Programmer<br>This game project has been present at the school festival and won as the most appreciated by school visitors.",
+	"git" : "https://github.com/NathanAung/SPLASH",
+	"about" : "https://github.com/NathanAung/SPLASH/releases/download/v1.0/SPLASH.zip"
+}
+]

@@ -1,0 +1,80 @@
+[
+{
+    "conts" : "I'm a game programmer based in Tokyo who made programming my passion since I was 6 years old. Currently, I'm self-studying noise and procedural generation. I find it fascinating how a bunch of strings of code can create infinite worlds to explore."
+},
+{
+    "conts" : [{
+		"job" : "Game Quality Assurance Tester",
+		"company" : "Pole to Win",
+		"time" : "September 2024 - May 2025"
+	},
+	{
+		"job" : "Game Localization QA Tester",
+		"company" : "Keywords Studios",
+		"time" : "September 2023 - March 2024"
+	},
+	{
+		"job" : "Junior Programmer",
+		"company" : "BonassisaLab S.p.A.",
+		"time" : "March 2021 - June 2021"
+	}
+	]
+},
+{
+    "conts" : [{
+		"name" : "MOS: Microsoft Excel (Office 2019)",
+		"extra" : "Microsoft",
+		"data" : "February 2025"
+	},
+	{
+		"name" : "Microsoft Azure AI Fundamental",
+		"extra" : "Microsoft",
+		"data" : "February 2025"
+	},
+	{
+		"name" : "japanese-language proficiency N2",
+		"extra" : "Total Score : 116 / 180",
+		"data" : "July 2023"
+	},
+	{
+		"name" : "TOEIC Listening & Reading Test",
+		"extra" : "Total Score : 820 / 990",
+		"data" : "December 2022"
+	},
+	{
+		"name" : "PCAP: Programming Essentials in Python",
+		"extra" : "Cisco Networking Academy",
+		"data" : "March 2019"
+	},
+	{
+		"name" : "Introduction to Cybersecurity",
+		"extra" : "Cisco Networking Academy",
+		"data" : "June 2018"
+	}
+	]
+},
+{
+    "conts" : [{
+		"school" : "Tokyo Design Technology Center (TECH.C.)",
+		"type" : "Technical school",
+		"time" : "April 2024 - March 2027",
+		"degree" : "Game programmer Course",
+		"extra" : "Attendance rate: 90%~"
+	},
+	{
+		"school" : "intercultural institute of japan",
+		"type" : "Japanese language school",
+		"time" : "October 2021 - March 2024",
+		"degree" : "Long-term Course",
+		"extra" : "GPA: A"
+	},
+	{
+		"school" : "ITT Altamura - Da Vinci High School",
+		"type" : "computer science and telecommunications",
+		"time" : "September 2014 - June 2020",
+		"degree" : "Computer Science Course",
+		"extra" : "Final Grade : 100 / 100"
+	}
+	]
+}
+]
