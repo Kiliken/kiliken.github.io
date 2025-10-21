@@ -108,6 +108,7 @@
                     <ul class="list-inline">
 						<li class="list-inline-item"><abbr title="C++"><img src="img/cpp.svg" class="to-icon"></abbr><br>★★★★</li>
 						<li class="list-inline-item"><abbr title="C#"><img src="img/cs.svg" class="to-icon"></abbr><br>★★★☆</li>
+						<li class="list-inline-item"><abbr title="PowerShell"><img src="img/powershell.svg" class="to-icon"></abbr><br>★★☆☆</li>
                         <li class="list-inline-item"><abbr title="JavaScript"><i class="fab fa-js-square dev-icons"></i></abbr><br>★★★☆</li> 
                         <li class="list-inline-item"><abbr title="PHP"><i class="fa-brands fa-php dev-icons"></i></abbr><br>★★★☆</li>  
 						<li class="list-inline-item"><abbr title="Python"><img src="img/python.svg" class="to-icon"></abbr><br>★★☆☆</li>
@@ -118,15 +119,16 @@
 					<div class="subheading mb-3">Frameworks</div>
 					<ul class="list-inline">                       
                         
-						<li class="list-inline-item"><abbr title="SFML"><img src="img/sfml.svg" class="to-icon"></abbr><br>★★☆☆</li>
+						<li class="list-inline-item"><abbr title="SFML"><img src="img/sfml.svg" class="to-icon"></abbr><br>★★★☆</li>
+						<li class="list-inline-item"><abbr title="OpenSiv3D"><img src="img/opensiv.svg" class="to-icon"></abbr><br>★★☆☆</li>
 						<li class="list-inline-item"><abbr title="Node.js"><i class="fab fa-node-js dev-icons"></i></abbr><br>★☆☆☆</li>
 						<li class="list-inline-item"><abbr title="Bootstrap"><i class="fa-brands fa-bootstrap dev-icons"></i></abbr><br>★★☆☆</li>
                     </ul>
 					<div class="subheading mb-3">Tools</div>
 					<ul class="list-inline">                       
                         
-                        <li class="list-inline-item"><abbr title="Unity"><i class="fa-brands fa-unity dev-icons"></i></abbr><br>★★★☆</li>
-						<li class="list-inline-item"><abbr title="UnrealEngine"><img src="img/unreal.svg" class="to-icon"></abbr><br>★☆☆☆</li>
+                        <li class="list-inline-item"><abbr title="Unity"><i class="fa-brands fa-unity dev-icons"></i></abbr><br>★★★★</li>
+						<li class="list-inline-item"><abbr title="UnrealEngine"><img src="img/unreal.svg" class="to-icon"></abbr><br>★★☆☆</li>
                         <li class="list-inline-item"><abbr title="Blender"><img src="img/blender.svg" class="to-icon"></abbr><br>★★☆☆</li>
                         <li class="list-inline-item"><abbr title="Gimp"><img src="img/gimp.svg" class="to-icon"></abbr><br>★★★☆</li>
 						<li class="list-inline-item"><abbr title="HTML5"><i class="fab fa-html5 dev-icons"></i></abbr><br>★★★★</li>
@@ -161,21 +163,23 @@
 				const wkButton1 = document.getElementById('wkButton1');
 				if (wkButton1) {
 					wkButton1.addEventListener('click', () => {
-						Works(0);
+						const lang = getUrlParameter("lang");
+						Works(0,lang);
 					} );
 				}
 				
 				const wkButton2 = document.getElementById('wkButton2');
 				if (wkButton2) {
 					wkButton2.addEventListener('click', () => {
-						Works(1);
+						const lang = getUrlParameter("lang");
+						Works(1,lang);
 					} );
 				}
 				
 				
 				window.addEventListener('load', () => {
 						const lang = getUrlParameter("lang");
-						Works(0);
+						Works(0,lang);
 						Localize(lang);
 				} );
 				

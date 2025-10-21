@@ -23,7 +23,7 @@ export function Works(page, type) {
 			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" />
             <h3 class="mb-0">`+data[i].title+`</h3>
             <div class="subheading mb-3">`+data[i].platform+`</div>
-            <p>`+data[i].description+`</p>
+            <p>`+(jp ? data[i].descJp : data[i].descEn)+`</p>
 			`+(data[i].url != "" ? `<a class="btn btn-primary text-white" target=blank href="https://www.youtube.com/watch?v=`+data[i].url+`" role="button">YouTube</a><?php }?>` : ``)+`
 			<a class="btn btn-primary text-white" target=blank href="`+data[i].git+`" role="button">Github</a>
 			<a class="btn btn-primary text-white" target=blank href="`+data[i].about+`" role="button">Play</a>
@@ -56,7 +56,7 @@ export function AllWorks(type) {
 			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" />
             <h3 class="mb-0">`+data[i].title+`</h3>
             <div class="subheading mb-3">`+data[i].platform+`</div>
-            <p>`+data[i].description+`</p>
+            <p>`+(jp ? data[i].descJp : data[i].descEn)+`</p>
 			`+(data[i].url != "" ? `<a class="btn btn-primary text-white" target=blank href="https://www.youtube.com/watch?v=`+data[i].url+`" role="button">YouTube</a><?php }?>` : ``)+`
 			<a class="btn btn-primary text-white" target=blank href="`+data[i].git+`" role="button">Github</a>
 			<a class="btn btn-primary text-white" target=blank href="`+data[i].about+`" role="button">Play</a>
