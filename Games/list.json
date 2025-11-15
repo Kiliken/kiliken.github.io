@@ -29,9 +29,16 @@
 },
 {
     "title" : "FishingGame",
-	"id": 4,
+	"id": 5,
 	"description" : "A SaturJam game",
 	"git" : "SaturJam_FishingGame",
 	"play" : "FishingGame_SJ"
+},
+{
+    "title" : "GemstoneMatch",
+	"id": 6,
+	"description" : "A SaturJam game",
+	"git" : "SaturJam_GemstoneMatch",
+	"play" : "GemstoneMatch_SJ"
 }
 ]
