@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Kiliken - FAST</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+		
+        <link href="css/styles.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../highlight/styles/github-dark.css">
+    </head>
+    <body>
+        <div class="d-flex" id="wrapper">
+            <!-- Page content wrapper-->
+            <div id="page-content-wrapper">
+                <!-- Page content-->
+                <div class="container-fluid">
+                    <h1 class="mt-4">Fast Accesible Setup Tools</h1>
+					<h4>🛠 How To Use</h4>
+						<p>LOREM IPSUM</p>
+					<hr>
+					<h2 class="mt-4"># sdl-vsbt-setup</h1>
+                    <p>A minimal setup for building <a href="https://www.libsdl.org/">SDL3</a> projects using <a href="https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022">Visual Studio Build Tools</a> from the command line.</p>
+					
+					<div class="code-wrapper border rounded p-2" style="background-color: #0d1117;"><pre><code id="ccode1" class="language-pwsh">curl.exe -L -o "$(Get-Location)\codeDL.ps1" "https://raw.githubusercontent.com/Kiliken/sdl-vsbt-setup/main/codeDL.ps1"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(Get-Location)\codeDL.ps1"
+ </code></pre></div>
+					<button class="btn btn-primary fw-bold m-1" onclick="copyCodeText('ccode1')">Copy</button>
+					<hr>
+					<h2 class="mt-4"># sfml-vsbt-setup</h1>
+                    <p>A minimal setup for building <a href="https://www.sfml-dev.org/">SFML</a> projects using <a href="https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022">Visual Studio Build Tools</a> from the command line.</p>
+					
+					<div class="code-wrapper border rounded p-2" style="background-color: #0d1117;"><pre><code id="ccode2" class="language-pwsh">curl.exe -L -o "$(Get-Location)\codeDL.ps1" "https://raw.githubusercontent.com/Kiliken/sfml-vsbt-setup/main/codeDL.ps1"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(Get-Location)\codeDL.ps1"
+ </code></pre></div>
+					<button class="btn btn-primary fw-bold m-1" onclick="copyCodeText('ccode2')">Copy</button>
+					<hr>
+					<h2 class="mt-4"># openSiv-vsbt-setup</h1>
+                    <p>A minimal setup for building <a href="https://github.com/Siv3D/OpenSiv3D">OpenSiv3D</a> projects using <a href="https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022">Visual Studio Build Tools</a> from the command line.</p>
+					
+					<div class="code-wrapper border rounded p-2" style="background-color: #0d1117;"><pre><code id="ccode3" class="language-pwsh">curl.exe -L -o "$(Get-Location)\codeDL.ps1" "https://raw.githubusercontent.com/Kiliken/openSiv-vsbt-setup/main/codeDL.ps1"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(Get-Location)\codeDL.ps1"
+ </code></pre></div>
+					<button class="btn btn-primary fw-bold m-1" onclick="copyCodeText('ccode3')">Copy</button>
+					<hr>
+					<h2 class="mt-4"># ogre-vsbt-setup</h1>
+                    <p>A minimal setup for building <a href="https://www.ogre3d.org/">Ogre3D</a> projects using <a href="https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022">Visual Studio Build Tools</a> from the command line.</p>
+					
+					<div class="code-wrapper border rounded p-2" style="background-color: #0d1117;"><pre><code id="ccode4" class="language-pwsh">curl.exe -L -o "$(Get-Location)\codeDL.ps1" "https://raw.githubusercontent.com/Kiliken/ogre-vsbt-setup/main/codeDL.ps1"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(Get-Location)\codeDL.ps1"
+ </code></pre></div>
+					<button class="btn btn-primary fw-bold m-1" onclick="copyCodeText('ccode4')">Copy</button>
+					<hr>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+		<script type="module">
+    import hljs from '../highlight/es/core.js';
+    import powershell from '../highlight/es/languages/powershell.js';
+
+    hljs.registerLanguage('powershell', powershell);
+    hljs.highlightAll();
+  </script>
+  <script>
+        async function copyCodeText(codeId) {
+            const codeBlockDiv = document.getElementById(codeId);
+            const codeToCopy = codeBlockDiv.textContent;
+
+            try {
+                await navigator.clipboard.writeText(codeToCopy);
+                console.log('Code text copied to clipboard!');
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+            }
+        }
+    </script>
+    </body>
+</html>
