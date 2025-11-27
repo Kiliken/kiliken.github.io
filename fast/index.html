@@ -20,9 +20,27 @@
                 <!-- Page content-->
                 <div class="container-fluid">
                     <h1 class="mt-4">Fast Accesible Setup Tools</h1>
-					<h4>🛠 How To Use</h4>
-						<p>LOREM IPSUM</p>
-					<hr>
+					<section id="getting-started">
+  <h4>How To Use</h4>
+  <ol>
+    <li>
+      <strong>Create a new folder:</strong>
+      <span>Choose or create an empty folder where you want your project to live.</span>
+    </li>
+    <li>
+      <strong>Open PowerShell in that folder:</strong>
+      <span>Right‑click inside the folder and select <em>Open in Terminal</em> or <em>PowerShell</em>.</span>
+    </li>
+    <li>
+      <strong>Run the setup script:</strong>
+      <span>Paste the following commands into your PowerShell window, this will download all required files and dependencies.</span>
+    </li>
+    <li>
+      <strong>Initialize the project:</strong>
+      <span>After the script finishes, double‑click on <code>SetupProject.bat</code> in your folder. This will configure the project structure and get everything ready to build.</span>
+    </li>
+  </ol>
+</section>
 					<h2 class="mt-4"># sdl-vsbt-setup</h1>
                     <p>A minimal setup for building <a href="https://www.libsdl.org/">SDL3</a> projects using <a href="https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022">Visual Studio Build Tools</a> from the command line.</p>
 					
@@ -38,6 +56,14 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(Get-Location)\codeDL.
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(Get-Location)\codeDL.ps1"
  </code></pre></div>
 					<button class="btn btn-primary fw-bold m-1" onclick="copyCodeText('ccode2')">Copy</button>
+					<hr>
+					<h2 class="mt-4"># openGL-portable-setup</h1>
+                    <p>A minimal setup for <a href="https://www.opengl.org/">OpenGL</a> projects using <a href="https://www.glfw.org/">GLFW</a> and <a href="https://glew.sourceforge.net/">GLEW</a> compiled using portable <a href="https://github.com/skeeto/w64devkit">w64devkit</a>.</p>
+					
+					<div class="code-wrapper border rounded p-2" style="background-color: #0d1117;"><pre><code id="ccode5" class="language-pwsh">curl.exe -L -o "$(Get-Location)\codeDL.ps1" "https://raw.githubusercontent.com/Kiliken/openGL-portable-setup/main/codeDL.ps1"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(Get-Location)\codeDL.ps1"
+ </code></pre></div>
+					<button class="btn btn-primary fw-bold m-1" onclick="copyCodeText('ccode5')">Copy</button>
 					<hr>
 					<h2 class="mt-4"># openSiv-vsbt-setup</h1>
                     <p>A minimal setup for building <a href="https://github.com/Siv3D/OpenSiv3D">OpenSiv3D</a> projects using <a href="https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022">Visual Studio Build Tools</a> from the command line.</p>
@@ -55,6 +81,13 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(Get-Location)\codeDL.
  </code></pre></div>
 					<button class="btn btn-primary fw-bold m-1" onclick="copyCodeText('ccode4')">Copy</button>
 					<hr>
+					<h2 class="mt-4"># winNativeDotNet-vsbt-setup</h1>
+                    <p>A minimal setup for building C# projects using native .NET Frameworks on Windows.</p>
+					
+					<div class="code-wrapper border rounded p-2" style="background-color: #0d1117;"><pre><code id="ccode6" class="language-pwsh">curl.exe -L -o "$(Get-Location)\codeDL.ps1" "https://raw.githubusercontent.com/Kiliken/winNativeDotNet-vsbt-setup/main/codeDL.ps1"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(Get-Location)\codeDL.ps1"
+ </code></pre></div>
+					<button class="btn btn-primary fw-bold m-1" onclick="copyCodeText('ccode6')">Copy</button>
                 </div>
             </div>
         </div>
