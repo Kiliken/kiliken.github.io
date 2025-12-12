@@ -62,7 +62,7 @@
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
-  --bs-body-bg: #fff;
+  --bs-body-bg: #f0f0f0;
   --bs-border-width: 1px;
   --bs-border-style: solid;
   --bs-border-color: #dee2e6;
@@ -10981,8 +10981,14 @@ section.resume-section .resume-section-content {
 	height: 50px;
 }
 .showcase-image {
-	width: 480px;
-    height: 270px;
+	width: 416px;
+    height: 312px;
+	transition: all 0.3s ease;
+}
+
+.showcase-image:hover {
+  filter: grayscale(100%);   /* make image gray */
+  transform: scale(1.03);    /* zoom in slightly */
 }
 .youtubeframe {
 	width: 480px;
@@ -10994,7 +11000,7 @@ section.resume-section .resume-section-content {
     	height: 180px;
 	}
     .showcase-image {
-	width: 320px;
-    height: 180px;
-}
+		width: 312px;
+		height: 234px;
+	}
 }

@@ -10,30 +10,30 @@ export function Works(page, type) {
 	page *= 4;
     var wkDiv = document.getElementById('workscreen');
     wkDiv.innerHTML = '';
+	let htmlContent = '';
 	for (var i = page; i < page+4; i++) {
 		
-		if ((i%2)==0) {
-			wkDiv.innerHTML += `<div class="d-flex flex-column flex-md-row justify-content-between">`;
-		}
-		if (data.length < i)
+		if (i >= data.length)
 			continue;
 		
-		wkDiv.innerHTML += `
+		if (i % 2 === 0) {
+			htmlContent += `<div class="d-flex flex-column flex-md-row justify-content-between">`;
+		}
+		
+		htmlContent += `
 			<div class="flex-grow-1 m-1 p-1 border-bottom workItem" id="`+data[i]+`">
-			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" />
+			<a class="" target=blank href="`+data[i].aboutEn+`" role="button">
+			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" /></a>
             <h3 class="mb-0">`+data[i].title+`</h3>
             <div class="subheading mb-3">`+data[i].platform+`</div>
-            <p>`+(jp ? data[i].descJp : data[i].descEn)+`</p>
-			`+(data[i].url != "" ? `<a class="btn btn-primary text-white" target=blank href="https://www.youtube.com/watch?v=`+data[i].url+`" role="button">YouTube</a><?php }?>` : ``)+`
-			<a class="btn btn-primary text-white" target=blank href="`+data[i].git+`" role="button">Github</a>
-			<a class="btn btn-primary text-white" target=blank href="`+data[i].about+`" role="button">Play</a>
 			</div>
 			`;
 		
-		if ((i%2)==1) {
-			wkDiv.innerHTML += `</div>`;
-		}
+		if (i % 2 === 1 || i === data.length - 1) {
+            htmlContent += `</div>`;
+        }
 	}
+	wkDiv.innerHTML = htmlContent;
 }
 
 export function AllWorks(type) {
@@ -43,30 +43,32 @@ export function AllWorks(type) {
 	
     var wkDiv = document.getElementById('workscreen');
     wkDiv.innerHTML = '';
+	let htmlContent = '';
 	for (var i = 0; i < data.length; i++) {
 		
-		if ((i%2)==0) {
-			wkDiv.innerHTML += `<div class="d-flex flex-column flex-md-row justify-content-between">`;
-		}
-		if (data.length < i)
+		if (i >= data.length)
 			continue;
 		
-		wkDiv.innerHTML += `
+		if (i % 2 === 0) {
+			htmlContent += `<div class="d-flex flex-column flex-md-row justify-content-between">`;
+		}
+		
+		
+		htmlContent += `
 			<div class="flex-grow-1 m-1 p-1 border-bottom workItem" id="`+data[i].title+data[i].platform+data[i].description+`">
-			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" />
+			<a class="" target=blank href="`+data[i].aboutEn+`" role="button">
+			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" /></a>
             <h3 class="mb-0">`+data[i].title+`</h3>
             <div class="subheading mb-3">`+data[i].platform+`</div>
-            <p>`+(jp ? data[i].descJp : data[i].descEn)+`</p>
-			`+(data[i].url != "" ? `<a class="btn btn-primary text-white" target=blank href="https://www.youtube.com/watch?v=`+data[i].url+`" role="button">YouTube</a><?php }?>` : ``)+`
-			<a class="btn btn-primary text-white" target=blank href="`+data[i].git+`" role="button">Github</a>
-			<a class="btn btn-primary text-white" target=blank href="`+data[i].about+`" role="button">Play</a>
 			</div>
 			`;
 		
-		if ((i%2)==1) {
-			wkDiv.innerHTML += `</div>`;
+		if (i % 2 === 1 || i === data.length - 1) {
+			htmlContent += `</div>`;
 		}
 	}
+	
+	wkDiv.innerHTML = htmlContent;
 }
 
 export function Localize(type) {

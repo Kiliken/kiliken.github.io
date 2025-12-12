@@ -1,89 +1,69 @@
 [
 {
+    "title" : "Sin No Hate",
+	"img" : "",
+	"platform" : "OpenSiv3D",
+	"aboutEn" : "./mdRenderer.html?mdurl=SinNoHateEn.md",
+	"aboutJp" : "https://scrapbox.io/bnscup2025/%E7%BD%AA%E3%81%AE%E6%9E%9C%E3%81%A6"
+},
+{
     "title" : "Psychic Showdown",
 	"img" : "",
-	"url" : "HMy0Zgg9xYg",
 	"platform" : "Unity Engine",
-	"descEn" : "This is a game project made by the students at the Tokyo Design Technology Center for Tokyo Game Show 2025. For more information, please check out the GitHub repository where you can find a detailed portfolio.",
-	"descJp" : "東京デザインテクノロジーセンターの学生が東京ゲームショウ 2025 のために制作したゲームプロジェクトです。 詳細については、詳細なポートフォリオがご覧いただける GitHub リポジトリをご確認ください。",
-	"git" : "https://github.com/Kiliken/PsychicShowdown",
-	"about" : ""
+	"aboutEn" : "./TGS25/index.html",
+	"aboutJp" : "./mdRenderer.html?mdurl=./data/worksMd/PsyShowJp.md"
 },
 {
     "title" : "SaturJam Games",
 	"img" : "",
-	"url" : "",
 	"platform" : "Unity Engine",
-	"descEn" : "A collection of small minigames made in a week for the Saturday Game Jam class. (Only the ones built in WebGL are present in this collection.)",
-	"descJp" : "土曜日のゲームジャム授業で一週間で制作した短編ミニゲーム集です。（このコレクションには WebGL でビルドされたもののみが含まれています。）",
-	"git" : "./Games/index.html",
-	"about" : "./Games/index.html"
+	"aboutEn" : "./Games/index.html",
+	"aboutJp" : "./Games/index.html"
 },
 {
     "title" : "Gamble Densetsu",
 	"img" : "gamble.jpg",
-	"url" : "W_E4SZ0oFQs",
 	"platform" : "Unity Engine",
-	"descEn" : "A First-Person Action Shooter where most of the mechanics are based on gambling / chance.",
-	"descJp" : "ほとんどのゲームメカニクスがギャンブル/運の要素に基づいた一人称アクションシューターです。",
-	"git" : "https://github.com/Kiliken/GamblingDensetsu",
-	"about" : "https://github.com/Kiliken/GamblingDensetsu/releases/download/releases/GamblingDensetsu.zip"
+	"aboutEn" : "",
+	"aboutJp" : ""
 },
 {
     "title" : "Kotodama Chronicle",
     "img" : "",
-	"url" : "u6TAuBcbdVo",
 	"platform" : "Unity Engine",
-	"descEn" : "A game inspired by Duolingo where you can learn English while playing. This game was made for a MinutesGames contest, and it won as honorable mention.",
-	"descJp" : "Duolingo (デュオリンゴ) にインスパイアされた、遊びながら英語を学習できるゲームです。このゲームはMinutesGames (ミニッツゲームズ) のコンテストに出展され、奨励賞を受賞しました",
-	"git" : "https://github.com/NathanAung/SPLASH",
-	"about" : "https://github.com/NathanAung/SPLASH/releases/download/v1.0/SPLASH.zip"
+	"aboutEn" : "",
+	"aboutJp" : ""
 },
 {
     "title" : "SPLASH!!!",
     "img" : "splash.jpg",
-	"url" : "6Z6VitPUXv0",
 	"platform" : "Unity Engine",
-	"descEn" : "A 2D Action Scroller created for a school contest. This game project was presented at the school festival and won the award for the most appreciated by school visitors.",
-	"descJp" : "学校のコンテストのために制作された 2D アクションスクローラーです。学園祭で展示され、来場した学生から最も評価された作品として受賞しました。",
-	"git" : "https://github.com/NathanAung/SPLASH",
-	"about" : "https://github.com/NathanAung/SPLASH/releases/download/v1.0/SPLASH.zip"
+	"aboutEn" : "",
+	"aboutJp" : ""
 },
 {
     "title" : "Parallel Panic",
 	"img" : "pp.jpg",
-	"url" : "MfOF8JFWelE",
 	"platform" : "Unity Engine",
-	"descEn" : "A 3D, multiplayer game where you have to escape a maze before your opponent does while chased by a monster.",
-	"descJp" : "モンスターに追われながら、対戦相手よりも早く迷路から脱出することを目指す 3D のマルチプレイヤーゲームです",
-	"git" : "https://github.com/Kiliken/ParallelPanic",
-	"about" : "https://github.com/Kiliken/ParallelPanic/releases/download/v1.0/ParallelPanic.zip"
+	"aboutEn" : "",
+	"aboutJp" : ""
 },{
     "title" : "Falling Fruit Game",
 	"img" : "",
-	"url" : "",
 	"platform" : "SFML",
-	"descEn" : "",
-	"descJp" : "",
-	"git" : "https://github.com/Kiliken/MyFirstSFMLProject",
-	"about" : "https://github.com/Kiliken/MyFirstSFMLProject/releases/download/v1.0/FallingFruit.zip"
+	"aboutEn" : "",
+	"aboutJp" : ""
 },{
     "title" : "Gravitius",
 	"img" : "",
-	"url" : "A6-lqyFZHO8",
 	"platform" : "Unity Engine",
-	"descEn" : "",
-	"descJp" : "",
-	"git" : "https://github.com/Kiliken/Gravitius",
-	"about" : "https://github.com/Kiliken/Gravitius/releases/download/Release/Gravitius_v1.0a.zip"
+	"aboutEn" : "",
+	"aboutJp" : ""
 },{
     "title" : "the Room Gradation Boundless",
 	"img" : "theRGB.jpg",
-	"url" : "MiPMsgSYp0g",
 	"platform" : "Unity Engine (Vket Cloud SDK)",
-	"descEn" : "",
-	"descJp" : "",
-	"git" : "#",
-	"about" : "https://cloud.vket.com/worlds/2386"
+	"aboutEn" : "",
+	"aboutJp" : ""
 }
 ]
