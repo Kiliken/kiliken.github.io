@@ -1,3 +1,18 @@
+<a class="btn" href="https://github.com/Kiliken/SinNoHate">
+  <svg class="btn-icon" aria-hidden="true">
+    <use xlink:href="./img/githubIcon.svg#icon"></use>
+  </svg>
+  <span>GitHub</span>
+</a>
+
+<a class="btn" href="https://github.com/Kiliken/SinNoHate/releases">
+  <svg class="btn-icon" aria-hidden="true">
+    <use xlink:href="./img/downloadIcon.svg#icon"></use>
+  </svg>
+  <span>Download</span>
+</a>
+
+
 # 罪の果て
 _(Sin No Hate)_
 
@@ -6,12 +21,6 @@ A **high-speed, top-down arcade shooter** for the contest [Bandai Namco Studio C
 <a href="https://bandainamcostudios.connpass.com/event/364446/">
   <img src="https://raw.githubusercontent.com/Siv3D/siv3d.site.resource/main/v7/bnscup.png"/>
 </a>
-
-
-## 📥 Download
-
-[**[Download the Latest Release Here]**](https://github.com/Kiliken/SinNoHate/releases)
-
 
 ## 👥 Members
 * **Nicholas Pike Coleman** : Planner, Sound Design
@@ -23,7 +32,9 @@ A **high-speed, top-down arcade shooter** for the contest [Bandai Namco Studio C
 
 ## 🎬 Presentation
 
-[![Game PV](https://img.youtube.com/vi/8uXQnZTJJ5E/0.jpg)](https://www.youtube.com/watch?v=8uXQnZTJJ5E)
+
+<iframe src="https://www.youtube.com/embed/?autoplay=1&amp;controls=1&amp;disablekb=1&amp;loop=1&amp;mute=1&amp;playlist=8uXQnZTJJ5E&amp;playsinline=1&amp;rel=0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+
 
 
 ## 🎮 Controls
