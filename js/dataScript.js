@@ -22,7 +22,8 @@ export function Works(page, type) {
 		
 		htmlContent += `
 			<div class="flex-grow-1 m-1 p-1 workItem" id="`+data[i]+`">
-			<a class="" target=blank href="`+(jp ? data[i].aboutJp : data[i].aboutEn)+`" role="button">
+			<a class="workItem" target=blank href="`+(jp ? data[i].aboutJp : data[i].aboutEn)+`" role="button">
+			`+( data[i].bannerEn ? `<span class="showcase-banner">`+(jp ? data[i].bannerJp : data[i].bannerEn)+`</span>` : ``)+`
 			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" /></a>
             <h3 class="mb-0">`+data[i].title+`</h3>
             <div class="subheading mb-3">`+data[i].platform+`</div>
@@ -55,8 +56,9 @@ export function AllWorks(type) {
 		
 		
 		htmlContent += `
-			<div class="flex-grow-1 m-1 p-1 workItem" id="`+data[i].title+data[i].platform+data[i].description+`">
-			<a class="" target=blank href="`+(jp ? data[i].aboutJp : data[i].aboutEn)+`" role="button">
+			<div class="flex-grow-1 m-1 p-1 workItem" id="`+data[i]+`">
+			<a class="workItem" target=blank href="`+(jp ? data[i].aboutJp : data[i].aboutEn)+`" role="button">
+			`+( data[i].bannerEn ? `<span class="showcase-banner">`+(jp ? data[i].bannerJp : data[i].bannerEn)+`</span>` : ``)+`
 			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" /></a>
             <h3 class="mb-0">`+data[i].title+`</h3>
             <div class="subheading mb-3">`+data[i].platform+`</div>

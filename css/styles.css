@@ -10980,16 +10980,43 @@ section.resume-section .resume-section-content {
 	width: 50px;
 	height: 50px;
 }
-.showcase-image {
-	width: 416px;
-    height: 312px;
+
+
+
+.workItem a {
+    position: relative;
+    display: block; 
+    overflow: hidden; 
 	transition: all 0.3s ease;
 }
 
-.showcase-image:hover {
-  filter: grayscale(100%);   /* make image gray */
-  transform: scale(1.03);    /* zoom in slightly */
+.showcase-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 416px; 
+    background-color: rgba(0, 73, 36, 0.8); 
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 1.3rem;
+	font-weight: bold;
+    z-index: 10; 
 }
+
+.showcase-image {
+	width: 416px;
+    height: 312px;
+	display: block;
+}
+
+
+
+.workItem:hover a{
+  filter: grayscale(100%);
+  transform: scale(1.03);
+}
+
 .youtubeframe {
 	width: 480px;
     height: 270px;
@@ -11003,4 +11030,8 @@ section.resume-section .resume-section-content {
 		width: 312px;
 		height: 234px;
 	}
+	.showcase-banner {
+		width: 312px;
+	}
 }
+

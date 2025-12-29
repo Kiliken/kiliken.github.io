@@ -1247,3 +1247,15 @@ a.btn:active {
 .btn-icon {
   fill: currentColor; 
 }
+
+.ytframe{
+	width: 854px;
+	height:	480px;
+}
+
+@media only screen and (max-width: 700px) {
+	.ytframe{
+		width: 320px;
+		height:	180px;
+	}
+}

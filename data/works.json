@@ -3,6 +3,8 @@
     "title" : "Sin No Hate",
 	"img" : "",
 	"platform" : "OpenSiv3D",
+	"bannerEn" : "BANDAI NAMCO STUDIO CUP",
+	"bannerJp" : "バンダイナムコスタジオ杯",
 	"aboutEn" : "./mdRenderer.html?mdurl=SinNoHateEn.md",
 	"aboutJp" : "https://scrapbox.io/bnscup2025/%E7%BD%AA%E3%81%AE%E6%9E%9C%E3%81%A6"
 },
@@ -10,6 +12,8 @@
     "title" : "Psychic Showdown",
 	"img" : "",
 	"platform" : "Unity Engine",
+	"bannerEn" : "TOKYO GAME SHOW 2025",
+	"bannerJp" : "TGS_2025 出展",
 	"aboutEn" : "./TGS25/index.html",
 	"aboutJp" : "./mdRenderer.html?mdurl=PsyShowJp.md"
 },
@@ -38,6 +42,24 @@
     "title" : "Kotodama Chronicle",
     "img" : "",
 	"platform" : "Unity Engine",
+	"bannerEn" : "INDUSTRY-LED PROJECT",
+	"bannerJp" : "企業プロジェクト",
+	"aboutEn" : "",
+	"aboutJp" : ""
+},
+{
+    "title" : "the Room Gradation Boundless",
+	"img" : "theRGB.jpg",
+	"platform" : "Unity Engine (Vket Cloud SDK)",
+	"bannerEn" : "INDUSTRY-LED PROJECT",
+	"bannerJp" : "企業プロジェクト",
+	"aboutEn" : "",
+	"aboutJp" : ""
+},
+{
+    "title" : "Parallel Panic",
+	"img" : "pp.jpg",
+	"platform" : "Unity Engine",
 	"aboutEn" : "",
 	"aboutJp" : ""
 },
@@ -49,27 +71,16 @@
 	"aboutJp" : ""
 },
 {
-    "title" : "Parallel Panic",
-	"img" : "pp.jpg",
-	"platform" : "Unity Engine",
-	"aboutEn" : "",
-	"aboutJp" : ""
-},{
     "title" : "Falling Fruit Game",
 	"img" : "",
 	"platform" : "SFML",
 	"aboutEn" : "",
 	"aboutJp" : ""
-},{
+},
+{
     "title" : "Gravitius",
 	"img" : "",
 	"platform" : "Unity Engine",
-	"aboutEn" : "",
-	"aboutJp" : ""
-},{
-    "title" : "the Room Gradation Boundless",
-	"img" : "theRGB.jpg",
-	"platform" : "Unity Engine (Vket Cloud SDK)",
 	"aboutEn" : "",
 	"aboutJp" : ""
 }
