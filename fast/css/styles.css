@@ -10895,3 +10895,12 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 }
 
 }
+
+.btn-icon {
+  /* This forces the SVG to exactly 16px */
+  width: 12px !important;
+  height: 12px !important;
+  flex-shrink: 0; /* Prevents the icon from squishing */
+  margin-right: 4px;
+  fill: currentColor;
+}

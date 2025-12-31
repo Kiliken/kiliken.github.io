@@ -14,14 +14,26 @@
         <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+		<style>
+			#workscreen { 
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); 
+				gap: 0px;
+				padding: 5px;
+			}
+			
+			body{
+				padding:50px !important;
+			}
+		</style>
     </head>
     <body id="page-top">
             <!-- Posts -->
-            <section class="resume-section" id="works">
-                <div class="resume-section-content">
-				<h1 class="mb-0">
+            <section class="" id="works">
+                <div class="">
+					<h1 class="mb-0">
                         <span class="text-primary"><img class="img-fluid img-profile mx-auto mb-2" width="75" src="img/mylogog.svg" alt="..." /> PAOLO MARIANI</span>
-                    </h1>
+					</h1>
                     <h2 class="mb-2">Works</h2>
 					<input class="form-control m-2" type="search" placeholder="Search" aria-label="Search" id="searchBar" onkeyup="diveSearch()">
 					<div id="workscreen">
@@ -37,7 +49,7 @@
 			function diveSearch() {
 				var input = document.getElementById("searchBar").value;
 				input = input.toLowerCase();
-				var x = document.getElementsByClassName("workItem");
+				var x = document.getElementsByClassName("workList");
 				
 				for(i = 0; i < x.length; i++){
 					if(!x[i].id.toLowerCase().includes(input)) {

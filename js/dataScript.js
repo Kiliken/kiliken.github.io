@@ -21,8 +21,8 @@ export function Works(page, type) {
 		}
 		
 		htmlContent += `
-			<div class="flex-grow-1 m-1 p-1 workItem" id="`+data[i]+`">
-			<a class="workItem" target=blank href="`+(jp ? data[i].aboutJp : data[i].aboutEn)+`" role="button">
+			<div class="flex-grow-1 m-1 p-1 workItem">
+			<a class="workItem" target=_blank href="`+(jp ? data[i].aboutJp : data[i].aboutEn)+`" role="button">
 			`+( data[i].bannerEn ? `<span class="showcase-banner">`+(jp ? data[i].bannerJp : data[i].bannerEn)+`</span>` : ``)+`
 			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" /></a>
             <h3 class="mb-0">`+data[i].title+`</h3>
@@ -50,24 +50,21 @@ export function AllWorks(type) {
 		if (i >= data.length)
 			continue;
 		
-		if (i % 2 === 0) {
-			htmlContent += `<div class="d-flex flex-column flex-md-row justify-content-between">`;
-		}
-		
+		var searchData = "";
+		if(jp)
+			searchData = data[i].title + data[i].bannerJp + data[i].platform;
+		else
+			searchData = data[i].title + data[i].bannerEn + data[i].platform;
 		
 		htmlContent += `
-			<div class="flex-grow-1 m-1 p-1 workItem" id="`+data[i]+`">
-			<a class="workItem" target=blank href="`+(jp ? data[i].aboutJp : data[i].aboutEn)+`" role="button">
+			<div class="flex-grow-1 m-1 p-1 workItem workList" id="`+searchData+`">
+			<a class="workItem" target=_blank href="`+(jp ? data[i].aboutJp : data[i].aboutEn)+`" role="button">
 			`+( data[i].bannerEn ? `<span class="showcase-banner">`+(jp ? data[i].bannerJp : data[i].bannerEn)+`</span>` : ``)+`
 			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" /></a>
             <h3 class="mb-0">`+data[i].title+`</h3>
             <div class="subheading mb-3">`+data[i].platform+`</div>
 			</div>
 			`;
-		
-		if (i % 2 === 1 || i === data.length - 1) {
-			htmlContent += `</div>`;
-		}
 	}
 	
 	wkDiv.innerHTML = htmlContent;

@@ -1,7 +1,7 @@
 [
 {
     "title" : "Sin No Hate",
-	"img" : "",
+	"img" : "sinNoHate.jpg",
 	"platform" : "OpenSiv3D",
 	"bannerEn" : "BANDAI NAMCO STUDIO CUP",
 	"bannerJp" : "バンダイナムコスタジオ杯",
@@ -10,7 +10,7 @@
 },
 {
     "title" : "Psychic Showdown",
-	"img" : "",
+	"img" : "psyShow.jpg",
 	"platform" : "Unity Engine",
 	"bannerEn" : "TOKYO GAME SHOW 2025",
 	"bannerJp" : "TGS_2025 出展",
@@ -27,7 +27,7 @@
 {
     "title" : "SaturJam Games",
 	"img" : "",
-	"platform" : "Unity Engine",
+	"platform" : "Unity Engine (WebGL)",
 	"aboutEn" : "./Games/index.html",
 	"aboutJp" : "./Games/index.html"
 },
@@ -79,7 +79,7 @@
 },
 {
     "title" : "Gravitius",
-	"img" : "",
+	"img" : "gravitus.jpg",
 	"platform" : "Unity Engine",
 	"aboutEn" : "",
 	"aboutJp" : ""
