@@ -65,10 +65,12 @@
 		<script type="module" src="js/dataScript.js"></script>
 		<script type="module">
 			import { AllWorks } from "./js/dataScript.js";
+			import { getUrlParameter } from "./js/dataScript.js";
 			
 			document.addEventListener('DOMContentLoaded', () => {
 				window.addEventListener('load', () => {
-						AllWorks();
+						const lang = getUrlParameter("lang");
+						AllWorks(lang);
 				} );
 				
 			});

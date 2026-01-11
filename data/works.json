@@ -26,7 +26,7 @@
 },
 {
     "title" : "SaturJam Games",
-	"img" : "",
+	"img" : "satjam.jpg",
 	"platform" : "Unity Engine (WebGL)",
 	"aboutEn" : "./Games/index.html",
 	"aboutJp" : "./Games/index.html"
@@ -53,6 +53,13 @@
 	"platform" : "Unity Engine (Vket Cloud SDK)",
 	"bannerEn" : "INDUSTRY-LED PROJECT",
 	"bannerJp" : "企業プロジェクト",
+	"aboutEn" : "",
+	"aboutJp" : ""
+},
+{
+    "title" : "Reikai Revenge",
+	"img" : "tatakae.jpg",
+	"platform" : "Unity Engine & Apache",
 	"aboutEn" : "",
 	"aboutJp" : ""
 },

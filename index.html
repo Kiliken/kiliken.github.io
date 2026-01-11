@@ -67,7 +67,7 @@
                         <div class="flex-grow-1 m-1 p-1">
 							<a class="btn btn-primary btn-lg text-white" id="wkButton1" role="button">1</a>
 							<a class="btn btn-primary btn-lg text-white" id="wkButton2" role="button">2</a>
-                           <a class="btn btn-primary btn-lg text-white" target=_blank href="works.html" role="button">SEE ALL</a>
+                           <a class="btn btn-primary btn-lg text-white" id="moreWorks" target=_blank href="works.html?lang=en" role="button">SEE ALL</a>
 						</div>
 					</div>
 					<div id="workscreen">
@@ -106,19 +106,23 @@
                     <h2 class="mb-5">Skills</h2>
                     <div class="subheading mb-3">Programming Languages</div>
                     <ul class="list-inline">
-						<li class="list-inline-item"><abbr title="C++"><img src="img/cpp.svg" class="to-icon"></abbr><br>★★★★</li>
+						<li class="list-inline-item"><abbr title="C++"><img src="img/cpp.svg" class="to-icon"></abbr><br>★★★☆</li>
 						<li class="list-inline-item"><abbr title="C#"><img src="img/cs.svg" class="to-icon"></abbr><br>★★★☆</li>
 						<li class="list-inline-item"><abbr title="PowerShell"><img src="img/powershell.svg" class="to-icon"></abbr><br>★★☆☆</li>
+						<li class="list-inline-item"><abbr title="Batch"><img src="img/bat.svg" class="to-icon"></abbr><br>★★★★</li>
                         <li class="list-inline-item"><abbr title="JavaScript"><i class="fab fa-js-square dev-icons"></i></abbr><br>★★★☆</li> 
-                        <li class="list-inline-item"><abbr title="PHP"><i class="fa-brands fa-php dev-icons"></i></abbr><br>★★★☆</li>  
+                        <li class="list-inline-item"><abbr title="PHP"><i class="fa-brands fa-php dev-icons"></i></abbr><br>★★★☆</li>
+						<li class="list-inline-item"><abbr title="Lua"><img src="img/lua.svg" class="to-icon"></abbr><br>★★☆☆</li>
 						<li class="list-inline-item"><abbr title="Python"><img src="img/python.svg" class="to-icon"></abbr><br>★★☆☆</li>
 						<li class="list-inline-item"><abbr title="Java"><img src="img/java.svg" class="to-icon"></abbr><br>★★☆☆</li>
 						
 						
                     </ul>
-					<div class="subheading mb-3">Frameworks</div>
+					<div class="subheading mb-3">Frameworks / API</div>
 					<ul class="list-inline">                       
                         
+						<li class="list-inline-item"><abbr title="OpenGL"><img src="img/opngl.svg" class="to-icon"></abbr><br>★★☆☆</li>
+						<li class="list-inline-item"><abbr title="SDL"><img src="img/sdl.svg" class="to-icon"></abbr><br>★★☆☆</li>
 						<li class="list-inline-item"><abbr title="SFML"><img src="img/sfml.svg" class="to-icon"></abbr><br>★★★☆</li>
 						<li class="list-inline-item"><abbr title="OpenSiv3D"><img src="img/opensiv.svg" class="to-icon"></abbr><br>★★☆☆</li>
 						<li class="list-inline-item"><abbr title="Node.js"><i class="fab fa-node-js dev-icons"></i></abbr><br>★☆☆☆</li>
@@ -127,6 +131,9 @@
 					<div class="subheading mb-3">Tools</div>
 					<ul class="list-inline">                       
                         
+						<li class="list-inline-item"><abbr title="VSTools"><img src="img/vstool.svg" class="to-icon"></abbr><br>★★☆☆</li>
+						<li class="list-inline-item"><abbr title="GCC"><img src="img/gcc.svg" class="to-icon"></abbr><br>★★★☆</li>
+						<li class="list-inline-item"><abbr title="CMake"><img src="img/cmake.svg" class="to-icon"></abbr><br>★★★☆</li>
                         <li class="list-inline-item"><abbr title="Unity"><i class="fa-brands fa-unity dev-icons"></i></abbr><br>★★★★</li>
 						<li class="list-inline-item"><abbr title="UnrealEngine"><img src="img/unreal.svg" class="to-icon"></abbr><br>★★☆☆</li>
                         <li class="list-inline-item"><abbr title="Blender"><img src="img/blender.svg" class="to-icon"></abbr><br>★★☆☆</li>
@@ -181,6 +188,8 @@
 						const lang = getUrlParameter("lang");
 						Works(0,lang);
 						Localize(lang);
+						
+						if(lang === "jp") document.getElementById("moreWorks").href="works.html?lang=jp"; 
 				} );
 				
 			});
