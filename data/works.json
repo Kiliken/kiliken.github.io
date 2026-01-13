@@ -1,5 +1,14 @@
 [
 {
+    "title" : "Francum Engine",
+	"img" : "francum.png",
+	"platform" : "OpenGL",
+	"bannerEn" : "",
+	"bannerJp" : "",
+	"aboutEn" : "https://github.com/Kiliken/FrancumEngine",
+	"aboutJp" : "https://github.com/Kiliken/FrancumEngine"
+},
+{
     "title" : "Sin No Hate",
 	"img" : "sinNoHate.jpg",
 	"platform" : "OpenSiv3D",
@@ -21,8 +30,8 @@
     "title" : "Direct2D Raycaster",
 	"img" : "",
 	"platform" : "Direct2D & SDL3",
-	"aboutEn" : "",
-	"aboutJp" : ""
+	"aboutEn" : "https://github.com/Kiliken/Direct2D_FPS",
+	"aboutJp" : "https://github.com/Kiliken/Direct2D_FPS"
 },
 {
     "title" : "SaturJam Games",
@@ -35,8 +44,8 @@
     "title" : "Gamble Densetsu",
 	"img" : "gamble.jpg",
 	"platform" : "Unity Engine",
-	"aboutEn" : "",
-	"aboutJp" : ""
+	"aboutEn" : "https://github.com/Kiliken/GamblingDensetsu",
+	"aboutJp" : "https://github.com/Kiliken/GamblingDensetsu"
 },
 {
     "title" : "Kotodama Chronicle",
@@ -44,8 +53,8 @@
 	"platform" : "Unity Engine",
 	"bannerEn" : "INDUSTRY-LED PROJECT",
 	"bannerJp" : "企業プロジェクト",
-	"aboutEn" : "",
-	"aboutJp" : ""
+	"aboutEn" : "https://github.com/Kiliken/KotodamaChronicle",
+	"aboutJp" : "https://github.com/Kiliken/KotodamaChronicle"
 },
 {
     "title" : "the Room Gradation Boundless",
@@ -53,42 +62,42 @@
 	"platform" : "Unity Engine (Vket Cloud SDK)",
 	"bannerEn" : "INDUSTRY-LED PROJECT",
 	"bannerJp" : "企業プロジェクト",
-	"aboutEn" : "",
-	"aboutJp" : ""
+	"aboutEn" : "https://github.com/Kiliken/theRGB",
+	"aboutJp" : "https://github.com/Kiliken/theRGB"
 },
 {
     "title" : "Reikai Revenge",
 	"img" : "tatakae.jpg",
 	"platform" : "Unity Engine & Apache",
-	"aboutEn" : "",
-	"aboutJp" : ""
+	"aboutEn" : "https://github.com/Kiliken/TatakaeIkikaere",
+	"aboutJp" : "https://github.com/Kiliken/TatakaeIkikaere"
 },
 {
     "title" : "Parallel Panic",
 	"img" : "pp.jpg",
 	"platform" : "Unity Engine",
-	"aboutEn" : "",
-	"aboutJp" : ""
+	"aboutEn" : "https://github.com/Kiliken/ParallelPanic",
+	"aboutJp" : "https://github.com/Kiliken/ParallelPanic"
 },
 {
     "title" : "SPLASH!!!",
     "img" : "splash.jpg",
 	"platform" : "Unity Engine",
-	"aboutEn" : "",
-	"aboutJp" : ""
+	"aboutEn" : "https://github.com/NathanAung/SPLASH",
+	"aboutJp" : "https://github.com/NathanAung/SPLASH"
 },
 {
     "title" : "Falling Fruit Game",
 	"img" : "",
 	"platform" : "SFML",
-	"aboutEn" : "",
-	"aboutJp" : ""
+	"aboutEn" : "https://github.com/Kiliken/MyFirstSFMLProject",
+	"aboutJp" : "https://github.com/Kiliken/MyFirstSFMLProject"
 },
 {
     "title" : "Gravitius",
 	"img" : "gravitus.jpg",
 	"platform" : "Unity Engine",
-	"aboutEn" : "",
-	"aboutJp" : ""
+	"aboutEn" : "https://github.com/Kiliken/Gravitius",
+	"aboutJp" : "https://github.com/Kiliken/Gravitius"
 }
 ]
