@@ -28,7 +28,7 @@
 },
 {
     "title" : "Direct2D Raycaster",
-	"img" : "",
+	"img" : "d2d1fps.jpg",
 	"platform" : "Direct2D & SDL3",
 	"aboutEn" : "https://github.com/Kiliken/Direct2D_FPS",
 	"aboutJp" : "https://github.com/Kiliken/Direct2D_FPS"
@@ -49,7 +49,7 @@
 },
 {
     "title" : "Kotodama Chronicle",
-    "img" : "",
+    "img" : "kotodama.jpg",
 	"platform" : "Unity Engine",
 	"bannerEn" : "INDUSTRY-LED PROJECT",
 	"bannerJp" : "企業プロジェクト",
