@@ -764,7 +764,7 @@
   margin: 0;
   font-size: 85%;
   white-space: break-spaces;
-  background-color: var(--bgColor-neutral-muted);
+  background-color: #0d1117 !important;
   border-radius: 6px;
 }
 

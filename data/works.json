@@ -57,6 +57,15 @@
 	"aboutJp" : "https://github.com/Kiliken/KotodamaChronicle"
 },
 {
+    "title" : "Direct Rush",
+	"img" : "",
+	"platform" : "Unity Engine",
+	"bannerEn" : "WE ARE JIKEI COM",
+	"bannerJp" : "滋慶 若きクリエイター 出展",
+	"aboutEn" : "./mdRenderer.html?mdurl=DirectRushEn.md",
+	"aboutJp" : "./mdRenderer.html?mdurl=DirectRushJp.md"
+},
+{
     "title" : "the Room Gradation Boundless",
 	"img" : "theRGB.jpg",
 	"platform" : "Unity Engine (Vket Cloud SDK)",
