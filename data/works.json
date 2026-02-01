@@ -5,8 +5,8 @@
 	"platform" : "OpenGL",
 	"bannerEn" : "",
 	"bannerJp" : "",
-	"aboutEn" : "https://github.com/Kiliken/FrancumEngine",
-	"aboutJp" : "https://github.com/Kiliken/FrancumEngine"
+	"aboutEn" : "./mdRenderer.html?mdurl=FrancumEn.md",
+	"aboutJp" : "./mdRenderer.html?mdurl=FrancumJp.md"
 },
 {
     "title" : "Sin No Hate",
@@ -15,7 +15,7 @@
 	"bannerEn" : "BANDAI NAMCO STUDIO CUP",
 	"bannerJp" : "バンダイナムコスタジオ杯",
 	"aboutEn" : "./mdRenderer.html?mdurl=SinNoHateEn.md",
-	"aboutJp" : "https://scrapbox.io/bnscup2025/%E7%BD%AA%E3%81%AE%E6%9E%9C%E3%81%A6"
+	"aboutJp" : "./mdRenderer.html?mdurl=SinNoHateJp.md"
 },
 {
     "title" : "Psychic Showdown",
@@ -23,29 +23,15 @@
 	"platform" : "Unity Engine",
 	"bannerEn" : "TOKYO GAME SHOW 2025",
 	"bannerJp" : "TGS_2025 出展",
-	"aboutEn" : "./TGS25/index.html",
+	"aboutEn" : "./mdRenderer.html?mdurl=PsyShowEn.md",
 	"aboutJp" : "./mdRenderer.html?mdurl=PsyShowJp.md"
 },
 {
     "title" : "Direct2D Raycaster",
 	"img" : "d2d1fps.jpg",
 	"platform" : "Direct2D & SDL3",
-	"aboutEn" : "https://github.com/Kiliken/Direct2D_FPS",
-	"aboutJp" : "https://github.com/Kiliken/Direct2D_FPS"
-},
-{
-    "title" : "SaturJam Games",
-	"img" : "satjam.jpg",
-	"platform" : "Unity Engine (WebGL)",
-	"aboutEn" : "./Games/index.html",
-	"aboutJp" : "./Games/index.html"
-},
-{
-    "title" : "Gamble Densetsu",
-	"img" : "gamble.jpg",
-	"platform" : "Unity Engine",
-	"aboutEn" : "https://github.com/Kiliken/GamblingDensetsu",
-	"aboutJp" : "https://github.com/Kiliken/GamblingDensetsu"
+	"aboutEn" : "./mdRenderer.html?mdurl=D2d1RaycastEn.md",
+	"aboutJp" : "./mdRenderer.html?mdurl=D2d1RaycastJp.md"
 },
 {
     "title" : "Kotodama Chronicle",
@@ -53,8 +39,8 @@
 	"platform" : "Unity Engine",
 	"bannerEn" : "INDUSTRY-LED PROJECT",
 	"bannerJp" : "企業プロジェクト",
-	"aboutEn" : "https://github.com/Kiliken/KotodamaChronicle",
-	"aboutJp" : "https://github.com/Kiliken/KotodamaChronicle"
+	"aboutEn" : "./mdRenderer.html?mdurl=KotodamaEn.md",
+	"aboutJp" : "./mdRenderer.html?mdurl=KotodamaJp.md"
 },
 {
     "title" : "Direct Rush",
@@ -66,47 +52,54 @@
 	"aboutJp" : "./mdRenderer.html?mdurl=DirectRushJp.md"
 },
 {
+    "title" : "SaturJam Games",
+	"img" : "satjam.jpg",
+	"platform" : "Unity Engine (WebGL)",
+	"aboutEn" : "./Games/index.html",
+	"aboutJp" : "./Games/index.html"
+},
+{
     "title" : "the Room Gradation Boundless",
 	"img" : "theRGB.jpg",
 	"platform" : "Unity Engine (Vket Cloud SDK)",
 	"bannerEn" : "INDUSTRY-LED PROJECT",
 	"bannerJp" : "企業プロジェクト",
-	"aboutEn" : "https://github.com/Kiliken/theRGB",
-	"aboutJp" : "https://github.com/Kiliken/theRGB"
+	"aboutEn" : "./mdRenderer.html?mdurl=TheRGBEn.md",
+	"aboutJp" : "./mdRenderer.html?mdurl=TheRGBJp.md"
+},
+{
+    "title" : "Gamble Densetsu",
+	"img" : "gamble.jpg",
+	"platform" : "Unity Engine",
+	"aboutEn" : "./mdRenderer.html?mdurl=GambleEn.md",
+	"aboutJp" : "./mdRenderer.html?mdurl=GambleJp.md"
 },
 {
     "title" : "Reikai Revenge",
 	"img" : "tatakae.jpg",
 	"platform" : "Unity Engine & Apache",
-	"aboutEn" : "https://github.com/Kiliken/TatakaeIkikaere",
-	"aboutJp" : "https://github.com/Kiliken/TatakaeIkikaere"
+	"aboutEn" : "./mdRenderer.html?mdurl=TatakaeEn.md",
+	"aboutJp" : "./mdRenderer.html?mdurl=TatakaeJp.md"
 },
 {
     "title" : "Parallel Panic",
 	"img" : "pp.jpg",
 	"platform" : "Unity Engine",
-	"aboutEn" : "https://github.com/Kiliken/ParallelPanic",
-	"aboutJp" : "https://github.com/Kiliken/ParallelPanic"
+	"aboutEn" : "./mdRenderer.html?mdurl=ParallelEn.md",
+	"aboutJp" : "./mdRenderer.html?mdurl=ParallelJp.md"
 },
 {
     "title" : "SPLASH!!!",
     "img" : "splash.jpg",
 	"platform" : "Unity Engine",
-	"aboutEn" : "https://github.com/NathanAung/SPLASH",
-	"aboutJp" : "https://github.com/NathanAung/SPLASH"
-},
-{
-    "title" : "Falling Fruit Game",
-	"img" : "",
-	"platform" : "SFML",
-	"aboutEn" : "https://github.com/Kiliken/MyFirstSFMLProject",
-	"aboutJp" : "https://github.com/Kiliken/MyFirstSFMLProject"
+	"aboutEn" : "./mdRenderer.html?mdurl=SplashEn.md",
+	"aboutJp" : "./mdRenderer.html?mdurl=SplashJp.md"
 },
 {
     "title" : "Gravitius",
 	"img" : "gravitus.jpg",
 	"platform" : "Unity Engine",
-	"aboutEn" : "https://github.com/Kiliken/Gravitius",
-	"aboutJp" : "https://github.com/Kiliken/Gravitius"
+	"aboutEn" : "./mdRenderer.html?mdurl=GravitusEn.md",
+	"aboutJp" : "./mdRenderer.html?mdurl=GravitusJp.md"
 }
 ]

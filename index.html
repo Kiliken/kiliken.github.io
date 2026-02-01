@@ -68,7 +68,8 @@
                         <div class="flex-grow-1 m-1 p-1">
 							<a class="btn btn-primary btn-lg text-white" id="wkButton1" role="button">1</a>
 							<a class="btn btn-primary btn-lg text-white" id="wkButton2" role="button">2</a>
-                           <a class="btn btn-primary btn-lg text-white" id="moreWorks" target=_blank href="works.html?lang=en" role="button">SEE ALL</a>
+							<a class="btn btn-primary btn-lg text-white" id="wkButton3" role="button">3</a>
+						   <a class="btn btn-primary btn-lg text-white" id="moreWorks" target=_blank href="works.html?lang=en" role="button">SEE ALL</a>
 						</div>
 					</div>
 					<div id="workscreen">
@@ -204,6 +205,14 @@
 					wkButton2.addEventListener('click', () => {
 						const lang = getUrlParameter("lang");
 						Works(1,lang);
+					} );
+				}
+				
+				const wkButton3 = document.getElementById('wkButton3');
+				if (wkButton3) {
+					wkButton3.addEventListener('click', () => {
+						const lang = getUrlParameter("lang");
+						Works(2,lang);
 					} );
 				}
 				
