@@ -1,12 +1,13 @@
 [
 {
-    "titleEn" : "Test",
-    "titleJp" : "例",
-	"topicEn" : "random",
-	"topicJp" : "ランダム",
-	"date" : "12/1/2026",
+    "titleEn" : "Powershell as a fast Diagnostic Tool",
+    "titleJp" : "高速な診断ツールとしてのPowerShell",
+	"topicEn" : "Windows OS, powershell",
+	"topicJp" : "Windows OS, powershell",
+	"date" : "15/2/2026",
 	"descEn" : "",
 	"descJp" : "",
-	"about" : "blog01"
+	"aboutEn" : "blog01En",
+	"aboutJp" : "blog01En"
 }
 ]

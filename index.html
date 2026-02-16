@@ -32,7 +32,11 @@
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Education</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">Skills</a></li>
                     <!-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#more">More</a></li> -->
-					<!-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#blog">Blogs</a></li> -->
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#blog">Blogs</a></li>
+					
+					<!-- Language Change-->
+					<li class="nav-item"><p class="nav-link js-scroll-trigger" href="#more"></a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" id="langSwitch" href="index.html?lang=jp">日本語</a></li>
                 </ul>
             </div>
         </nav>
@@ -157,28 +161,20 @@
             </section>
             -->
 			<!-- Blog -->
-            <!--
+            
             <section class="resume-section" id="blog">
                 <div class="resume-section-content">
                     <h2 class="mb-5">Blogs</h2>
 					<div class="d-flex flex-column flex-md-row justify-content-between">
-                        <div class="flex-grow-1 m-1 p-1">
+						<div class="flex-grow-1 m-1 p-1">
 							<a class="btn btn-primary btn-lg text-white" id="blogBtn1" role="button">1</a>
-							<a class="btn btn-primary btn-lg text-white" id="blogBtn1" role="button">2</a>
-                           <a class="btn btn-primary btn-lg text-white" id="moreBlogs" target=_blank href="blogs.html?lang=en" role="button">SEE ALL</a>
+							<!-- <a class="btn btn-primary btn-lg text-white" id="moreBlogs" target=_blank href="blogs.html?lang=en" role="button">SEE ALL</a> -->
 						</div>
 					</div>
-					<div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">Test</h3>
-                            <div class="subheading mb-3">Random</div>
-                            <p>Some random description</p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">12/1/2016</span></div>
-                    </div>
+					<div id="blogscreen"></div>
                 </div>
             </section>
-            -->
+            
         </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -187,11 +183,14 @@
         <script type="module" src="js/dataScript.js"></script>
 		<script type="module">
 			import { Works } from "./js/dataScript.js";
+			import { Blogs } from "./js/dataScript.js";
 			import { Localize } from "./js/dataScript.js";
 			import { getUrlParameter } from "./js/dataScript.js";
 			
 			
 			document.addEventListener('DOMContentLoaded', () => {
+			
+				// Works Button
 				const wkButton1 = document.getElementById('wkButton1');
 				if (wkButton1) {
 					wkButton1.addEventListener('click', () => {
@@ -216,13 +215,33 @@
 					} );
 				}
 				
+				// Blogs Button
+				const blogBtn1 = document.getElementById('blogBtn1');
+				if (blogBtn1) {
+					blogBtn1.addEventListener('click', () => {
+						const lang = getUrlParameter("lang");
+						Blogs(0,lang);
+					} );
+				}
 				
+				
+				// On Load
 				window.addEventListener('load', () => {
 						const lang = getUrlParameter("lang");
 						Works(0,lang);
+						Blogs(0,lang);
 						Localize(lang);
 						
-						if(lang === "jp") document.getElementById("moreWorks").href="works.html?lang=jp"; 
+						if(lang === "jp") {
+							document.getElementById("moreWorks").href="works.html?lang=jp";
+						
+							
+							const langButton = document.getElementById("langSwitch");
+							langButton.href="index.html?lang=en";
+							langButton.textContent="English";
+						
+						}
+						
 				} );
 				
 			});
