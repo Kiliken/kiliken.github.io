@@ -5,9 +5,9 @@
 	"topicEn" : "Windows OS, powershell",
 	"topicJp" : "Windows OS, powershell",
 	"date" : "15/2/2026",
-	"descEn" : "",
-	"descJp" : "",
+	"descEn" : "A bunch of useful powershell scripts you can easily use to check for malicious softwares",
+	"descJp" : "Windowsマシンに悪意のあるソフトウェアがインストールされていないか簡単に確認できる便利なPowershellスクリプトの紹介",
 	"aboutEn" : "blog01En",
-	"aboutJp" : "blog01En"
+	"aboutJp" : "blog01Jp"
 }
 ]

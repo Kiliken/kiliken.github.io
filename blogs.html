@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="My personal website" />
         <meta name="author" content="Mariani Francesco Paolo" />
-        <title>Paolo Mariani - Works</title>
+        <title>Paolo Mariani - Blog</title>
         <link rel="icon" type="image/x-icon" href="img/smolicon.png" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -15,13 +15,6 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
 		<style>
-			#workscreen { 
-				display: grid;
-				grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); 
-				gap: 0px;
-				padding: 5px;
-			}
-			
 			body{
 				padding:50px !important;
 			}
@@ -29,20 +22,21 @@
     </head>
     <body id="page-top">
             <!-- Posts -->
-            <section class="" id="works">
+			<!-- Language Selection HERE!! -->
+            <section class="" id="blogs">
                 <div class="">
 					<h1 class="mb-0">
                         <span class="text-primary"><img class="img-fluid img-profile mx-auto mb-2" width="75" src="img/mylogog.svg" alt="..." /> PAOLO MARIANI</span>
 					</h1>
-                    <h2 class="mb-2">Works</h2>
+                    <h2 class="mb-2">Blog</h2>
 					<div class="d-flex flex-column flex-md-row justify-content-between">
                         <div class="flex-grow-1 m-1 p-1">
-							<a class="btn btn-primary text-white" href="works.html?lang=en" role="button">English</a>
-							<a class="btn btn-primary text-white" href="works.html?lang=jp" role="button">日本語</a>
+							<a class="btn btn-primary text-white" href="blogs.html?lang=en" role="button">English</a>
+							<a class="btn btn-primary text-white" href="blogs.html?lang=jp" role="button">日本語</a>
 						</div>
 					</div>
 					<input class="form-control m-2" type="search" placeholder="Search" aria-label="Search" id="searchBar" onkeyup="diveSearch()">
-					<div id="workscreen">
+					<div id="blogscreen">
 						
 					</div>
             </section>
@@ -55,7 +49,7 @@
 			function diveSearch() {
 				var input = document.getElementById("searchBar").value;
 				input = input.toLowerCase();
-				var x = document.getElementsByClassName("workList");
+				var x = document.getElementsByClassName("blogList");
 				
 				for(i = 0; i < x.length; i++){
 					if(!x[i].id.toLowerCase().includes(input)) {
@@ -70,13 +64,13 @@
 		</script>
 		<script type="module" src="js/dataScript.js"></script>
 		<script type="module">
-			import { AllWorks } from "./js/dataScript.js";
+			import { AllBlogs } from "./js/dataScript.js";
 			import { getUrlParameter } from "./js/dataScript.js";
 			
 			document.addEventListener('DOMContentLoaded', () => {
 				window.addEventListener('load', () => {
 						const lang = getUrlParameter("lang");
-						AllWorks(lang);
+						AllBlogs(lang);
 				} );
 				
 			});

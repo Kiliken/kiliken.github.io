@@ -1,12 +1,12 @@
 
 # Powershell as a fast Diagnostic Tool
 
-Today i will cover a bunch of usefull scripts you can easily use to check if a malicus softwere is installed in your Windows machine in cause you have any clue of that software.
-My inspiration for this was the hijack that happend some month ago with Notepad++.
+Today, I will cover a bunch of useful scripts you can easily use to check if malicious software is installed on your Windows machine, in case you suspect a compromise. 
+My inspiration for this was the hijack that happened a few months ago involving Notepad++.
 
-WIP...
+(WIP)...
 
-### Check for specific file.
+### Check for specific file
 
 ```
 Get-ChildItem -Path C:\ -Recurse -Filter malware.dll -ErrorAction SilentlyContinue
@@ -19,7 +19,7 @@ Get-FileHash -Path "C:\path\to\file" -Algorithm SHA256
 
 ```
 
-### Check if currently connecter
+### Check if currently connected
 
 ```
 Get-NetTCPConnection | Where-Object {

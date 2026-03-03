@@ -179,3 +179,39 @@ export function Blogs(page, type) {
 	}
 	blgDiv.innerHTML = htmlContent;
 }
+
+export function AllBlogs(type) {
+	var jp = false;
+	jp = (type == "jp" ? true : false);
+	var data = enBlog;
+	
+    var blgDiv = document.getElementById('blogscreen');
+    blgDiv.innerHTML = '';
+	let htmlContent = '';
+	for (var i = 0; i < data.length; i++) {
+		
+		if (i >= data.length)
+			continue;
+		
+		var searchData = "";
+		if(jp)
+			searchData = data[i].titleJp + data[i].topicJp + data[i].descJp;
+		else
+			searchData = data[i].titleEn + data[i].topicEn + data[i].descEn;
+		
+		htmlContent += `
+			<div class="mb-5 blogList" id="`+searchData+`">
+            <div class="flex-grow-1">
+            <h3 class="mb-0">`+(jp ? data[i].titleJp : data[i].titleEn)+`</h3>
+            <div class="subheading mb-3">`+(jp ? data[i].topicJp : data[i].topicEn)+`</div>
+            <p>`+(jp ? data[i].descJp : data[i].descEn)+`</p>
+			<div><span class="text-primary">`+data[i].date+`</span></div>
+			<a class="btn btn-primary text-white" id="blogBtn1" target=_blank href="./mdRenderer.html?mdurl=./data/blogsMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md">READ</a>
+            </div>
+			<hr>
+            </div>
+			`;
+	}
+	
+	blgDiv.innerHTML = htmlContent;
+}
