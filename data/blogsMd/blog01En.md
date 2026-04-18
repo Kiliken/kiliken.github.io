@@ -9,12 +9,13 @@ My inspiration for this was the hijack that happened a few months ago involving 
 ### Check for specific file
 
 ```
+&copy&
 Get-ChildItem -Path C:\ -Recurse -Filter malware.dll -ErrorAction SilentlyContinue
 
 ```
 
 ```
-
+&copy&
 Get-FileHash -Path "C:\path\to\file" -Algorithm SHA256
 
 ```
@@ -22,6 +23,7 @@ Get-FileHash -Path "C:\path\to\file" -Algorithm SHA256
 ### Check if currently connected
 
 ```
+&copy&
 Get-NetTCPConnection | Where-Object {
     $_.RemoteAddress -in @(
         "127.1.1.0",
@@ -36,6 +38,7 @@ Get-NetTCPConnection | Where-Object {
 ### Check if ever connected to
 
 ```
+&copy&
 Get-DnsClientCache | Where-Object {
     $_.Entry -match "this|that|something"
 }

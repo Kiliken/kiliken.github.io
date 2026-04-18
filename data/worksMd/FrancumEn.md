@@ -15,11 +15,13 @@
 
 # Francum Engine
 
+[「日本語」](mdRenderer.html?mdurl=./data/worksMd/FrancumJp.md)
+
 **A frank, portable, and lightweight game engine in OpenGL.**
 
 Francum Engine is built for developers who want to start creating immediately. It is "Frankly Portable"—the repository comes pre-bundled with its own toolchain (Compiler, Build System, and Scripting), meaning you can build and run games on any Windows machine without installing external software.
 
-WIP img WIP
+<iframe class="ytframe" src="https://www.youtube.com/embed/?autoplay=1&amp;controls=1&amp;disablekb=1&amp;loop=1&amp;mute=1&amp;playlist=f9MxPtcVE4Y&amp;playsinline=1&amp;rel=0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
 
 ---
 
@@ -35,12 +37,26 @@ WIP img WIP
 
 ### Requirements
 * **OS:** Windows 10/11 (x64)
-* **Graphics:** GPU with OpenGL 3.3(or higher) support.
+* **Graphics:** GPU with OpenGL 4.6 support.
 
 ### Dependencies
 Francum relies on the following libraries:
 * **Windowing/Context:** GLFW
-* **Linker/Loader:** GLEW
+* **Linker/Loader:** GLAD
 * **Math:** GLM
 * **UI:** ImGui
 * **Scripting:** Sol3
+
+### Installation
+
+1. **Clone the Repository**: Download or clone the FrancumEngine repository to your local machine.
+
+2. **Run Setup**: Navigate to the project root and run `SetupProject.bat`. This handles the portable toolchain configuration automatically.
+
+3. **Open & Build**: Open the folder in **VS Code** and press `Ctrl + Shift + B` to compile the engine.
+
+---
+
+## 📑 Documentation
+WIP
+

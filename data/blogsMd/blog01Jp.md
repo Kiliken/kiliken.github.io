@@ -9,12 +9,13 @@
 ### 特定のファイルの確認
 
 ```
+&copy&
 Get-ChildItem -Path C:\ -Recurse -Filter malware.dll -ErrorAction SilentlyContinue
 
 ```
 
 ```
-
+&copy&
 Get-FileHash -Path "C:\path\to\file" -Algorithm SHA256
 
 ```
@@ -22,6 +23,7 @@ Get-FileHash -Path "C:\path\to\file" -Algorithm SHA256
 ### 現在接続情報の確認
 
 ```
+&copy&
 Get-NetTCPConnection | Where-Object {
     $_.RemoteAddress -in @(
         "127.1.1.0",
@@ -36,6 +38,7 @@ Get-NetTCPConnection | Where-Object {
 ### 接続情報履歴の確認
 
 ```
+&copy&
 Get-DnsClientCache | Where-Object {
     $_.Entry -match "this|that|something"
 }

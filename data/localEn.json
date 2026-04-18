@@ -22,6 +22,11 @@
 },
 {
     "conts" : [{
+		"name" : "TOEIC Listening & Reading Test",
+		"extra" : "Total Score : 980 / 990",
+		"data" : "February 2026"
+	},
+	{
 		"name" : "MOS: Microsoft Excel (Office 2019)",
 		"extra" : "Microsoft",
 		"data" : "February 2025"
@@ -35,11 +40,6 @@
 		"name" : "japanese-language proficiency N2",
 		"extra" : "Total Score : 116 / 180",
 		"data" : "July 2023"
-	},
-	{
-		"name" : "TOEIC Listening & Reading Test",
-		"extra" : "Total Score : 820 / 990",
-		"data" : "December 2022"
 	},
 	{
 		"name" : "PCAP: Programming Essentials in Python",

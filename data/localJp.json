@@ -22,6 +22,11 @@
 },
 {
     "conts" : [{
+		"name" : "TOEIC Listening & Reading Test",
+		"extra" : "総合得点 : 980 / 990",
+		"data" : "2026年2月"
+	},
+	{
 		"name" : "MOS: Microsoft Excel (Office 2019)",
 		"extra" : "Microsoft",
 		"data" : "2025年2月"
@@ -35,11 +40,6 @@
 		"name" : "日本語能力試験 (N2)",
 		"extra" : "総合得点 : 116 / 180",
 		"data" : "2023年7月"
-	},
-	{
-		"name" : "TOEIC Listening & Reading Test",
-		"extra" : "総合得点 : 820 / 990",
-		"data" : "2022年12月"
 	},
 	{
 		"name" : "PCAP: Programming Essentials in Python",
