@@ -2,9 +2,9 @@
 {
     "title" : "Francum Engine",
 	"img" : "francum.png",
-	"platform" : "OpenGL",
-	"bannerEn" : "",
-	"bannerJp" : "",
+	"platform" : "OpenGL 4.6 Core & SPIR-V",
+	"bannerEn" : "CUSTOM GAME ENGINE",
+	"bannerJp" : "自作ゲームエンジン",
 	"aboutEn" : "FrancumEn",
 	"aboutJp" : "FrancumJp"
 },

@@ -1,6 +1,6 @@
 [
 {
-    "conts" : "I'm a game programmer based in Tokyo who really enjoys Procedural Generation and Stuff without UI. <br>Currently, I'm self-studying Noises and Procedural Generation. I find it fascinating how a bunch of strings of code can create infinite worlds to explore."
+    "conts" : "I'm a game programmer based in Tokyo that enjoys graphics APIs, custom tools, and minimalist workflows.<br>My journey originally started with an interest in procedural generation, which naturally led me to build a game engine from scratch to better understand the rendering pipeline. Through that process, I fell in love with the systems side of development—diving into compilers, exploring OpenGL and Vulkan, and creating lightweight, command-line toolchains. I really enjoy building things that are simple, portable, and free of unnecessary clutter."
 },
 {
     "conts" : [{
