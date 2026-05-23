@@ -24,6 +24,8 @@ By leveraging a portable **C++** toolchain and a script-first workflow, I create
 
 I chose **OpenGL** because it is easy and I can focus more on understanding the rendering logic itself, but I'm still planning to switch to **Vulkan** and I already have it working on some side projects.
 
+<iframe class="ytframe" src="https://www.youtube.com/embed/?autoplay=1&amp;controls=1&amp;disablekb=1&amp;loop=1&amp;mute=1&amp;playlist=f9MxPtcVE4Y&amp;playsinline=1&amp;rel=0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+
 ---
 
 ## Key Technical Features
@@ -36,28 +38,25 @@ To eliminate the overhead of traditional IDEs and heavy package managers, I engi
 :: //...
 
 :FileCheck
+:: Detect existing dependencies in the local app data or project directories
 if not exist "%localappdata%/w64devkit" goto InstallGcc
 if not exist "%localappdata%/lua-5.3.4" goto InstallLua
 if exist "%cd%/dep" goto ExitProgram
 
 :SetupProject
+:: Orchestrate the core engine environment setup via isolated PowerShell scripts
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0setup/InstallEngine.ps1"
 echo Project Setup completed...
-pause
 exit
 
 :InstallGcc
 echo Installing Gcc...
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0setup/InstallGcc.ps1"
-echo Waiting for Gcc to finish installing...
-pause
 goto FileCheck
 
 :InstallLua
 echo Installing Lua...
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0setup/InstallLua.ps1"
-echo Waiting for Lua to finish installing...
-pause
 goto FileCheck
 
 :: //...
@@ -76,11 +75,12 @@ I implemented a rendering architecture that utilizes modern OpenGL features to e
 * **Buffer & State Management:** Leveraged **Vertex Array Objects (VAOs)** and **Uniform Buffer Objects (UBOs)** to minimize state changes, streamline CPU-to-GPU data transfer, and efficiently manage global shader constants.
 
 ```cpp
+// Explicitly aligned structures matching GLSL std140 layout specifications
 struct CameraUBO
 {
-    glm::mat4 M;
-    glm::mat4 V;
-    glm::mat4 P;
+    glm::mat4 M; // Model matrix
+    glm::mat4 V; // View matrix
+    glm::mat4 P; // Projection matrix
 };
 
 struct MaterialIDs
@@ -88,54 +88,65 @@ struct MaterialIDs
     int diffuse;
     int normal;
     int specular;
-    int padding; // for std140 specification
+    int padding; // Manual padding to respect std140 16-byte alignment rules
 };
 
 // ...
 
-Model::Model(/* ... */) {
-    // Vertex Array
+Model::Model(/* ... */) 
+{
+    // Interleaved Vertex Buffer Setup for Optimal GPU Cache Locality
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
 
-    // Vertex Buffer
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
-    glEnableVertexAttribArray(0); // position
-    glVertexAttribPointer(
-        0, 3, GL_FLOAT, GL_FALSE,
-        sizeof(Vertex),
-        (void *)offsetof(Vertex, position));
+    // Vertex attributes (Position, UV, Normal, Tangent, Bitangent) are mapped here...
+    glEnableVertexAttribArray(0); 
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
+    // [Truncated for readability: Attributes 1 through 4 configured identically]
 
-    // ...
-
-    glEnableVertexAttribArray(4); // bitangent
-    glVertexAttribPointer(
-        4, 3, GL_FLOAT, GL_FALSE,
-        sizeof(Vertex),
-        (void *)offsetof(Vertex, bitangent));
-
-    // Index Buffer
     glGenBuffers(1, &elementbuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
-    DiffuseTexture = loadDDS("../res/baseDiffuse.dds");
-    // ...
-
+    // Hardware-Accelerated Uniform Sharing via UBOs
+    // Material Uniform Buffer Allocation
     glGenBuffers(1, &MaterialUBO);
     glBindBuffer(GL_UNIFORM_BUFFER, MaterialUBO);
     glBufferData(GL_UNIFORM_BUFFER, sizeof(MaterialIDs), nullptr, GL_DYNAMIC_DRAW);
-    glBindBufferBase(GL_UNIFORM_BUFFER, 1, MaterialUBO);
+    glBindBufferBase(GL_UNIFORM_BUFFER, 1, MaterialUBO); // Bind to uniform slot 1
 
+    // Camera Uniform Buffer Allocation (shared across multiple shaders)
     glGenBuffers(1, &CamUBOID);
     glBindBuffer(GL_UNIFORM_BUFFER, CamUBOID);
     glBufferData(GL_UNIFORM_BUFFER, sizeof(CameraUBO), nullptr, GL_DYNAMIC_DRAW);
-    glBindBufferBase(GL_UNIFORM_BUFFER, 2, CamUBOID);
-    // ...
+    glBindBufferBase(GL_UNIFORM_BUFFER, 2, CamUBOID); // Bind to uniform slot 2
 
+    glBindVertexArray(0);
+}
+
+// Efficient Per-Frame Data Streaming
+void Model::Draw() 
+{
+    glUseProgram(*shaders);
+    glBindVertexArray(vao);
+
+    // Stream updated per-frame matrix and material blocks directly to GPU buffers
+    glBindBuffer(GL_UNIFORM_BUFFER, CamUBOID);
+    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(CameraUBO), &cam);
+
+    glBindBuffer(GL_UNIFORM_BUFFER, MaterialUBO);
+    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(MaterialIDs), &mat);
+
+    // Bind texture units and issue indexed draw call
+    glActiveTexture(GL_TEXTURE0 + 0); glBindTexture(GL_TEXTURE_2D, DiffuseTexture);
+    glActiveTexture(GL_TEXTURE0 + 1); glBindTexture(GL_TEXTURE_2D, NormalTexture);
+    glActiveTexture(GL_TEXTURE0 + 2); glBindTexture(GL_TEXTURE_2D, SpecularTexture);
+
+    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 ```
@@ -143,51 +154,68 @@ Model::Model(/* ... */) {
 * **Pre-compiled Shader Pipeline:** Moving beyond basic runtime GLSL string compilation, I integrated a **SPIR-V** workflow. By utilizing `glslangvalidator` as an offline compiler, the engine supports a unified pipeline where shaders can be authored in **GLSL or HLSL** and ingested as binary blobs, ensuring cross-language flexibility and faster load times.
 
 ```cpp
-// Using GL_ARB_gl_spirv | GL_ARB_spirv_extensions
-GLuint LoadSPIRV(const char *vertex_file_path, const char *fragment_file_path)
+struct BinaryData {
+    size_t sizeBytes;
+    std::vector<uint32_t> data; // SPIR-V modules are arrays of 32-bit words
+};
+
+BinaryData Utils::LoadBinaryFile(const char *path)
 {
-	// Load SPIR-V files
-	BinaryData vsFile = LoadBinaryFile(vertex_file_path);
-	BinaryData fsFile = LoadBinaryFile(fragment_file_path);
+    std::ifstream file(path, std::ios::binary | std::ios::ate);
+    if (!file.is_open()) return {};
 
-	GLint Result = GL_FALSE;
-	int InfoLogLength;
+    size_t fileSize = (size_t)file.tellg();
 
-	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-	glShaderBinary(1, &VertexShaderID, GL_SHADER_BINARY_FORMAT_SPIR_V_ARB, &vsFile.data[0], (GLsizei)vsFile.sizeBytes);
-	glSpecializeShader(VertexShaderID, "VSMain", 0, nullptr, nullptr);
+    // Critical Validation: SPIR-V files MUST be a multiple of 4 bytes (32-bit words)
+    if (fileSize % 4 != 0) {
+        printf("Error: SPIR-V file corrupted or unaligned: %s\n", path);
+        return {};
+    }
 
-	GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderBinary(1, &FragmentShaderID, GL_SHADER_BINARY_FORMAT_SPIR_V_ARB, &fsFile.data[0], (GLsizei)fsFile.sizeBytes);
-	glSpecializeShader(FragmentShaderID, "PSMain", 0, nullptr, nullptr);
-	
-    // Reference: https://wikis.khronos.org/opengl/SPIR-V
+    BinaryData result;
+    result.sizeBytes = fileSize;
+    result.data.resize(fileSize / 4); // Resize memory buffer based on 32-bit word boundaries
 
-	// Link the program
-	printf("Linking program\n");
-	GLuint ProgramID = glCreateProgram();
-	glAttachShader(ProgramID, VertexShaderID);
-	glAttachShader(ProgramID, FragmentShaderID);
-	glProgramParameteri(ProgramID, GL_PROGRAM_SEPARABLE, GL_TRUE);
-	glLinkProgram(ProgramID);
+    file.seekg(0, std::ios::beg);
+    file.read(reinterpret_cast<char *>(result.data.data()), fileSize);
+    file.close();
 
-	// Check the program
-	glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
-	glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
-	if (InfoLogLength > 0)
-	{
-		std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
-		glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
-		printf("%s\n", &ProgramErrorMessage[0]);
-	}
+    return result;
+}
 
-	glDetachShader(ProgramID, VertexShaderID);
-	glDetachShader(ProgramID, FragmentShaderID);
+// Using GL_ARB_gl_spirv | GL_ARB_spirv_extensions
+GLuint Utils::LoadSPIRV(const char *vertex_file_path, const char *fragment_file_path)
+{
+    BinaryData vsFile = LoadBinaryFile(vertex_file_path);
+    BinaryData fsFile = LoadBinaryFile(fragment_file_path);
 
-	glDeleteShader(VertexShaderID);
-	glDeleteShader(FragmentShaderID);
+    // Consume pre-compiled binary intermediate representation (IR)
+    GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
+    glShaderBinary(1, &VertexShaderID, GL_SHADER_BINARY_FORMAT_SPIR_V_ARB, &vsFile.data[0], (GLsizei)vsFile.sizeBytes);
+    
+    // Specialize entry points—skips full runtime compilation overhead
+    glSpecializeShader(VertexShaderID, "VSMain", 0, nullptr, nullptr);
 
-	return ProgramID;
+    GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderBinary(1, &FragmentShaderID, GL_SHADER_BINARY_FORMAT_SPIR_V_ARB, &fsFile.data[0], (GLsizei)fsFile.sizeBytes);
+    glSpecializeShader(FragmentShaderID, "PSMain", 0, nullptr, nullptr);
+
+    // Link modern, separable program pipelines
+    GLuint ProgramID = glCreateProgram();
+    glAttachShader(ProgramID, VertexShaderID);
+    glAttachShader(ProgramID, FragmentShaderID);
+    
+    // Explicitly flag program as separable to allow flexible pipeline bindings
+    glProgramParameteri(ProgramID, GL_PROGRAM_SEPARABLE, GL_TRUE);
+    glLinkProgram(ProgramID);
+
+    // Clean up intermediate shader objects post-link
+    glDetachShader(ProgramID, VertexShaderID);
+    glDetachShader(ProgramID, FragmentShaderID);
+    glDeleteShader(VertexShaderID);
+    glDeleteShader(FragmentShaderID);
+
+    return ProgramID;
 }
 ```
 
@@ -196,44 +224,63 @@ To facilitate rapid prototyping and decouple gameplay logic from the core engine
 * **Script-First Iteration:** This architecture allows for the execution of entire game loops within scripts, enabling real-time logic updates without the need for constant recompilation, all while maintaining the raw performance of the C++ rendering backend.
 
 ```cpp
-std::vector<std::string> GetScriptsInFolder(const std::string &folderPath)
+class ScriptComponent 
 {
-    std::vector<std::string> scripts;
+public:
+    sol::environment env;
+    sol::function onStart;
+    sol::function onUpdate;
+    sol::function onDraw;
 
-    for (const auto &entry : std::filesystem::directory_iterator(folderPath))
+    ScriptComponent(sol::state &lua, const std::string &scriptPath)
+        // Sandboxing: Instantiating a unique Lua environment isolated from globals
+        : env(lua, sol::create, lua.globals())
     {
-        if (entry.is_regular_file())
-        {
-            auto path = entry.path();
-            if (path.extension() == ".lua")
-            {
-                scripts.push_back(path.string());
-            }
-        }
+        lua.script_file(scriptPath, env);
+
+        // Binding native lifecycle hooks to scripted event handlers
+        onStart  = env["OnStart"];
+        onUpdate = env["OnUpdate"];
+        onDraw   = env["OnDraw"];
     }
 
-    return scripts;
-}
+    void Start()  { if (onStart.valid())  onStart(); }
+    void Update(float dt) { if (onUpdate.valid()) onUpdate(dt); }
+    void Draw()   { if (onDraw.valid())   onDraw(); }
+};
 
-void BindFunctions(sol::state &lua)
+// --- Native API Reflection & Type Registration ---
+void BindEngineToLua(sol::state &lua)
 {
+    // Exposing the native C++ 'Object' entity component structure to the Lua VM
     lua.new_usertype<Object>("Object",
-                             sol::constructors<Object()>(),
-                              "Update", &Object::Update,
-                              "Draw", &Object::Draw,
-                              "AddModels", &Object::AddModels,
-                              "GetModel", &Object::GetModel,
-                              "SetPosition", &Object::SetPosition,
-                              "SetRotation", &Object::SetRotation,
-                              "SetScale", &Object::SetScale);
+        sol::constructors<Object()>(),
+        "Update",      &Object::Update,
+        "Draw",        &Object::Draw,
+        "SetPosition", &Object::SetPosition,
+        "SetRotation", &Object::SetRotation,
+        "SetScale",    &Object::SetScale
+    );
 
+    // Allowing runtime asset manipulation directly from gameplay scripts
     lua.new_usertype<Model>("Model",
-                             "SetTexture", &Model::SetTexture,
-                             "SetNormalMap", &Model::SetNormalMap,
-                             "SetSpecularMap", &Model::SetSpecularMap);
+        "SetTexture",     &Model::SetTexture,
+        "SetNormalMap",   &Model::SetNormalMap,
+        "SetSpecularMap", &Model::SetSpecularMap,
+		"SetColor",       &Model::SetColor
+    );
 
-    lua.new_usertype<Inputs>("Inputs", 
-                              "IsKeyDown", &Inputs::IsKeyDown);
+    // Registering hardware input polling systems
+    lua.new_usertype<Inputs>("Inputs",
+		"IsKeyDown", &Inputs::IsKeyDown
+	);
+	
+	// Registering camera handling systems
+    lua.new_usertype<Camera>("Camera", 
+        "SetPosition", &Camera::SetPosition,
+        "SetRotation", &Camera::SetRotation,
+        "SetProjMode", &Camera::SetProjMode
+	);
 }
 ```
 
@@ -247,21 +294,20 @@ I adopted the **glTF 2.0** standard as the primary asset format due to its effic
 ## Technical Growth & Reflection
 I feel like I learned a lot of lessons from this project.
 
-First of all, having to work with a portable compiler without an IDE made me understand the whole pipeline of compiling, linking, and building a program. Seeing compilers from a different perspective not only made me understand how different compilers like `gcc` work, but also helped me better understand the counterparts (such as **Visual Studio**'s `cl` and other tools) that I used to use and still use on other projects.
+#### Graphics APIs & Modern Rendering Architecture
+I learned a lot about graphics APIs. Naturally, I learned the rendering pipeline; starting from **OpenGL** **3.3** and ending with **4.6** allowed me to see the evolution of the pipeline and how we arrived at modern solutions like **SPIR-V** and semi-precompiled shaders with explicit memory management. Furthermore, being forced to use modern libraries for linking, like **GLAD**, helped me understand how graphics APIs are called and managed by the system. This gave me a big boost in understanding how to load **Vulkan** without **LunarG**, as **GLAD** can call it, link it, and add extensions with some manual work and extra system .dll files copied into the repository.
 
+#### Build Pipelines & Toolchains
+Having to work with a portable compiler without an IDE made me understand the whole pipeline of compiling, linking, and building a program. Seeing compilers from a different perspective not only made me understand how different compilers like `gcc` work, but also helped me better understand the counterparts (such as **Visual Studio**'s `cl` and other tools) that I used to use and still use on other projects.
+
+#### Environment Automation & Dependency Management
 I learned how to set up multiple dependencies and create a robust, portable work environment with the help of `batch` files and **Windows PowerShell** to download, extract, and move files to optimize the environment.
 
-I also learned a lot about graphics APIs. Naturally, I learned the rendering pipeline; starting from **OpenGL** **3.3** and ending with **4.6** allowed me to see the evolution of the pipeline and how we arrived at modern solutions like **SPIR-V** and semi-precompiled shaders with explicit memory management. Furthermore, being forced to use modern libraries for linking, like **GLAD**, helped me understand how graphics APIs are called and managed by the system. This gave me a big boost in understanding how to load **Vulkan** without **LunarG**, as **GLAD** can call it, link it, and add extensions with some manual work and extra system .dll files copied into the repository.
+#### Asset Ingestion & 3D Pipelines
+I learned a great deal about 3D models and how vertices, materials, and textures are imported and processed inside a game engine.
 
-I also learned a great deal about 3D models and how vertices, materials, and textures are imported and processed inside a game engine.
-
-Finally, I have noticed lately that I am unconsciously starting to apply the knowledge I gained from this project to other areas, such as games in **Unity** or **Unreal**. I find myself being more careful with how rendering is executed (like which graphics API to use and when) and focusing more on how to optimize the engine itself by making tools to streamline bloated UIs or the slow, intricate build systems that sometimes come with those large commercial engines.
-
----
-
-## Demo
-
-<iframe class="ytframe" src="https://www.youtube.com/embed/?autoplay=1&amp;controls=1&amp;disablekb=1&amp;loop=1&amp;mute=1&amp;playlist=f9MxPtcVE4Y&amp;playsinline=1&amp;rel=0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+#### Cross-Engine Application & Optimization Mindset
+I have noticed lately that I am unconsciously starting to apply the knowledge I gained from this project to other areas, such as games in **Unity** or **Unreal**. I find myself being more careful with how rendering is executed (like which graphics API to use and when) and focusing more on how to optimize the engine itself by making tools to streamline bloated UIs or the slow, intricate build systems that sometimes come with those large commercial engines.
 
 ---
 
