@@ -1290,4 +1290,13 @@ a.btn:active {
   h1, h2, hr {
     break-after: avoid;
   }
+  body, p, h1, h2, h3, span, article, a {
+    user-select: text !important;
+  }
+  .markdown-body pre,
+  .markdown-body code  {
+    white-space: pre-wrap !important;
+    white-space: -moz-pre-wrap !important;
+    word-break: break-all !important;
+  }
 }

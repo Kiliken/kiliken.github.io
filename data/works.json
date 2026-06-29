@@ -34,6 +34,13 @@
 	"aboutJp" : "D2d1RaycastJp"
 },
 {
+    "title" : "Mystery Box",
+    "img" : "",
+	"platform" : "Unreal Engine",
+	"aboutEn" : "",
+	"aboutJp" : ""
+},
+{
     "title" : "Kotodama Chronicle",
     "img" : "kotodama.jpg",
 	"platform" : "Unity Engine",

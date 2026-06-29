@@ -12,10 +12,7 @@
   <span>Download</span>
 </a>
 
-
-
 # Francum Engine
-[「日本語」](mdRenderer.html?mdurl=./data/worksMd/FrancumJp.md)
 
 ## Project Overview
 I chose to make a game engine from scratch to learn the rendering pipeline and understand how game engines work. Having to frequently switch between machines, I wanted an engine that requires zero manual installation and avoids complex, bloated UIs. 
@@ -24,65 +21,29 @@ By leveraging a portable **C++** toolchain and a script-first workflow, I create
 
 I chose **OpenGL** because it is easy and I can focus more on understanding the rendering logic itself, but I'm still planning to switch to **Vulkan** and I already have it working on some side projects.
 
-<iframe class="ytframe" src="https://www.youtube.com/embed/?autoplay=1&amp;controls=1&amp;disablekb=1&amp;loop=1&amp;mute=1&amp;playlist=f9MxPtcVE4Y&amp;playsinline=1&amp;rel=0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+<iframe class="ytframe" src="https://www.youtube.com/embed/?autoplay=1&amp;controls=1&amp;disablekb=1&amp;loop=1&amp;mute=1&amp;playlist=2Jgt69h8ZdM&amp;playsinline=1&amp;rel=0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
 
 ---
 
 ## Key Technical Features
 
-### 1. Portable "Zero-Install" Development Environment
-To eliminate the overhead of traditional IDEs and heavy package managers, I engineered a custom automation suite using a **Batch/PowerShell hybrid** for instantaneous environment bootstrapping.
-* **The Workflow:** A single execution triggers an automated handshake that validates the host environment and configures a **w64devkit** (Portable GCC/Make) toolchain alongside a pre-configured **Lua** runtime.
+#### The Tech Stack:
 
-```bat
-:: //...
+| Item | Technology | Description |
+|:--|:--:|--:|
+| **Compiler** | w64devkit | Minimalist, portable C++17/20 toolchain |
+| **Windowing & Context** | SDL3 | Hardware-accelerated windowing |
+| **Graphics API** | OpenGL 4.6 (Core Profile) / GLAD | Rendering and OpenGL function loader |
+| **Mathematics** | GLM | Header-only linear algebra |
+| **Scripting Bridge** | Sol3 (LuaJIT 2.1) | High-performance Lua wrapper |
+| **Asset Ingestion** | cgltf | Lightweight glTF 2.0 parser |
 
-:FileCheck
-:: Detect existing dependencies in the local app data or project directories
-if not exist "%localappdata%/w64devkit" goto InstallGcc
-if not exist "%localappdata%/lua-5.3.4" goto InstallLua
-if exist "%cd%/dep" goto ExitProgram
-
-:SetupProject
-:: Orchestrate the core engine environment setup via isolated PowerShell scripts
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0setup/InstallEngine.ps1"
-echo Project Setup completed...
-exit
-
-:InstallGcc
-echo Installing Gcc...
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0setup/InstallGcc.ps1"
-goto FileCheck
-
-:InstallLua
-echo Installing Lua...
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0setup/InstallLua.ps1"
-goto FileCheck
-
-:: //...
-```
-
-* **The Tech Stack:**
-    * **Compiler:** w64devkit (Minimalist, portable C++17/20 toolchain)
-    * **Windowing & Context:** GLFW (Hardware-accelerated windowing)
-    * **Graphics API:** OpenGL 4.6 (Core Profile) via GLAD
-    * **Mathematics:** GLM (Header-only linear algebra)
-    * **Scripting Bridge:** Sol3 (High-performance Lua wrapper)
-    * **Asset Ingestion:** cgltf (Lightweight glTF 2.0 parser)
-
-### 2. Modern OpenGL & SPIR-V Shader Pipeline
+### 1. Modern OpenGL & SPIR-V Shader Pipeline
 I implemented a rendering architecture that utilizes modern OpenGL features to emulate the efficiency and predictability of low-level APIs like Vulkan.
 * **Buffer & State Management:** Leveraged **Vertex Array Objects (VAOs)** and **Uniform Buffer Objects (UBOs)** to minimize state changes, streamline CPU-to-GPU data transfer, and efficiently manage global shader constants.
 
 ```cpp
 // Explicitly aligned structures matching GLSL std140 layout specifications
-struct CameraUBO
-{
-    glm::mat4 M; // Model matrix
-    glm::mat4 V; // View matrix
-    glm::mat4 P; // Projection matrix
-};
-
 struct MaterialIDs
 {
     int diffuse;
@@ -119,35 +80,25 @@ Model::Model(/* ... */)
     glBufferData(GL_UNIFORM_BUFFER, sizeof(MaterialIDs), nullptr, GL_DYNAMIC_DRAW);
     glBindBufferBase(GL_UNIFORM_BUFFER, 1, MaterialUBO); // Bind to uniform slot 1
 
-    // Camera Uniform Buffer Allocation (shared across multiple shaders)
-    glGenBuffers(1, &CamUBOID);
-    glBindBuffer(GL_UNIFORM_BUFFER, CamUBOID);
-    glBufferData(GL_UNIFORM_BUFFER, sizeof(CameraUBO), nullptr, GL_DYNAMIC_DRAW);
-    glBindBufferBase(GL_UNIFORM_BUFFER, 2, CamUBOID); // Bind to uniform slot 2
-
     glBindVertexArray(0);
 }
 
-// Efficient Per-Frame Data Streaming
-void Model::Draw() 
+// ...
+
+struct CameraUBO
 {
-    glUseProgram(*shaders);
-    glBindVertexArray(vao);
+    glm::mat4 V; // View matrix
+    glm::mat4 P; // Projection matrix
+};
 
-    // Stream updated per-frame matrix and material blocks directly to GPU buffers
-    glBindBuffer(GL_UNIFORM_BUFFER, CamUBOID);
-    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(CameraUBO), &cam);
+// ...
 
-    glBindBuffer(GL_UNIFORM_BUFFER, MaterialUBO);
-    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(MaterialIDs), &mat);
-
-    // Bind texture units and issue indexed draw call
-    glActiveTexture(GL_TEXTURE0 + 0); glBindTexture(GL_TEXTURE_2D, DiffuseTexture);
-    glActiveTexture(GL_TEXTURE0 + 1); glBindTexture(GL_TEXTURE_2D, NormalTexture);
-    glActiveTexture(GL_TEXTURE0 + 2); glBindTexture(GL_TEXTURE_2D, SpecularTexture);
-
-    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+void Camera::BindToShader(){
+    // Camera Uniform Buffer Allocation (shared across multiple shaders)
+    glGenBuffers(1, &UBOID);
+    glBindBuffer(GL_UNIFORM_BUFFER, UBOID);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof(CameraUBO), nullptr, GL_DYNAMIC_DRAW);
+    glBindBufferBase(GL_UNIFORM_BUFFER, 2, UBOID); // Bind to uniform slot 2
 }
 ```
 
@@ -219,7 +170,7 @@ GLuint Utils::LoadSPIRV(const char *vertex_file_path, const char *fragment_file_
 }
 ```
 
-### 3. High-Level Lua Scripting via Sol3
+### 2. High-Level Lua Scripting via Sol3
 To facilitate rapid prototyping and decouple gameplay logic from the core engine, I exposed the C++ API (including Transform systems, Model loading, and Input handling) to **Lua** using **Sol3**. 
 * **Script-First Iteration:** This architecture allows for the execution of entire game loops within scripts, enabling real-time logic updates without the need for constant recompilation, all while maintaining the raw performance of the C++ rendering backend.
 
@@ -284,10 +235,68 @@ void BindEngineToLua(sol::state &lua)
 }
 ```
 
-### 4. High-Performance Asset Ingestion (glTF & OBJ)
+### 3. High-Performance Asset Ingestion (glTF & OBJ)
 I adopted the **glTF 2.0** standard as the primary asset format due to its efficiency in modern graphics workflows. 
 * **Mesh Data Handling:** Using the **cgltf** library, I implemented a robust loader capable of parsing both JSON-based `.gltf` and binary `.glb` files for high-speed scene ingestion. 
 * **Legacy Support:** For maximum compatibility during the modeling phase, the engine maintains secondary support for the **Wavefront .obj** format, ensuring a versatile pipeline for various 3D modeling tools.
+
+### 4. Portable "Zero-Install" Development Environment
+To eliminate the overhead of traditional IDEs and heavy package managers, I engineered a custom automation suite using a **Batch/PowerShell hybrid** for instantaneous environment bootstrapping.
+* **The Workflow:** A single execution triggers an automated handshake that validates the host environment and configures a **w64devkit** (Portable GCC/Make) toolchain alongside a pre-configured **Lua** runtime.
+
+```bat
+# setup/InstallEngine.ps1 (Automated Environment Setup Script)
+$ProjectRoot = "$($PSScriptRoot)\.."
+
+# 1. Automatically generate the directory structure (establish a deterministic build environment)
+New-Item -Path "$($ProjectRoot)\dep" -ItemType Directory -Force | Out-Null
+New-Item -Path "$($ProjectRoot)\build" -ItemType Directory -Force | Out-Null
+New-Item -Path "$($ProjectRoot)\dep\include\sol" -ItemType Directory -Force | Out-Null
+New-Item -Path "$($ProjectRoot)\dep\lib" -ItemType Directory -Force | Out-Null
+
+$sdlDownloadUrl = "https://github.com/libsdl-org/SDL/releases/download/release-3.4.10/SDL3-devel-3.4.10-mingw.zip"
+$glmDownloadUrl = "https://github.com/g-truc/glm/releases/download/1.0.2/glm-1.0.2.zip"
+$imguiDownloadUrl = "https://github.com/ocornut/imgui/archive/refs/tags/v1.92.5.zip"
+
+# 2. Conditionally download assets while ensuring idempotency
+if ( -not (Test-Path "$($PSScriptRoot)\sdl.zip")){
+	curl.exe -L "$sdlDownloadUrl" -o "$($PSScriptRoot)\sdl.zip" --progress-bar
+}
+if ( -not (Test-Path "$($PSScriptRoot)\glm.zip")){
+	curl.exe -L "$glmDownloadUrl" -o "$($PSScriptRoot)\glm.zip" --progress-bar
+}
+if ( -not (Test-Path "$($PSScriptRoot)\imgui.zip")){
+	curl.exe -L "$imguiDownloadUrl" -o "$($PSScriptRoot)\imgui.zip" --progress-bar
+}
+
+# 3. Extract archives using the .NET Compression assembly
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+[System.IO.Compression.ZipFile]::ExtractToDirectory("$($PSScriptRoot)\sdl.zip", "$($PSScriptRoot)")
+[System.IO.Compression.ZipFile]::ExtractToDirectory("$($PSScriptRoot)\glm.zip", "$($PSScriptRoot)")
+[System.IO.Compression.ZipFile]::ExtractToDirectory("$($PSScriptRoot)\imgui.zip", "$($ProjectRoot)\dep\include")
+
+# 4. Map third-party libraries (include headers and binaries)
+
+# Install SDL3
+Copy-Item -Path "$($PSScriptRoot)\SDL3-3.4.10\x86_64-w64-mingw32\include\SDL3" -Destination "$($ProjectRoot)\dep\include" -Recurse
+Copy-Item -Path "$($PSScriptRoot)\SDL3-3.4.10\x86_64-w64-mingw32\bin\SDL3.dll" -Destination "$($ProjectRoot)\build" -Force
+Copy-Item -Path "$($PSScriptRoot)\SDL3-3.4.10\x86_64-w64-mingw32\lib\libSDL3.dll.a" -Destination "$($ProjectRoot)\dep\lib" -Force
+
+# Map GLM, GLAD, Sol3, cgltf, and ImGui (aggregate all project dependencies)
+Copy-Item -Path "$($PSScriptRoot)\glm\glm" -Destination "$($ProjectRoot)\dep\include" -Recurse
+Copy-Item -Path "$($PSScriptRoot)\common\sol.hpp" -Destination "$($ProjectRoot)\dep\include\sol" -Force
+Copy-Item -Path "$($PSScriptRoot)\common\cgltf.h" -Destination "$($($ProjectRoot))\dep\include" -Force
+
+Rename-Item -Path "$($ProjectRoot)\dep\include\imgui-1.92.5" -NewName "imgui"
+Copy-Item -Path "$($ProjectRoot)\dep\include\imgui\backends\imgui_impl_opengl3.cpp" -Destination "$($ProjectRoot)\dep\include\imgui"
+Copy-Item -Path "$($ProjectRoot)\dep\include\imgui\backends\imgui_impl_sdl3.cpp" -Destination "$($ProjectRoot)\dep\include\imgui"
+
+# 5. Clean up the workspace (remove unnecessary temporary extraction directories)
+Remove-Item -Path "$($PSScriptRoot)\SDL3-3.4.10" -Recurse -Force
+Remove-Item -Path "$($PSScriptRoot)\glm" -Recurse -Force
+
+return 0
+```
 
 ---
 
@@ -312,9 +321,8 @@ I have noticed lately that I am unconsciously starting to apply the knowledge I 
 ---
 
 ## Future Roadmap
-* **Platform Abstraction:** Migrating from **GLFW** to **SDL3** to further enhance cross-platform portability and input handling.
-* **Stand-alone Distribution:** Developing a build system that embeds all assets and scripts into a single executable for seamless game distribution.
 * **Scriptable UI:** Integrating **Sol3** with **ImGui** to enable fully custom UI development directly within **Lua** scripts.
 * **Physics Integration:** Developing a custom collision detection system or integrating a dedicated library like **Bullet Physics**.
+* **Stand-alone Distribution:** Developing a build system that embeds all assets and scripts into a single executable for seamless game distribution.
 * **Modern Texture Pipeline:** Transitioning from the current `.dds` (DirectDraw Surface) system to the `.ktx2` (Khronos Texture) format for better compression and GPU compatibility.
 * **API Evolution:** Transitioning from **OpenGL** to **Vulkan** to gain granular control over hardware memory management and command buffer execution.
