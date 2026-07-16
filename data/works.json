@@ -34,11 +34,18 @@
 	"aboutJp" : "D2d1RaycastJp"
 },
 {
+    "title" : "Reikai Revenge",
+	"img" : "tatakae.jpg",
+	"platform" : "Unity Engine & Apache",
+	"aboutEn" : "TatakaeEn",
+	"aboutJp" : "TatakaeJp"
+},
+{
     "title" : "Mystery Box",
     "img" : "",
 	"platform" : "Unreal Engine",
-	"aboutEn" : "",
-	"aboutJp" : ""
+	"aboutEn" : "MysteryBoxEn",
+	"aboutJp" : "MysteryBoxJp"
 },
 {
     "title" : "Kotodama Chronicle",
@@ -59,13 +66,6 @@
 	"aboutJp" : "DirectRushJp"
 },
 {
-    "title" : "SaturJam Games",
-	"img" : "satjam.jpg",
-	"platform" : "Unity Engine (WebGL)",
-	"aboutEn" : "",
-	"aboutJp" : ""
-},
-{
     "title" : "the Room Gradation Boundless",
 	"img" : "theRGB.jpg",
 	"platform" : "Unity Engine (Vket Cloud SDK)",
@@ -82,13 +82,6 @@
 	"aboutJp" : "GambleJp"
 },
 {
-    "title" : "Reikai Revenge",
-	"img" : "tatakae.jpg",
-	"platform" : "Unity Engine & Apache",
-	"aboutEn" : "TatakaeEn",
-	"aboutJp" : "TatakaeJp"
-},
-{
     "title" : "Parallel Panic",
 	"img" : "pp.jpg",
 	"platform" : "Unity Engine",
@@ -101,6 +94,13 @@
 	"platform" : "Unity Engine",
 	"aboutEn" : "SplashEn",
 	"aboutJp" : "SplashJp"
+},
+{
+    "title" : "SaturJam Games",
+	"img" : "satjam.jpg",
+	"platform" : "Unity Engine (WebGL)",
+	"aboutEn" : "",
+	"aboutJp" : ""
 },
 {
     "title" : "Gravitius",
