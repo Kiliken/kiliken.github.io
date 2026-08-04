@@ -28,6 +28,13 @@
 		</style>
     </head>
     <body id="page-top">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+            <div class="container-fluid px-4">
+                <a class="navbar-brand fw-bold" href="index.html" id="returnButton">
+                    <i class="fas fa-arrow-left me-1"></i> Back to Portfolio
+                </a>
+            </div>
+        </nav>
             <!-- Posts -->
             <section class="" id="works">
                 <div class="">
@@ -76,6 +83,9 @@
 			document.addEventListener('DOMContentLoaded', () => {
 				window.addEventListener('load', () => {
 						const lang = getUrlParameter("lang");
+						
+						document.getElementById("returnButton").href = (lang == "jp" ? "index.html?lang=jp#works" : "index.html#works");
+						
 						AllWorks(lang);
 				} );
 				

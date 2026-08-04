@@ -22,7 +22,7 @@
 <body class="markdown-body">
   <nav class="navbar navbar-dark bg-primary">
     <div>
- 	   <a class="navbar-brand" href="index.html">
+ 	   <a class="navbar-brand" href="index.html" id="returnButton">
  	      <i class="fas fa-arrow-left"></i> Back to Portfolio
  	   </a>
     </div>
@@ -39,6 +39,40 @@
     import { getUrlParameter } from "./js/dataScript.js";
 
     const mdUrl = getUrlParameter("mdurl");
+	const originUrl = getUrlParameter("og");
+	
+	let returnUrl = "index.html";
+	
+	const baseCode = originUrl.slice(0, 2);
+	const langCode = originUrl.slice(2);
+	
+	switch(baseCode){
+		case "mw":
+			returnUrl = "index.html#works";
+			break;
+		case "mb":
+			returnUrl = "index.html#blog";
+			break;
+		case "aw":
+			returnUrl = "works.html";
+			break;
+		case "ab":
+			returnUrl = "blogs.html";
+			break;
+		default:
+			
+	}
+	
+	if (langCode == "j") {
+		if (returnUrl.includes("#")) {
+			const [path, hash] = returnUrl.split("#");
+			returnUrl = `${path}?lang=jp#${hash}`;
+		} else {
+			returnUrl = `${returnUrl}?lang=jp`;
+		}
+	}
+	
+	document.getElementById("returnButton").href = returnUrl;
 
     fetch(mdUrl)
       .then(res => res.text())

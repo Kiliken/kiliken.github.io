@@ -23,7 +23,7 @@ export function Works(page, type) {
 		
 		htmlContent += `
 			<div class="flex-grow-1 m-1 p-1 workItem">
-			<a class="workItem" target=_blank href="./mdRenderer.html?mdurl=./data/worksMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md" role="button">
+			<a class="workItem" href="./mdRenderer.html?mdurl=./data/worksMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md&og=mw`+(jp ? "j" : "e")+`" role="button">
 			`+( data[i].bannerEn ? `<span class="showcase-banner">`+(jp ? data[i].bannerJp : data[i].bannerEn)+`</span>` : ``)+`
 			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" /></a>
             <h3 class="mb-0">`+data[i].title+`</h3>
@@ -59,7 +59,7 @@ export function AllWorks(type) {
 		
 		htmlContent += `
 			<div class="flex-grow-1 m-1 p-1 workItem workList" id="`+searchData+`">
-			<a class="workItem" target=_blank href="./mdRenderer.html?mdurl=./data/worksMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md" role="button">
+			<a class="workItem" href="./mdRenderer.html?mdurl=./data/worksMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md&og=aw`+(jp ? "j" : "e")+`" role="button">
 			`+( data[i].bannerEn ? `<span class="showcase-banner">`+(jp ? data[i].bannerJp : data[i].bannerEn)+`</span>` : ``)+`
 			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" /></a>
             <h3 class="mb-0">`+data[i].title+`</h3>
@@ -169,7 +169,7 @@ export function Blogs(page, type) {
             <h3 class="mb-0">`+(jp ? data[i].titleJp : data[i].titleEn)+`</h3>
             <div class="subheading mb-3">`+(jp ? data[i].topicJp : data[i].topicEn)+`</div>
             <p>`+(jp ? data[i].descJp : data[i].descEn)+`</p>
-			<a class="btn btn-primary text-white" id="blogBtn1" target=_blank href="./mdRenderer.html?mdurl=./data/blogsMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md">READ</a>
+			<a class="btn btn-primary text-white" id="blogBtn1" href="./mdRenderer.html?mdurl=./data/blogsMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md&og=mb`+(jp ? "j" : "e")+`">READ</a>
             </div>
             <div class="flex-shrink-0"><span class="text-primary">`+data[i].date+`</span></div>
 			
@@ -206,7 +206,7 @@ export function AllBlogs(type) {
             <div class="subheading mb-3">`+(jp ? data[i].topicJp : data[i].topicEn)+`</div>
             <p>`+(jp ? data[i].descJp : data[i].descEn)+`</p>
 			<div><span class="text-primary">`+data[i].date+`</span></div>
-			<a class="btn btn-primary text-white" id="blogBtn1" target=_blank href="./mdRenderer.html?mdurl=./data/blogsMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md">READ</a>
+			<a class="btn btn-primary text-white" id="blogBtn1" href="./mdRenderer.html?mdurl=./data/blogsMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md&og=ab`+(jp ? "j" : "e")+`">READ</a>
             </div>
 			<hr>
             </div>
