@@ -1,39 +1,21 @@
-<a class="btn" href="https://github.com/FujiyoshKirari/DirectRush/">
-  <svg class="btn-icon" aria-hidden="true">
-    <use xlink:href="./img/githubIcon.svg#icon"></use>
-  </svg>
-  <span>GitHub</span>
-</a>
-
-<a class="btn" href="https://github.com/FujiyoshKirari/DirectRush/releases">
-  <svg class="btn-icon" aria-hidden="true">
-    <use xlink:href="./img/downloadIcon.svg#icon"></use>
-  </svg>
-  <span>Download</span>
-</a>
 
 # Direct Rush
 
-**学校の共同プロジェクトとして制作された、スピード感あふれるUnityパズルマッチゲーム。**
+学校の共同プロジェクトとして制作された、スピード感あふれる**Unity**パズルマッチゲーム。
 
 精密な操作とカオスが入り混じるハイスピードなゲームプレイが特徴です。独自の **「フィーバーシステム」** を搭載しており、フィーバー発動中はパズルを消すごとに強力なビームが放たれ、シールドにダメージを与えます。敵の防御を打ち砕くことで新しいパズルピースが解放され、ゲームが進行していきます。
 
-VIDEO HERE
-
-本プロジェクトは、**幕張メッセ**で開催された展示会 **「[2026 we are JIKEI COM 若きクリエーター展](https://www.jikeicom.jp/wearejikeicom_tokyo/index.php)」** にて出展・発表されました。
-
 <a href="https://www.jikeicom.jp/wearejikeicom_tokyo/index.php">
   <img src="https://www.jikeicom.jp/wearejikeicom_tokyo/assets/img/top/mv/logo_black.png" width="512"/>
-</a>
+</a><br><br>
+
+本プロジェクトは、**幕張メッセ**で開催された展示会 **「[2026 we are JIKEI COM 若きクリエーター展](https://www.jikeicom.jp/wearejikeicom_tokyo/index.php)」** にて出展・発表されました。
 
 ---
 
 ## 担当した部分
 
 ### Puzzle Controller
-
-<details>
-<summary> <h4>PuzzleController.cs (Code)</h4> </summary>
 
 ```csharp
 
@@ -329,13 +311,8 @@ private void OnDrawGizmos()
 
 ```
 
-</details>
-
 
 ### Block Shaders
-
-<details>
-<summary> <h4>BlockShader.shader (Code)</h4> </summary>
 
 ```cpp
 
@@ -432,231 +409,7 @@ Shader "Custom/BlockShader"
 
 ```
 
-</details>
-
-### Some Utils
-
-<details>
-<summary> <h4>GlobalUtils.cs (Code)</h4> </summary>
-
-```csharp
-
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
-
-public static class GlobalUtils
-{
-    public static float stagePadding = 1.1f;
-    public static UnityEngine.Color[] pieceColors = { 
-        new Color32(35,181,116, 255),
-        new Color32(41,170,225, 255),
-        new Color32(248,147,31, 255),
-        new Color32(163, 41, 181, 255),   
-        new Color32(255, 66, 93, 255),    
-        new Color32(255, 241, 89, 255),
-    };
-    public static readonly float[] stdOffsets = { -2f, 3.05f };
-    public static float pieceRadius = 1;
-	
-	
-
-    public static Vector2 GetPosByIndex(sbyte x, sbyte y, Vector2Int size)
-    {
-        float[] offsets = (float[])stdOffsets.Clone();
-        for (sbyte i = 0; i < size.x; i++)
-        {
-            for (sbyte j = 0; j < size.y; j++)
-            {
-                if (i == x && j == y) return new Vector2(offsets[0], offsets[1]);
-                offsets[1] -= stagePadding;
-            }
-            offsets[0] += stagePadding;
-            offsets[1] = stdOffsets[1];
-        }
-        return Vector2.zero;
-    }
-
-
-    public static sbyte[] GetIndexByPos(Vector2 pos, Vector2Int size)
-    {
-        float[] offsets = (float[])stdOffsets.Clone();
-        for (sbyte i = 0; i < size.x; i++)
-        {
-            for (sbyte j = 0; j < size.y; j++)
-            {
-                if (IsClicked(pos, offsets[0], offsets[1],pieceRadius)) return new sbyte[] { i, j }; ;
-                offsets[1] -= stagePadding;
-            }
-            offsets[0] += stagePadding;
-            offsets[1] = stdOffsets[1];
-        }
-        return new sbyte[]{ -1,-1};
-    }
-
-    public static Vector2 GetMatchCenter(sbyte x, sbyte y, Vector2Int size, sbyte count, byte direction)
-    {
-        switch (direction)
-        {
-            case 0b0010: // right
-                float[] offsets = (float[])stdOffsets.Clone();
-                for (sbyte i = 0; i < size.x; i++)
-                {
-                    for (sbyte j = 0; j < size.y; j++)
-                    {
-                        if (i == x && j == y)
-                        {
-                            offsets[0] += (count / 2) * stagePadding;
-                            offsets[0] -= (count == 4 ? stagePadding : 0);
-                            return new Vector2(offsets[0], offsets[1]);
-                        }
-                            
-                            
-                         // start pos + those
-                        offsets[1] -= stagePadding;
-                    }
-                    offsets[0] += stagePadding;
-                    offsets[1] = stdOffsets[1];
-                }
-
-
-                return Vector2.zero;
-                break;
-
-            case 0b0100: // down
-                
-                return GetPosByIndex( x, y, size);
-                break;
-            default:
-                Debug.LogError($"NO SUCH LINE!");
-                return Vector2.zero;
-                break;
-
-        }
-
-        // just in case
-        return Vector2.zero;
-    }
-
-    public static bool IsClicked(Vector2 point, float posX, float posY, float size)
-    {
-        return point.x >= posX - size / 2 &&
-               point.x <= posX + size / 2 &&
-               point.y >= posY - size / 2 &&
-               point.y <= posY + size / 2;
-    }
-
-    public static T AssertDeclaration<T>(T toDeclare) where T : MonoBehaviour
-    {
-        if (toDeclare == null)
-        {
-            Debug.LogError($"NullReferenceException: Missing {typeof(T).Name}");
-            Debug.Break();
-            return null;
-        }
-
-        return toDeclare;
-    }
-
-}
-
-public struct PieceArray
-{
-    public GameObject obj { get; set; }
-    public Piece script { get; set; }
-}
-
-```
-
-</details>
-
-
 ### Command Line Builder
-
-<details>
-<summary> <h4>BuildGame.bat (Code)</h4> </summary>
-
-```bat
-
-@echo off
-
-if exist "C:\Program Files\Unity\Hub\Editor\2022.3.56f1\Editor\Unity.exe" set unity="C:\Program Files\Unity\Hub\Editor\2022.3.56f1\Editor\Unity.exe"
-if exist "D:\Program Files\Unity\Editor\2022.3.56f1\Editor\Unity.exe" set unity="D:\Program Files\Unity\Editor\2022.3.56f1\Editor\Unity.exe"
-
-set projName=DirectRush
-set verbose=1
-
-
-if exist "%cd%\Build\%projName%" rd /s /q "%cd%\Build\%projName%"
-md "%cd%\Build\%projName%"
-
-
-copy "%cd%\DefaultSettingsLauncher.bat" "%cd%\Build\%projName%\GameLauncher.bat"
-type nul > "%cd%\Build\%projName%\BuildLogs.log"
-
-
-cls
-start "" %unity% -quit -batchmode -projectPath %cd% -executeMethod CommandLine.FastBuild -logFile "%cd%\Build\%projName%\BuildLogs.log"
-powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0LogReader.ps1" -Command "%cd%\Build\%projName%\BuildLogs.log" "%verbose%"
-
-pause
-
-```
-
-</details>
-
-<details>
-<summary> <h4>LogReader.ps1 (Code)</h4> </summary>
-
-```
-
-$LogPath = $Args[1]
-$verboseFlag = $Args[2]
-
-Get-Content "$LogPath" -Wait |
-  ForEach-Object {
-	
-	
-	# Skip empty or too-short lines safely
-	if ($_.Length -lt 9) {
-		
-		if ($verboseFlag -eq 1) { Write-Host $_ } 
-		return
-
-	}
-	
-	
-    $prefix = $_.Substring(0,9)
-    if ($prefix -eq "[ps1bl][E") {
-        Write-Host $_ -ForegroundColor Red
-    }
-    elseif ($prefix -eq "[ps1bl][W") {
-        Write-Host $_ -ForegroundColor Yellow
-    }
-	elseif ($prefix -eq "[ps1bl][S") {
-        Write-Host $_ -ForegroundColor Green
-    }
-    elseif ($prefix -eq "[ps1bl][L") {
-        Write-Host $_
-    }
-	elseif ($verboseFlag -eq 1) { Write-Host $_ } 
-	
-	
-	if ($_ -match "\[ps1bl\]\[Log\] Build Ended...") { break }
-	
-  }
-
-return 0
-
-
-```
-
-</details>
-
-<details>
-<summary> <h4>CommandLine.cs (Code)</h4> </summary>
 
 ```csharp
 
@@ -703,5 +456,3 @@ public static void FastBuild()
 }
 
 ```
-
-</details>

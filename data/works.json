@@ -41,13 +41,6 @@
 	"aboutJp" : "TatakaeJp"
 },
 {
-    "title" : "Mystery Box",
-    "img" : "",
-	"platform" : "Unreal Engine",
-	"aboutEn" : "MysteryBoxEn",
-	"aboutJp" : "MysteryBoxJp"
-},
-{
     "title" : "Kotodama Chronicle",
     "img" : "kotodama.jpg",
 	"platform" : "Unity Engine",
@@ -75,11 +68,25 @@
 	"aboutJp" : "TheRGBJp"
 },
 {
+    "title" : "SPLASH!!!",
+    "img" : "splash.jpg",
+	"platform" : "Unity Engine",
+	"aboutEn" : "SplashEn",
+	"aboutJp" : "SplashJp"
+},
+{
     "title" : "Gamble Densetsu",
 	"img" : "gamble.jpg",
 	"platform" : "Unity Engine",
 	"aboutEn" : "GambleEn",
 	"aboutJp" : "GambleJp"
+},
+{
+    "title" : "SaturJam Games",
+	"img" : "satjam.jpg",
+	"platform" : "Unity Engine (WebGL)",
+	"aboutEn" : "SaturJamEn",
+	"aboutJp" : "SaturJamJp"
 },
 {
     "title" : "Parallel Panic",
@@ -89,18 +96,11 @@
 	"aboutJp" : "ParallelJp"
 },
 {
-    "title" : "SPLASH!!!",
-    "img" : "splash.jpg",
-	"platform" : "Unity Engine",
-	"aboutEn" : "SplashEn",
-	"aboutJp" : "SplashJp"
-},
-{
-    "title" : "SaturJam Games",
-	"img" : "satjam.jpg",
-	"platform" : "Unity Engine (WebGL)",
-	"aboutEn" : "",
-	"aboutJp" : ""
+    "title" : "Mystery Box",
+    "img" : "",
+	"platform" : "Unreal Engine",
+	"aboutEn" : "MysteryBoxEn",
+	"aboutJp" : "MysteryBoxJp"
 },
 {
     "title" : "Gravitius",

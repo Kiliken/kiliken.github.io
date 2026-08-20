@@ -43,32 +43,34 @@
 	
 	let returnUrl = "index.html";
 	
-	const baseCode = originUrl.slice(0, 2);
-	const langCode = originUrl.slice(2);
-	
-	switch(baseCode){
-		case "mw":
-			returnUrl = "index.html#works";
-			break;
-		case "mb":
-			returnUrl = "index.html#blog";
-			break;
-		case "aw":
-			returnUrl = "works.html";
-			break;
-		case "ab":
-			returnUrl = "blogs.html";
-			break;
-		default:
-			
-	}
-	
-	if (langCode == "j") {
-		if (returnUrl.includes("#")) {
-			const [path, hash] = returnUrl.split("#");
-			returnUrl = `${path}?lang=jp#${hash}`;
-		} else {
-			returnUrl = `${returnUrl}?lang=jp`;
+	if(originUrl != null){
+		const baseCode = originUrl.slice(0, 2);
+		const langCode = originUrl.slice(2);
+		
+		switch(baseCode){
+			case "mw":
+				returnUrl = "index.html#works";
+				break;
+			case "mb":
+				returnUrl = "index.html#blog";
+				break;
+			case "aw":
+				returnUrl = "works.html";
+				break;
+			case "ab":
+				returnUrl = "blogs.html";
+				break;
+			default:
+				
+		}
+		
+		if (langCode == "j") {
+			if (returnUrl.includes("#")) {
+				const [path, hash] = returnUrl.split("#");
+				returnUrl = `${path}?lang=jp#${hash}`;
+			} else {
+				returnUrl = `${returnUrl}?lang=jp`;
+			}
 		}
 	}
 	

@@ -10981,6 +10981,13 @@ section.resume-section .resume-section-content {
 	height: 50px;
 }
 
+.to-special-icon{
+	width: 1.5rem;
+    height: 1.5rem;
+    display: block;
+    object-fit: contain;
+}
+
 
 
 .workItem a {
