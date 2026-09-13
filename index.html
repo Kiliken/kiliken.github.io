@@ -189,8 +189,15 @@
 			import { Works } from "./js/dataScript.js";
 			import { Blogs } from "./js/dataScript.js";
 			import { Localize } from "./js/dataScript.js";
+			import { initReadMore } from "./js/dataScript.js";
 			import { getUrlParameter } from "./js/dataScript.js";
 			
+			let lang = getUrlParameter("lang");
+			if (lang == null) {
+				let sysLang = (navigator.language || navigator.userLanguage || 'en').substring(0, 2);
+				lang = (sysLang === "ja" ? "jp" : "en");
+				console.log("Fallback to system language:", lang);
+			}
 			
 			document.addEventListener('DOMContentLoaded', () => {
 			
@@ -198,7 +205,6 @@
 				const wkButton1 = document.getElementById('wkButton1');
 				if (wkButton1) {
 					wkButton1.addEventListener('click', () => {
-						const lang = getUrlParameter("lang");
 						Works(0,lang);
 					} );
 				}
@@ -206,7 +212,6 @@
 				const wkButton2 = document.getElementById('wkButton2');
 				if (wkButton2) {
 					wkButton2.addEventListener('click', () => {
-						const lang = getUrlParameter("lang");
 						Works(1,lang);
 					} );
 				}
@@ -214,7 +219,6 @@
 				const wkButton3 = document.getElementById('wkButton3');
 				if (wkButton3) {
 					wkButton3.addEventListener('click', () => {
-						const lang = getUrlParameter("lang");
 						Works(2,lang);
 					} );
 				}
@@ -223,32 +227,28 @@
 				const blogBtn1 = document.getElementById('blogBtn1');
 				if (blogBtn1) {
 					blogBtn1.addEventListener('click', () => {
-						const lang = getUrlParameter("lang");
 						Blogs(0,lang);
 					} );
 				}
-				
-				
-				// On Load
-				window.addEventListener('load', () => {
-						const lang = getUrlParameter("lang");
-						Works(0,lang);
-						Blogs(0,lang);
-						Localize(lang);
-						
-						if(lang === "jp") {
-							document.getElementById("moreWorks").href="works.html?lang=jp";
-						
-							
-							const langButton = document.getElementById("langSwitch");
-							langButton.href="index.html?lang=en";
-							langButton.textContent="English";
-						
-						}
-						
-				} );
-				
 			});
+			
+			// On Load
+			window.addEventListener('load', () => {
+				Works(0,lang);
+				Blogs(0,lang);
+				Localize(lang);
+				
+				initReadMore();
+				
+				if(lang === "jp") {
+					document.getElementById("moreWorks").href="works.html?lang=jp";
+					document.getElementById("moreBlogs").href="blogs.html?lang=jp";
+				
+					const langButton = document.getElementById("langSwitch");
+					langButton.href="index.html?lang=en";
+					langButton.textContent="English";
+				}	
+			} );
 		</script>
 		<script>
             /*function Works(page) {

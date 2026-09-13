@@ -11042,3 +11042,15 @@ section.resume-section .resume-section-content {
 	}
 }
 
+
+.text-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;          /* Shows only 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;               /* Hides the rest visually */
+}
+
+.text-expanded {
+    display: block;                 /* Removes the clamp entirely when clicked */
+    overflow: visible;
+}

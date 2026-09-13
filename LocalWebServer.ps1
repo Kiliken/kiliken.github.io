@@ -2,7 +2,7 @@ $listener = New-Object System.Net.HttpListener
 $listener.Prefixes.Add("http://localhost:8000/")
 $listener.Start()
 
-Write-Host "Serving $PWD at http://localhost:8000/"
+Write-Host "Serving $PWD at http://localhost:8000/index.html"
 Write-Host "Press Ctrl+C to stop."
 
 try {

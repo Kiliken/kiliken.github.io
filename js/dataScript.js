@@ -92,6 +92,8 @@ export function Localize(type) {
 				<div class="flex-grow-1">
 					<h3 class="mb-0">`+locConts[1].conts[i].job+`</h3>
 					<div class="subheading mb-3">`+locConts[1].conts[i].company+`</div>
+					<p class="text-clamp">`+locConts[1].conts[i].desc+`</p>
+					<a href="javascript:void(0);" class="read-more-btn text-primary font-weight-bold">More...</a>
 				</div>
 				<div class="flex-shrink-0"><span class="text-primary">`+locConts[1].conts[i].time+`</span></div>
             </div>
@@ -214,4 +216,26 @@ export function AllBlogs(type) {
 	}
 	
 	blgDiv.innerHTML = htmlContent;
+}
+
+export function initReadMore() {
+    const readMoreBtns = document.querySelectorAll('.read-more-btn');
+    readMoreBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const parent = btn.closest('.flex-grow-1');
+            const textEl = parent.querySelector('p');
+
+            if (textEl.classList.contains('text-clamp')) {
+                textEl.classList.remove('text-clamp');
+                textEl.classList.add('text-expanded');
+                btn.textContent = 'Close';
+            } else {
+                textEl.classList.remove('text-expanded');
+                textEl.classList.add('text-clamp');
+                btn.textContent = 'More...';
+            }
+        });
+    });
 }

@@ -6,17 +6,20 @@
     "conts" : [{
 		"job" : "Game Quality Assurance Tester",
 		"company" : "Pole to Win",
-		"time" : "September 2024 - May 2025"
+		"time" : "September 2024 - May 2025",
+		"desc" : "Performed functional Game Quality Assurance (QA) and debugging for upcoming and live game titles at Pole To Win. Verified that core game mechanics, systems, and user flows functioned according to technical specifications, helping protect the overall player experience.<br><br>Executed test passes based on detailed specification checklists to identify functional defects—including progression blockers, graphical glitches, physics/collision bugs, and flag triggers. Documented isolated bugs with precise reproduction steps in Japanese using Excel test sheets, and performed regression testing on fixed builds to confirm resolution under tight production timelines."
 	},
 	{
 		"job" : "Game Localization QA Tester",
 		"company" : "Keywords Studios",
-		"time" : "September 2023 - March 2024"
+		"time" : "September 2023 - March 2024",
+		"desc" : "Worked as an Italian Localization Quality Assurance (LQA) Tester at Keywords Studios’ Tokyo studio for global video game titles. Operating within a multicultural, bilingual (English/Japanese) environment, ensured game text, UI, and dialogue delivered an authentic cultural experience while maintaining high linguistic standards for Italian-speaking players.<br><br>Primary responsibilities included auditing in-game text and UI elements for grammatical precision, typos, and natural Italian phrasing, alongside identifying cosmetic visual defects such as text truncation, font display issues, and improper line breaks. Isolated and logged bug reports with clear, step-by-step reproduction instructions in Japanese using large Excel management sheets, collaborating closely with localization leads and developers to regress fixed issues and meet strict project release deadlines."
 	},
 	{
 		"job" : "Junior Programmer",
 		"company" : "BonassisaLab S.p.A.",
-		"time" : "March 2021 - June 2021"
+		"time" : "March 2021 - June 2021",
+		"desc" : "Served as a Junior Programmer at Bonassisa Lab, a food safety and environmental testing laboratory, managing large volumes of scientific and analytical laboratory data. Supported senior engineers by building tools to streamline internal database workflows and improve data accessibility.<br><br>Developed user-friendly web interfaces and internal utility tools using PHP and JavaScript, allowing staff to query and interact with database records more efficiently. Handled complex custom SQL queries to extract specialized datasets for client requests, ensuring data integrity while gaining hands-on experience in database management and web development."
 	}
 	]
 },
@@ -59,7 +62,7 @@
 		"type" : "Technical school",
 		"time" : "April 2024 - March 2027",
 		"degree" : "Game programmer Course",
-		"extra" : "Attendance rate: 90%~"
+		"extra" : ""
 	},
 	{
 		"school" : "intercultural institute of japan",
