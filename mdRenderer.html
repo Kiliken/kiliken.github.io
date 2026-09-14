@@ -48,6 +48,9 @@
 		const langCode = originUrl.slice(2);
 		
 		switch(baseCode){
+			case "mh":
+				returnUrl = "index.html#highlights";
+				break;
 			case "mw":
 				returnUrl = "index.html#works";
 				break;
@@ -70,6 +73,15 @@
 				returnUrl = `${path}?lang=jp#${hash}`;
 			} else {
 				returnUrl = `${returnUrl}?lang=jp`;
+			}
+		}
+		
+		if (langCode == "e") {
+			if (returnUrl.includes("#")) {
+				const [path, hash] = returnUrl.split("#");
+				returnUrl = `${path}?lang=en#${hash}`;
+			} else {
+				returnUrl = `${returnUrl}?lang=en`;
 			}
 		}
 	}

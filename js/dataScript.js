@@ -57,7 +57,7 @@ export function Highlights(type) {
 		
 		htmlContent += `
 			<div class="flex-grow-1 m-1 p-1 workItem">
-			<a class="workItem" href="./mdRenderer.html?mdurl=./data/worksMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md" role="button">
+			<a class="workItem" href="./mdRenderer.html?mdurl=./data/worksMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md&og=mh`+(jp ? "j" : "e")+`" role="button">
 			`+( data[i].bannerEn ? `<span class="showcase-banner">`+(jp ? data[i].bannerJp : data[i].bannerEn)+`</span>` : ``)+`
 			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" /></a>
             <h3 class="mb-0">`+data[i].title+`</h3>

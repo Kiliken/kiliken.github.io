@@ -9,15 +9,6 @@
 	"aboutJp" : "FrancumJp"
 },
 {
-    "title" : "Sin No Hate",
-	"img" : "sinNoHate.jpg",
-	"platform" : "OpenSiv3D",
-	"bannerEn" : "BANDAI NAMCO STUDIO CUP",
-	"bannerJp" : "バンダイナムコスタジオ杯",
-	"aboutEn" : "SinNoHateEn",
-	"aboutJp" : "SinNoHateJp"
-},
-{
     "title" : "Psychic Showdown",
 	"img" : "psyShow.jpg",
 	"platform" : "Unity Engine",
@@ -27,11 +18,22 @@
 	"aboutJp" : "PsyShowJp"
 },
 {
-    "title" : "Direct2D Raycaster",
-	"img" : "d2d1fps.jpg",
-	"platform" : "Direct2D & SDL3",
-	"aboutEn" : "D2d1RaycastEn",
-	"aboutJp" : "D2d1RaycastJp"
+    "title" : "Sin No Hate",
+	"img" : "sinNoHate.jpg",
+	"platform" : "OpenSiv3D",
+	"bannerEn" : "BANDAI NAMCO STUDIO CUP",
+	"bannerJp" : "バンダイナムコスタジオ杯",
+	"aboutEn" : "SinNoHateEn",
+	"aboutJp" : "SinNoHateJp"
+},
+{
+    "title" : "Toy Pair",
+	"img" : "",
+	"platform" : "Unity Engine (Nintendo SDK)",
+	"bannerEn" : "TOKYO GAME SHOW 2026",
+	"bannerJp" : "TGS_2026 出展",
+	"aboutEn" : "ToyPairEn",
+	"aboutJp" : "ToyPairJp"
 },
 {
     "title" : "Reikai Revenge",
@@ -68,6 +70,20 @@
 	"aboutJp" : "TheRGBJp"
 },
 {
+    "title" : "Direct2D Raycaster",
+	"img" : "d2d1fps.jpg",
+	"platform" : "Direct2D & SDL3",
+	"aboutEn" : "D2d1RaycastEn",
+	"aboutJp" : "D2d1RaycastJp"
+},
+{
+    "title" : "Boss Select",
+	"img" : "",
+	"platform" : "devkitPro (GBA)",
+	"aboutEn" : "D2d1RaycastEn",
+	"aboutJp" : "D2d1RaycastJp"
+},
+{
     "title" : "SPLASH!!!",
     "img" : "splash.jpg",
 	"platform" : "Unity Engine",
@@ -94,13 +110,6 @@
 	"platform" : "Unity Engine",
 	"aboutEn" : "ParallelEn",
 	"aboutJp" : "ParallelJp"
-},
-{
-    "title" : "Mystery Box",
-    "img" : "",
-	"platform" : "Unreal Engine",
-	"aboutEn" : "MysteryBoxEn",
-	"aboutJp" : "MysteryBoxJp"
 },
 {
     "title" : "Gravitius",

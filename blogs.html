@@ -78,7 +78,7 @@
 				window.addEventListener('load', () => {
 						const lang = getUrlParameter("lang");
 						
-						document.getElementById("returnButton").href = (lang == "jp" ? "index.html?lang=jp#blog" : "index.html#blog");
+						document.getElementById("returnButton").href = (lang == "jp" ? "index.html?lang=jp#blog" : "index.html?lang=en#blog");
 						
 						AllBlogs(lang);
 				} );

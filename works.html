@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="My personal website" />
         <meta name="author" content="Mariani Francesco Paolo" />
-        <title>Paolo Mariani - Works</title>
+        <title>Paolo Mariani - Projects</title>
         <link rel="icon" type="image/x-icon" href="img/smolicon.png" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -41,7 +41,7 @@
 					<h1 class="mb-0">
                         <span class="text-primary"><img class="img-fluid img-profile mx-auto mb-2" width="75" src="img/mylogog.svg" alt="..." /> PAOLO MARIANI</span>
 					</h1>
-                    <h2 class="mb-2">Works</h2>
+                    <h2 class="mb-2">Projects</h2>
 					<div class="d-flex flex-column flex-md-row justify-content-between">
                         <div class="flex-grow-1 m-1 p-1">
 							<a class="btn btn-primary text-white" href="works.html?lang=en" role="button">English</a>
@@ -84,7 +84,7 @@
 				window.addEventListener('load', () => {
 						const lang = getUrlParameter("lang");
 						
-						document.getElementById("returnButton").href = (lang == "jp" ? "index.html?lang=jp#works" : "index.html#works");
+						document.getElementById("returnButton").href = (lang == "jp" ? "index.html?lang=jp#works" : "index.html?lang=en#works");
 						
 						AllWorks(lang);
 				} );
