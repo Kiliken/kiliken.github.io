@@ -28,7 +28,7 @@
 },
 {
     "title" : "Toy Pair",
-	"img" : "",
+	"img" : "toyPair.jpg",
 	"platform" : "Unity Engine (Nintendo SDK)",
 	"bannerEn" : "TOKYO GAME SHOW 2026",
 	"bannerJp" : "TGS_2026 出展",
@@ -53,7 +53,7 @@
 },
 {
     "title" : "Direct Rush",
-	"img" : "",
+	"img" : "directRush.jpg",
 	"platform" : "Unity Engine",
 	"bannerEn" : "WE ARE JIKEI COM",
 	"bannerJp" : "滋慶 若きクリエイター 出展",
