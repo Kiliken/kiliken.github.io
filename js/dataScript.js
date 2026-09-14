@@ -38,6 +38,40 @@ export function Works(page, type) {
 	wkDiv.innerHTML = htmlContent;
 }
 
+export function Highlights(type) {
+	var jp = false;
+	jp = (type == "jp" ? true : false);
+	var data = enWorks;
+	
+    var wkDiv = document.getElementById('mainworkscreen');
+    wkDiv.innerHTML = '';
+	let htmlContent = '';
+	for (var i = 0; i < 4; i++) {
+		
+		if (i >= data.length)
+			continue;
+		
+		if (i % 2 === 0) {
+			htmlContent += `<div class="d-flex flex-column flex-md-row justify-content-between">`;
+		}
+		
+		htmlContent += `
+			<div class="flex-grow-1 m-1 p-1 workItem">
+			<a class="workItem" href="./mdRenderer.html?mdurl=./data/worksMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md" role="button">
+			`+( data[i].bannerEn ? `<span class="showcase-banner">`+(jp ? data[i].bannerJp : data[i].bannerEn)+`</span>` : ``)+`
+			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" /></a>
+            <h3 class="mb-0">`+data[i].title+`</h3>
+            <div class="subheading mb-3">`+data[i].platform+`</div>
+			</div>
+			`;
+		
+		if (i % 2 === 1 || i === data.length - 1) {
+            htmlContent += `</div>`;
+        }
+	}
+	wkDiv.innerHTML = htmlContent;
+}
+
 export function AllWorks(type) {
 	var jp = false;
 	jp = (type == "jp" ? true : false);
@@ -77,12 +111,18 @@ export function Localize(type) {
 	var locDiv;
 	var locConts = (jp ? jpConts : enConts);
 	{
-			locDiv = document.getElementById('aboutMe');
-			locDiv.innerHTML = '';
-			locDiv.innerHTML += locConts[0].conts;
-		}
-		{
-			locDiv = document.getElementById('exp');
+		
+		locDiv = document.getElementById('profession');
+		locDiv.innerHTML = '';
+		locDiv.innerHTML += locConts[0].prof;
+	}
+	{
+		locDiv = document.getElementById('aboutMe');
+		locDiv.innerHTML = '';
+		locDiv.innerHTML += locConts[0].conts;
+	}
+	{
+		locDiv = document.getElementById('exp');
 	for (var i = 0; i < locConts[1].conts.length; i++) {
 		if (locConts[1].conts.length < i)
 			continue;
