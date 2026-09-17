@@ -27,27 +27,15 @@ _(シンのはて)_
 
 ## 🎬 プレゼンテーション
 
+ゲームジャムのテーマ「シン」を、英語の「SIN＝罪」を意味し、さらに地獄の構成は『ダンテの神曲』からインスピレーションを受けています。 プレイヤーは天国から堕ちた天使として、地獄の七つの階層を通り抜け、罪を浄化し、天使としての誇りを取り戻すことを目指します。
+
+このゲームでは、各階層ごとに制限時間内を生き延びることで次の階層へと進みます。進むにつれ、新たな“罪（SIN）”を象徴する敵が現れ、進むほどにすべての罪が混ざり合い、難易度が上がっていきます。撃って、避けて、生き延びて――全階層を制覇し、ハイスコアを目指すゲームです。
 
 <iframe class="ytframe" src="https://www.youtube.com/embed/?autoplay=1&amp;controls=1&amp;disablekb=1&amp;loop=1&amp;mute=1&amp;playlist=8uXQnZTJJ5E&amp;playsinline=1&amp;rel=0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
 
 ---
 
-
-## 🎮 操作方法
-
-| アクション | キー |
-| :---: | :---: |
-| 移動 | WASD |
-| 攻撃 | Space / MouseL |
-| 終了 | Esc |
-
-
-### 遊び方
-押し寄せる敵の波を退け、画面上のすべての「罪（Sins）」を浄化することが目的です。最終ボスを倒して翼を取り戻し、地獄からの脱出を目指しましょう。
-
----
-
-## 開発実績
+## 担当部分・実装実績
 
 ## ゲームループとレンダリング管理
 
