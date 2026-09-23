@@ -18,7 +18,7 @@
 ### Puzzle Controller
 
 ```csharp
-
+&scroll&
 
 void Inputs()
 {
@@ -315,6 +315,7 @@ private void OnDrawGizmos()
 ### Block Shaders
 
 ```cpp
+&scroll&
 
 Shader "Custom/BlockShader"
 {
@@ -412,6 +413,7 @@ Shader "Custom/BlockShader"
 ### Command Line Builder
 
 ```csharp
+&scroll&
 
 [MenuItem("Build/FastBuild")]
 public static void FastBuild()

@@ -45,6 +45,8 @@ Vulkanのような低レイヤAPIに近い効率性と予測可能性を持た�
 * **バッファ・状態管理:** **VAO (Vertex Array Objects)** および **UBO (Uniform Buffer Objects)** を活用し、ステートチェンジを最小化。CPUからGPUへのデータ転送を最適化し、グローバルなシェーダー定数を効率的に管理しています。
 
 ```cpp
+&scroll&
+
 // GLSLのstd140レイアウト仕様に明示的にアライメントされた構造体
 struct MaterialIDs
 {
@@ -107,6 +109,8 @@ void Camera::BindToShader(){
 * **事前コンパイル済みシェーダー:** 実行時のGLSL文字列コンパイルではなく、**SPIR-V** ワークフローを統合。`glslangvalidator` をオフラインコンパイラとして使用することで、**GLSLまたはHLSL** で記述したシェーダーをバイナリとして読み込めるようにし、読み込み速度の向上と柔軟な開発環境を実現しました。
 
 ```cpp
+&scroll&
+
 struct BinaryData {
     size_t sizeBytes;
     std::vector<uint32_t> data; // SPIR-Vモジュールは32ビットワードの配列
@@ -178,6 +182,8 @@ GLuint Utils::LoadSPIRV(const char *vertex_file_path, const char *fragment_file_
 * **スクリプト主導の開発:** 全てのゲームループをスクリプト側で実行可能にしました。C++による描画バックエンドのパフォーマンスを維持しつつ、再ビルド不要でリアルタイムにロジックを更新できる柔軟性を備えています。
 
 ```cpp
+&scroll&
+
 class ScriptComponent 
 {
 public:
@@ -251,6 +257,8 @@ void BindEngineToLua(sol::state &lua)
 * **ワークフロー:** 単一の実行ファイルにより、ホスト環境の検証、**w64devkit** (Portable GCC/Make) の設定、**Lua** ランタイムの構成を自動で行います。
 
 ```
+&scroll&
+
 # setup/InstallEngine.ps1 (環境自動構築スクリプト)
 $ProjectRoot = "$($PSScriptRoot)\.."
 

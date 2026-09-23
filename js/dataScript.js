@@ -7,33 +7,33 @@ export function Works(page, type) {
 	var jp = false;
 	jp = (type == "jp" ? true : false);
 	var data = enWorks;
-	
+
 	page *= 4;
-    var wkDiv = document.getElementById('workscreen');
-    wkDiv.innerHTML = '';
+	var wkDiv = document.getElementById('workscreen');
+	wkDiv.innerHTML = '';
 	let htmlContent = '';
-	for (var i = page; i < page+4; i++) {
-		
+	for (var i = page; i < page + 4; i++) {
+
 		if (i >= data.length)
 			continue;
-		
+
 		if (i % 2 === 0) {
 			htmlContent += `<div class="d-flex flex-column flex-md-row justify-content-between">`;
 		}
-		
+
 		htmlContent += `
 			<div class="flex-grow-1 m-1 p-1 workItem">
-			<a class="workItem" href="./mdRenderer.html?mdurl=./data/worksMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md&og=mw`+(jp ? "j" : "e")+`" role="button">
-			`+( data[i].bannerEn ? `<span class="showcase-banner">`+(jp ? data[i].bannerJp : data[i].bannerEn)+`</span>` : ``)+`
-			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" /></a>
-            <h3 class="mb-0">`+data[i].title+`</h3>
-            <div class="subheading mb-3">`+data[i].platform+`</div>
+			<a class="workItem" href="./mdRenderer.html?mdurl=./data/worksMd/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.md&og=mw` + (jp ? "j" : "e") + `" role="button">
+			`+ (data[i].bannerEn ? `<span class="showcase-banner">` + (jp ? data[i].bannerJp : data[i].bannerEn) + `</span>` : ``) + `
+			<img class="showcase-image" src="img/showcase/`+ (data[i].img === "" ? "none.png" : data[i].img) + `" /></a>
+            <h3 class="mb-0">`+ data[i].title + `</h3>
+            <div class="subheading mb-3">`+ data[i].platform + `</div>
 			</div>
 			`;
-		
+
 		if (i % 2 === 1 || i === data.length - 1) {
-            htmlContent += `</div>`;
-        }
+			htmlContent += `</div>`;
+		}
 	}
 	wkDiv.innerHTML = htmlContent;
 }
@@ -42,32 +42,32 @@ export function Highlights(type) {
 	var jp = false;
 	jp = (type == "jp" ? true : false);
 	var data = enWorks;
-	
-    var wkDiv = document.getElementById('mainworkscreen');
-    wkDiv.innerHTML = '';
+
+	var wkDiv = document.getElementById('mainworkscreen');
+	wkDiv.innerHTML = '';
 	let htmlContent = '';
 	for (var i = 0; i < 4; i++) {
-		
+
 		if (i >= data.length)
 			continue;
-		
+
 		if (i % 2 === 0) {
 			htmlContent += `<div class="d-flex flex-column flex-md-row justify-content-between">`;
 		}
-		
+
 		htmlContent += `
 			<div class="flex-grow-1 m-1 p-1 workItem">
-			<a class="workItem" href="./mdRenderer.html?mdurl=./data/worksMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md&og=mh`+(jp ? "j" : "e")+`" role="button">
-			`+( data[i].bannerEn ? `<span class="showcase-banner">`+(jp ? data[i].bannerJp : data[i].bannerEn)+`</span>` : ``)+`
-			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" /></a>
-            <h3 class="mb-0">`+data[i].title+`</h3>
-            <div class="subheading mb-3">`+data[i].platform+`</div>
+			<a class="workItem" href="./mdRenderer.html?mdurl=./data/worksMd/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.md&og=mh` + (jp ? "j" : "e") + `" role="button">
+			`+ (data[i].bannerEn ? `<span class="showcase-banner">` + (jp ? data[i].bannerJp : data[i].bannerEn) + `</span>` : ``) + `
+			<img class="showcase-image" src="img/showcase/`+ (data[i].img === "" ? "none.png" : data[i].img) + `" /></a>
+            <h3 class="mb-0">`+ data[i].title + `</h3>
+            <div class="subheading mb-3">`+ data[i].platform + `</div>
 			</div>
 			`;
-		
+
 		if (i % 2 === 1 || i === data.length - 1) {
-            htmlContent += `</div>`;
-        }
+			htmlContent += `</div>`;
+		}
 	}
 	wkDiv.innerHTML = htmlContent;
 }
@@ -76,32 +76,32 @@ export function AllWorks(type) {
 	var jp = false;
 	jp = (type == "jp" ? true : false);
 	var data = enWorks;
-	
-    var wkDiv = document.getElementById('workscreen');
-    wkDiv.innerHTML = '';
+
+	var wkDiv = document.getElementById('workscreen');
+	wkDiv.innerHTML = '';
 	let htmlContent = '';
 	for (var i = 0; i < data.length; i++) {
-		
+
 		if (i >= data.length)
 			continue;
-		
+
 		var searchData = "";
-		if(jp)
+		if (jp)
 			searchData = data[i].title + data[i].bannerJp + data[i].platform;
 		else
 			searchData = data[i].title + data[i].bannerEn + data[i].platform;
-		
+
 		htmlContent += `
-			<div class="flex-grow-1 m-1 p-1 workItem workList" id="`+searchData+`">
-			<a class="workItem" href="./mdRenderer.html?mdurl=./data/worksMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md&og=aw`+(jp ? "j" : "e")+`" role="button">
-			`+( data[i].bannerEn ? `<span class="showcase-banner">`+(jp ? data[i].bannerJp : data[i].bannerEn)+`</span>` : ``)+`
-			<img class="showcase-image" src="img/showcase/`+(data[i].img === "" ? "none.png" : data[i].img)+`" /></a>
-            <h3 class="mb-0">`+data[i].title+`</h3>
-            <div class="subheading mb-3">`+data[i].platform+`</div>
+			<div class="flex-grow-1 m-1 p-1 workItem workList" id="`+ searchData + `">
+			<a class="workItem" href="./mdRenderer.html?mdurl=./data/worksMd/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.md&og=aw` + (jp ? "j" : "e") + `" role="button">
+			`+ (data[i].bannerEn ? `<span class="showcase-banner">` + (jp ? data[i].bannerJp : data[i].bannerEn) + `</span>` : ``) + `
+			<img class="showcase-image" src="img/showcase/`+ (data[i].img === "" ? "none.png" : data[i].img) + `" /></a>
+            <h3 class="mb-0">`+ data[i].title + `</h3>
+            <div class="subheading mb-3">`+ data[i].platform + `</div>
 			</div>
 			`;
 	}
-	
+
 	wkDiv.innerHTML = htmlContent;
 }
 
@@ -111,7 +111,7 @@ export function Localize(type) {
 	var locDiv;
 	var locConts = (jp ? jpConts : enConts);
 	{
-		
+
 		locDiv = document.getElementById('profession');
 		locDiv.innerHTML = '';
 		locDiv.innerHTML += locConts[0].prof;
@@ -123,97 +123,97 @@ export function Localize(type) {
 	}
 	{
 		locDiv = document.getElementById('exp');
-	for (var i = 0; i < locConts[1].conts.length; i++) {
-		if (locConts[1].conts.length < i)
-			continue;
-		
-		locDiv.innerHTML += `
+		for (var i = 0; i < locConts[1].conts.length; i++) {
+			if (locConts[1].conts.length < i)
+				continue;
+
+			locDiv.innerHTML += `
 			<div class="d-flex flex-column flex-md-row justify-content-between mb-5">
 				<div class="flex-grow-1">
-					<h3 class="mb-0">`+locConts[1].conts[i].job+`</h3>
-					<div class="subheading mb-3">`+locConts[1].conts[i].company+`</div>
-					<p class="text-clamp">`+locConts[1].conts[i].desc+`</p>
+					<h3 class="mb-0">`+ locConts[1].conts[i].job + `</h3>
+					<div class="subheading mb-3">`+ locConts[1].conts[i].company + `</div>
+					<p class="text-clamp">`+ locConts[1].conts[i].desc + `</p>
 					<a href="javascript:void(0);" class="read-more-btn text-primary font-weight-bold">More...</a>
 				</div>
-				<div class="flex-shrink-0"><span class="text-primary">`+locConts[1].conts[i].time+`</span></div>
+				<div class="flex-shrink-0"><span class="text-primary">`+ locConts[1].conts[i].time + `</span></div>
             </div>
 			`;
-	}	
 		}
-		{
-			locDiv = document.getElementById('cert');
-	for (var i = 0; i < locConts[2].conts.length; i++) {
-		if (locConts[2].conts.length < i)
-			continue;
-		
-		locDiv.innerHTML += `
-			<div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">`+locConts[2].conts[i].name+`</h3>
-                            <div class="subheading mb-3">`+locConts[2].conts[i].extra+`</div>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">`+locConts[2].conts[i].data+`</span></div>
-            </div>
-			`;
 	}
-		}
-		{
-			locDiv = document.getElementById('edu');
-	for (var i = 0; i < locConts[3].conts.length; i++) {
-		if (locConts[3].conts.length < i)
-			continue;
-		
-		locDiv.innerHTML += `
+	{
+		locDiv = document.getElementById('cert');
+		for (var i = 0; i < locConts[2].conts.length; i++) {
+			if (locConts[2].conts.length < i)
+				continue;
+
+			locDiv.innerHTML += `
 			<div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
-                            <h3 class="mb-0">`+locConts[3].conts[i].school+`</h3>
-                            <div class="subheading mb-3">`+locConts[3].conts[i].type+`</div>
-                            <div>`+locConts[3].conts[i].degree+`</div>
-                            <p>`+locConts[3].conts[i].extra+`</p>
+                            <h3 class="mb-0">`+ locConts[2].conts[i].name + `</h3>
+                            <div class="subheading mb-3">`+ locConts[2].conts[i].extra + `</div>
                         </div>
-                        <div class="flex-shrink-0"><span class="text-primary">`+locConts[3].conts[i].time+`</span></div>
+                        <div class="flex-shrink-0"><span class="text-primary">`+ locConts[2].conts[i].data + `</span></div>
+            </div>
+			`;
+		}
+	}
+	{
+		locDiv = document.getElementById('edu');
+		for (var i = 0; i < locConts[3].conts.length; i++) {
+			if (locConts[3].conts.length < i)
+				continue;
+
+			locDiv.innerHTML += `
+			<div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">`+ locConts[3].conts[i].school + `</h3>
+                            <div class="subheading mb-3">`+ locConts[3].conts[i].type + `</div>
+                            <div>`+ locConts[3].conts[i].degree + `</div>
+                            <p>`+ locConts[3].conts[i].extra + `</p>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">`+ locConts[3].conts[i].time + `</span></div>
                     </div>
 			`;
-	}
 		}
-	
-    
+	}
+
+
 }
 
 export function getUrlParameter(name) {
-  // Get the query string part of the current URL
-  const queryString = window.location.search;
+	// Get the query string part of the current URL
+	const queryString = window.location.search;
 
-  // Create a URLSearchParams object from the query string
-  const params = new URLSearchParams(queryString);
+	// Create a URLSearchParams object from the query string
+	const params = new URLSearchParams(queryString);
 
-  // Return the value of the specified parameter
-  return params.get(name);
+	// Return the value of the specified parameter
+	return params.get(name);
 }
 
 export function Blogs(page, type) {
 	var jp = false;
 	jp = (type == "jp" ? true : false);
 	var data = enBlog;
-	
+
 	page *= 4;
-    var blgDiv = document.getElementById('blogscreen');
-    blgDiv.innerHTML = '';
+	var blgDiv = document.getElementById('blogscreen');
+	blgDiv.innerHTML = '';
 	let htmlContent = '';
-	for (var i = page; i < page+4; i++) {
-		
+	for (var i = page; i < page + 4; i++) {
+
 		if (i >= data.length)
 			continue;
-		
+
 		htmlContent += `
 			<div class="d-flex flex-column flex-md-row justify-content-between mb-5">
             <div class="flex-grow-1">
-            <h3 class="mb-0">`+(jp ? data[i].titleJp : data[i].titleEn)+`</h3>
-            <div class="subheading mb-3">`+(jp ? data[i].topicJp : data[i].topicEn)+`</div>
-            <p>`+(jp ? data[i].descJp : data[i].descEn)+`</p>
-			<a class="btn btn-primary text-white" id="blogBtn1" href="./mdRenderer.html?mdurl=./data/blogsMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md&og=mb`+(jp ? "j" : "e")+`">READ</a>
+            <h3 class="mb-0">`+ (jp ? data[i].titleJp : data[i].titleEn) + `</h3>
+            <div class="subheading mb-3">`+ (jp ? data[i].topicJp : data[i].topicEn) + `</div>
+            <p>`+ (jp ? data[i].descJp : data[i].descEn) + `</p>
+			<a class="btn btn-primary text-white" id="blogBtn1" href="./mdRenderer.html?mdurl=./data/blogsMd/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.md&og=mb` + (jp ? "j" : "e") + `">READ</a>
             </div>
-            <div class="flex-shrink-0"><span class="text-primary">`+data[i].date+`</span></div>
+            <div class="flex-shrink-0"><span class="text-primary">`+ data[i].date + `</span></div>
 			
             </div>
 			<hr>
@@ -226,56 +226,126 @@ export function AllBlogs(type) {
 	var jp = false;
 	jp = (type == "jp" ? true : false);
 	var data = enBlog;
-	
-    var blgDiv = document.getElementById('blogscreen');
-    blgDiv.innerHTML = '';
+
+	var blgDiv = document.getElementById('blogscreen');
+	blgDiv.innerHTML = '';
 	let htmlContent = '';
 	for (var i = 0; i < data.length; i++) {
-		
+
 		if (i >= data.length)
 			continue;
-		
+
 		var searchData = "";
-		if(jp)
+		if (jp)
 			searchData = data[i].titleJp + data[i].topicJp + data[i].descJp;
 		else
 			searchData = data[i].titleEn + data[i].topicEn + data[i].descEn;
-		
+
 		htmlContent += `
-			<div class="mb-5 blogList" id="`+searchData+`">
+			<div class="mb-5 blogList" id="`+ searchData + `">
             <div class="flex-grow-1">
-            <h3 class="mb-0">`+(jp ? data[i].titleJp : data[i].titleEn)+`</h3>
-            <div class="subheading mb-3">`+(jp ? data[i].topicJp : data[i].topicEn)+`</div>
-            <p>`+(jp ? data[i].descJp : data[i].descEn)+`</p>
-			<div><span class="text-primary">`+data[i].date+`</span></div>
-			<a class="btn btn-primary text-white" id="blogBtn1" href="./mdRenderer.html?mdurl=./data/blogsMd/`+(jp ? data[i].aboutJp : data[i].aboutEn)+`.md&og=ab`+(jp ? "j" : "e")+`">READ</a>
+            <h3 class="mb-0">`+ (jp ? data[i].titleJp : data[i].titleEn) + `</h3>
+            <div class="subheading mb-3">`+ (jp ? data[i].topicJp : data[i].topicEn) + `</div>
+            <p>`+ (jp ? data[i].descJp : data[i].descEn) + `</p>
+			<div><span class="text-primary">`+ data[i].date + `</span></div>
+			<a class="btn btn-primary text-white" id="blogBtn1" href="./mdRenderer.html?mdurl=./data/blogsMd/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.md&og=ab` + (jp ? "j" : "e") + `">READ</a>
             </div>
 			<hr>
             </div>
 			`;
 	}
-	
+
 	blgDiv.innerHTML = htmlContent;
 }
 
 export function initReadMore() {
-    const readMoreBtns = document.querySelectorAll('.read-more-btn');
-    readMoreBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            const parent = btn.closest('.flex-grow-1');
-            const textEl = parent.querySelector('p');
+	const readMoreBtns = document.querySelectorAll('.read-more-btn');
+	readMoreBtns.forEach(btn => {
+		btn.addEventListener('click', (e) => {
+			e.preventDefault();
 
-            if (textEl.classList.contains('text-clamp')) {
-                textEl.classList.remove('text-clamp');
-                textEl.classList.add('text-expanded');
-                btn.textContent = 'Close';
-            } else {
-                textEl.classList.remove('text-expanded');
-                textEl.classList.add('text-clamp');
-                btn.textContent = 'More...';
-            }
-        });
-    });
+			const parent = btn.closest('.flex-grow-1');
+			const textEl = parent.querySelector('p');
+
+			if (textEl.classList.contains('text-clamp')) {
+				textEl.classList.remove('text-clamp');
+				textEl.classList.add('text-expanded');
+				btn.textContent = 'Close';
+			} else {
+				textEl.classList.remove('text-expanded');
+				textEl.classList.add('text-clamp');
+				btn.textContent = 'More...';
+			}
+		});
+	});
+}
+
+export function processCode() {
+
+	document.querySelectorAll("pre > code").forEach(codeBlock => {
+		const lines = codeBlock.textContent.split("\n");
+
+		let isCopy = false;
+		let isScroll = false;
+
+		// Check first non-empty line for flags
+		const firstLineIndex = lines.findIndex(line => line.trim() !== "");
+		const firstLine = lines[firstLineIndex]?.trim();
+
+		if (firstLine === "&copy&") isCopy = true;
+		if (firstLine === "&scroll&") isScroll = true;
+
+		if (!(isCopy || isScroll)) return;
+
+		// Remove the flag
+		lines.splice(firstLineIndex, 1);
+		codeBlock.textContent = lines.join("\n");
+
+		// Copy button
+		if (isCopy) {
+			const pre = codeBlock.parentElement;
+			const wrapper = document.createElement("div");
+			wrapper.className = "code-wrapper";
+
+			pre.parentNode.insertBefore(wrapper, pre);
+			wrapper.appendChild(pre);
+
+			const btn = document.createElement("button");
+			btn.className = "copy-btn";
+			btn.textContent = "Copy";
+			wrapper.appendChild(btn);
+
+			btn.addEventListener("click", async () => {
+				await navigator.clipboard.writeText(codeBlock.textContent);
+				btn.textContent = "Copied";
+
+				setTimeout(() => {
+					btn.textContent = "Copy";
+				}, 1200);
+			});
+		}
+
+		// Scroll / expand button
+		if (isScroll) {
+			const pre = codeBlock.parentElement;
+			const wrapper = document.createElement("div");
+			wrapper.className = "code-block";
+
+			pre.parentNode.insertBefore(wrapper, pre);
+			wrapper.appendChild(pre);
+
+			const btn = document.createElement("button");
+			btn.className = "expand-btn";
+			btn.textContent = "Show all";
+			wrapper.appendChild(btn);
+
+			btn.addEventListener("click", () => {
+				wrapper.classList.toggle("expanded");
+
+				btn.textContent = wrapper.classList.contains("expanded")
+					? "Show less"
+					: "Show all";
+			});
+		}
+	});
 }

@@ -43,6 +43,8 @@ I implemented a rendering architecture that utilizes modern OpenGL features to e
 * **Buffer & State Management:** Leveraged **Vertex Array Objects (VAOs)** and **Uniform Buffer Objects (UBOs)** to minimize state changes, streamline CPU-to-GPU data transfer, and efficiently manage global shader constants.
 
 ```cpp
+&scroll&
+
 // Explicitly aligned structures matching GLSL std140 layout specifications
 struct MaterialIDs
 {
@@ -105,6 +107,8 @@ void Camera::BindToShader(){
 * **Pre-compiled Shader Pipeline:** Moving beyond basic runtime GLSL string compilation, I integrated a **SPIR-V** workflow. By utilizing `glslangvalidator` as an offline compiler, the engine supports a unified pipeline where shaders can be authored in **GLSL or HLSL** and ingested as binary blobs, ensuring cross-language flexibility and faster load times.
 
 ```cpp
+&scroll&
+
 struct BinaryData {
     size_t sizeBytes;
     std::vector<uint32_t> data; // SPIR-V modules are arrays of 32-bit words
@@ -175,6 +179,8 @@ To facilitate rapid prototyping and decouple gameplay logic from the core engine
 * **Script-First Iteration:** This architecture allows for the execution of entire game loops within scripts, enabling real-time logic updates without the need for constant recompilation, all while maintaining the raw performance of the C++ rendering backend.
 
 ```cpp
+&scroll&
+
 class ScriptComponent 
 {
 public:
@@ -244,7 +250,9 @@ I adopted the **glTF 2.0** standard as the primary asset format due to its effic
 To eliminate the overhead of traditional IDEs and heavy package managers, I engineered a custom automation suite using a **Batch/PowerShell hybrid** for instantaneous environment bootstrapping.
 * **The Workflow:** A single execution triggers an automated handshake that validates the host environment and configures a **w64devkit** (Portable GCC/Make) toolchain alongside a pre-configured **Lua** runtime.
 
-```bat
+```
+&scroll&
+
 # setup/InstallEngine.ps1 (Automated Environment Setup Script)
 $ProjectRoot = "$($PSScriptRoot)\.."
 

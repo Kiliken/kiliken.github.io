@@ -30,6 +30,8 @@ Direct2D Raycasterは、Wolfenstein 3Dなどの初期3Dゲームで採用され�
 壁との衝突位置からテクスチャ座標を算出し、CPU上でテクスチャをサンプリングしてフレームバッファへ直接描画しています。また、壁の向きに応じた簡易ライティングや、スプライト描画のための深度バッファ（Z-buffer）も実装し、壁による適切なオクルージョン処理を実現しています。
 
 ```cpp
+&scroll&
+
 for (int x = 0; x < width; ++x)
         {
             float camX = ((2.0f * x) / (float)width) - 1.0f;
@@ -183,6 +185,8 @@ enemyManager.RenderBillboards(pRenderTarget, enemyBrush, textureBitmap, depthBuf
 単一点ではなく矩形（AABB）として当たり判定を行い、オブジェクトが占有する範囲内のすべてのマップタイルを走査することで、壁へのめり込みやマップ外への移動を防止しています。
 
 ```cpp
+&scroll&
+
 bool canMove(D2D_POINT_2F position, D2D_POINT_2F size)
 {
     // create the corners of the rectangle
@@ -222,6 +226,8 @@ bool canMove(D2D_POINT_2F position, D2D_POINT_2F size)
 これにより、不正なマップデータによる描画エラーやゲーム進行中の予期しない挙動を未然に防止しています。
 
 ```cpp
+&scroll&
+
 bool mapCheck() {
     // check size
     int mapSize = sizeof(worldMap) - 1; // - 1 because sizeof also counts the final NULL character

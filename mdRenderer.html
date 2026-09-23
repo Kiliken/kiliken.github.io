@@ -2,132 +2,104 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="description" content="My personal website" />
-  <meta name="author" content="Mariani Francesco Paolo" />
-  <title>Paolo Mariani - Contents</title>
-  <link rel="icon" type="image/x-icon" href="img/smolicon.png" />
-  <!-- Font Awesome icons (free version)-->
-  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-  <!-- Google fonts-->
-  <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
-  <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
-  <!-- Core theme CSS (includes Bootstrap)-->
-  <link rel="stylesheet" href="css/github-markdown.css">
-  <link rel="stylesheet" href="highlight/styles/github-dark.css">
-  <script src="highlight/highlight.min.js"></script>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="My personal website" />
+	<meta name="author" content="Mariani Francesco Paolo" />
+	<title>Paolo Mariani - Contents</title>
+	<link rel="icon" type="image/x-icon" href="img/smolicon.png" />
+	<!-- Font Awesome icons (free version)-->
+	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+	<!-- Google fonts-->
+	<link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet"
+		type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link rel="stylesheet" href="css/github-markdown.css">
+	<link rel="stylesheet" href="highlight/styles/github-dark.css">
+	<script src="highlight/highlight.min.js"></script>
 </head>
 
 <body class="markdown-body">
-  <nav class="navbar navbar-dark bg-primary">
-    <div>
- 	   <a class="navbar-brand" href="index.html" id="returnButton">
- 	      <i class="fas fa-arrow-left"></i> Back to Portfolio
- 	   </a>
-    </div>
-  </nav>
-  <!-- README -->
-  <div class="renderer" id="content">
-    <!-- Marked.js output goes here -->
-  </div>
-  <!-- Bootstrap core JS-->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Core theme JS-->
-  <script src="./js/marked.min.js"></script>
-  <script type="module">
-    import { getUrlParameter } from "./js/dataScript.js";
+	<nav class="navbar navbar-dark bg-primary">
+		<div>
+			<a class="navbar-brand" href="index.html" id="returnButton">
+				<i class="fas fa-arrow-left"></i> Back to Portfolio
+			</a>
+		</div>
+	</nav>
+	<!-- README -->
+	<div class="renderer" id="content">
+		<!-- Marked.js output goes here -->
+	</div>
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="./js/marked.min.js"></script>
+	<script type="module">
+		import { getUrlParameter } from "./js/dataScript.js";
+		import { processCode } from "./js/dataScript.js";
 
-    const mdUrl = getUrlParameter("mdurl");
-	const originUrl = getUrlParameter("og");
-	
-	let returnUrl = "index.html";
-	
-	if(originUrl != null){
-		const baseCode = originUrl.slice(0, 2);
-		const langCode = originUrl.slice(2);
-		
-		switch(baseCode){
-			case "mh":
-				returnUrl = "index.html#highlights";
-				break;
-			case "mw":
-				returnUrl = "index.html#works";
-				break;
-			case "mb":
-				returnUrl = "index.html#blog";
-				break;
-			case "aw":
-				returnUrl = "works.html";
-				break;
-			case "ab":
-				returnUrl = "blogs.html";
-				break;
-			default:
-				
-		}
-		
-		if (langCode == "j") {
-			if (returnUrl.includes("#")) {
-				const [path, hash] = returnUrl.split("#");
-				returnUrl = `${path}?lang=jp#${hash}`;
-			} else {
-				returnUrl = `${returnUrl}?lang=jp`;
+		const mdUrl = getUrlParameter("mdurl");
+		const originUrl = getUrlParameter("og");
+
+		let returnUrl = "index.html";
+
+		if (originUrl != null) {
+			const baseCode = originUrl.slice(0, 2);
+			const langCode = originUrl.slice(2);
+
+			switch (baseCode) {
+				case "mh":
+					returnUrl = "index.html#highlights";
+					break;
+				case "mw":
+					returnUrl = "index.html#works";
+					break;
+				case "mb":
+					returnUrl = "index.html#blog";
+					break;
+				case "aw":
+					returnUrl = "works.html";
+					break;
+				case "ab":
+					returnUrl = "blogs.html";
+					break;
+				default:
+
+			}
+
+			if (langCode == "j") {
+				if (returnUrl.includes("#")) {
+					const [path, hash] = returnUrl.split("#");
+					returnUrl = `${path}?lang=jp#${hash}`;
+				} else {
+					returnUrl = `${returnUrl}?lang=jp`;
+				}
+			}
+
+			if (langCode == "e") {
+				if (returnUrl.includes("#")) {
+					const [path, hash] = returnUrl.split("#");
+					returnUrl = `${path}?lang=en#${hash}`;
+				} else {
+					returnUrl = `${returnUrl}?lang=en`;
+				}
 			}
 		}
-		
-		if (langCode == "e") {
-			if (returnUrl.includes("#")) {
-				const [path, hash] = returnUrl.split("#");
-				returnUrl = `${path}?lang=en#${hash}`;
-			} else {
-				returnUrl = `${returnUrl}?lang=en`;
-			}
-		}
-	}
-	
-	document.getElementById("returnButton").href = returnUrl;
 
-    fetch(mdUrl)
-      .then(res => res.text())
-      .then(md => {
-        document.getElementById("content").innerHTML = marked.parse(md);
+		document.getElementById("returnButton").href = returnUrl;
 
-        document.querySelectorAll("pre > code").forEach(codeBlock => {
-          const lines = codeBlock.textContent.split("\n");
+		fetch(mdUrl)
+			.then(res => res.text())
+			.then(md => {
+				document.getElementById("content").innerHTML = marked.parse(md);
+				processCode();
 
-          // Check if first non-empty line is &copy&
-          const firstLineIndex = lines.findIndex(line => line.trim() !== "");
-          if (lines[firstLineIndex]?.trim() !== "&copy&") return;
+				hljs.highlightAll();
+			});
 
-          // Remove the &copy& line
-          lines.splice(firstLineIndex, 1);
-          codeBlock.textContent = lines.join("\n");
-
-          // Create wrapper
-          const pre = codeBlock.parentElement;
-          const wrapper = document.createElement("div");
-          wrapper.className = "code-wrapper";
-          pre.parentNode.insertBefore(wrapper, pre);
-          wrapper.appendChild(pre);
-
-          // Create button
-          const btn = document.createElement("button");
-          btn.className = "copy-btn";
-          btn.textContent = "Copy";
-          wrapper.appendChild(btn);
-
-          btn.addEventListener("click", async () => {
-            await navigator.clipboard.writeText(codeBlock.textContent);
-            btn.textContent = "Copied";
-            setTimeout(() => btn.textContent = "Copy", 1200);
-          });
-        });
-
-        hljs.highlightAll();
-      });
-
-  </script>
+	</script>
 </body>
 
 </html>

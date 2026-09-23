@@ -70,6 +70,8 @@ The physical topology utilized a dedicated client-server model over a synchroniz
 To ensure minimal latency and maximize routing throughput under high-frequency tick constraints, I developed a custom, ultra-lightweight UDP routing server in C#. The server acts as a low-overhead network cross-bridge, routing packed byte payloads sequentially between players with minimal structural validation to eliminate buffer inflation and processing overhead on the host interface.
 
 ```csharp
+&scroll&
+
 // ============================================================================
 // Server-Side Implementation Of UDP
 // ============================================================================
@@ -285,6 +287,8 @@ On the client engine layer, network I/O operations are fully decoupled from the 
 I implemented a dedicated background worker thread to continuously loop packet serialization and deserialization. By tracking real-time delta times via hardware-accurate `Stopwatch` intervals, the worker thread dynamically throttles execution using high-precision sleep intervals. This keeps the network tick rate locked to a clean ~30Hz, entirely protecting the main render thread from starvation and avoiding socket buffer congestion.
 
 ```csharp
+&scroll&
+
 // ============================================================================
 // Real-Time UDP Network IO & State Interleaving Engine
 // ============================================================================
@@ -364,6 +368,8 @@ To establish highly variable arena layouts without the overhead of heavy network
 The system utilizes a multi-octave Fractional Brownian Motion (fBm) algorithm built on top of coherent Perlin noise distributions. By passing an abstracted random seed over the initial matchmaking handshake, both clients dynamically compute identical pseudo-random directional octave offsets, sample complex frequencies, and execute a normalization pass on the resulting heightmap buffer. This achieves absolute runtime parity across the network at zero bandwidth cost.
 
 ```csharp
+&scroll&
+
 // ============================================================================
 // Noise Generator
 // ============================================================================

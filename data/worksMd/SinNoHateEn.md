@@ -51,6 +51,7 @@ The objective is to cleanse the screen of all 'Sins' by holding off enemy waves.
 This core module handles the real-time frame updates, collision resolution, and rendering passes for active entities. It coordinates a nested bounding-box intersection check between player projectiles and enemies, manages structural state changes safely using standard library iterator-erasure patterns (`enemies.erase()`), and sets up the rendering pipeline. It explicitly binds custom constant buffers and texture registers to the GPU to prepare the graphics pipeline for a palette-swapping shader pass before rendering active sprite layers.
 
 ```cpp
+&scroll&
 
 // EnemyLoop
 if(!gameOver.gameOver){
@@ -113,6 +114,7 @@ if(!gameOver.gameOver){
 A custom HLSL pixel shader designed to maximize visual variety while minimizing texture memory overhead. Instead of storing separate sprite sheets for different enemy variations, this shader samples a base sprite and references a dynamic 2D texture Look-Up Table (LUT). By checking the color distance of base texture pixels against a source index, it dynamically swaps colors out for a target palette row at runtime based on the selection index passed via the Constant Buffer (`b1`).
 
 ```cpp
+&scroll&
 
 //
 //	Textures
@@ -199,6 +201,7 @@ A collection of lightweight visual effect structures derived from a polymorphic 
 * **`Feathers`:** Approximates organic wind resistance and aerodynamic drag using a trigonometric sine function to calculate lateral sway as particles fall under simulated gravity.
 
 ```cpp
+&scroll&
 
 struct Spark : IEffect
 {
