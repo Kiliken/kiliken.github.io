@@ -10988,7 +10988,23 @@ section.resume-section .resume-section-content {
     object-fit: contain;
 }
 
+#workscreen { 
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); 
+	gap: 0px;
+	padding: 1px;
+}
 
+section.section-works {
+	max-width: none !important;
+}
+
+.subheading-works {
+  font-family: inherit;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
 
 .workItem a {
     position: relative;
@@ -11053,4 +11069,40 @@ section.resume-section .resume-section-content {
 .text-expanded {
     display: block;                 /* Removes the clamp entirely when clicked */
     overflow: visible;
+}
+
+/* Skills part */
+
+.card {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.to-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.to-icon-sm {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+.skill-pill {
+    display: inline-flex;
+    align-items: center;
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
 }

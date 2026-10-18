@@ -29,13 +29,12 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#highlights">Highlighs</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#works">Projects</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">Experience</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Education</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">Skills</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#certification">Certifications</a></li>
                     <!-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#more">More</a></li> -->
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#works">Projects</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#blog">Blogs</a></li>
 					
 					<!-- Language Change-->
@@ -68,19 +67,19 @@
 				
             </section>
 			<hr class="m-0" />
-			<section class="resume-section" id="highlights">
+			<section class="resume-section section-works" id="works">
 				<div class="resume-section-content">
-                    <h2 class="mb-5">Highlight Projects</h2>
-					<div id="mainworkscreen">
+                    <h2 class="mb-5">Projects</h2>
+					<div id="workscreen">
 						
 					</div>
+					<a class="btn btn-primary btn-lg text-white" id="moreWorks" href="works.html?lang=en" role="button">SEE MORE</a>
                 </div>
 			</section>
 			<hr class="m-0" />
             <!-- Experience-->
             <section class="resume-section" id="experience">
                 <div class="resume-section-content" id="exp">
-                    <h2 class="mb-5">Experience</h2>
 					
                 </div>
             </section>
@@ -88,52 +87,110 @@
 			<!-- Education -->
             <section class="resume-section" id="education">
                 <div class="resume-section-content" id="edu">
-                    <h2 class="mb-5">Education</h2>
                     
                 </div>
             </section>
             <hr class="m-0" />
-            <!-- Skills -->
             <section class="resume-section" id="skills">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">Skills</h2>
-                    <div class="subheading mb-3">Programming Languages</div>
-                    <ul class="list-inline">
-						<li class="list-inline-item"><abbr title="C++"><img src="img/cpp.svg" class="to-icon"></abbr><br>C++</li>
-						<li class="list-inline-item"><abbr title="C#"><img src="img/cs.svg" class="to-icon"></abbr><br>C#</li>
-						<li class="list-inline-item"><abbr title="PowerShell"><img src="img/powershell.svg" class="to-icon"></abbr><br>PowerShell</li>
-						<li class="list-inline-item"><abbr title="Batch"><img src="img/bat.svg" class="to-icon"></abbr><br>Batch</li>
-                        <li class="list-inline-item"><abbr title="JavaScript"><i class="fab fa-js-square dev-icons"></i></abbr><br>JavaScript</li> 
-                        <li class="list-inline-item"><abbr title="PHP"><i class="fa-brands fa-php dev-icons"></i></abbr><br>PHP</li>
-						<li class="list-inline-item"><abbr title="Lua"><img src="img/lua.svg" class="to-icon"></abbr><br>Lua</li>
-						<li class="list-inline-item"><abbr title="Java"><img src="img/java.svg" class="to-icon"></abbr><br>Java</li>
-                    </ul>
-					<div class="subheading mb-3">Frameworks / API</div>
-					<ul class="list-inline">
-						<li class="list-inline-item"><abbr title="OpenGL"><img src="img/opngl.svg" class="to-icon"></abbr><br>OpenGL</li>
-						<li class="list-inline-item"><abbr title="SDL"><img src="img/sdl.svg" class="to-icon"></abbr><br>SDL</li>
-						<li class="list-inline-item"><abbr title="SFML"><img src="img/sfml.svg" class="to-icon"></abbr><br>SFML</li>
-						<li class="list-inline-item"><abbr title="OpenSiv3D"><img src="img/opensiv.svg" class="to-icon"></abbr><br>OpenSiv3D</li>
-                    </ul>
-					<div class="subheading mb-3">Tools</div>
-					<ul class="list-inline">                       
+    <div class="resume-section-content">
+        <h2 class="mb-4">Skills</h2>
+
+        <!-- Featured Core Skill Categories -->
+        <div class="row g-4 mb-5">
+            
+            <!-- Core Skill 1 -->
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm p-3">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="img/cpp.svg" class="to-icon me-2" alt="C++">
+                        <img src="img/cs.svg" class="to-icon me-2" alt="C#">
+                        <h4 class="h5 mb-0" id="skill_title_1"></h4>
+                    </div>
+                    <span class="badge bg-primary w-auto align-self-start mb-2" id="skill_lvl_1"></span>
+                    <p class="text-muted small mb-0" id="skill_desc_1">
                         
-						<li class="list-inline-item"><abbr title="VSTools"><img src="img/vstool.svg" class="to-icon"></abbr><br>MSVC</li>
-						<li class="list-inline-item"><abbr title="GCC"><img src="img/gcc.svg" class="to-icon"></abbr><br>GCC</li>
-						<li class="list-inline-item"><abbr title="CMake"><img src="img/cmake.svg" class="to-icon"></abbr><br>CMake</li>
-                        <li class="list-inline-item"><abbr title="CompilerExplorer"><img src="img/godbolt.svg" class="to-icon"></abbr><br>Godbolt</li>
-						<li class="list-inline-item"><abbr title="Unity"><i class="fa-brands fa-unity dev-icons"></i></abbr><br>Unity</li>
-						<li class="list-inline-item"><abbr title="UnrealEngine"><img src="img/unreal.svg" class="to-icon"></abbr><br>Unreal</li>
-                        <li class="list-inline-item"><abbr title="Blender"><img src="img/blender.svg" class="to-icon"></abbr><br>Blender</li>
-                        <li class="list-inline-item"><abbr title="Gimp"><img src="img/gimp.svg" class="to-icon"></abbr><br>Gimp</li>
-                    </ul>
+                    </p>
                 </div>
-            </section>
+            </div>
+
+            <!-- Core Skill 2 -->
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm p-3">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="img/opngl.svg" class="to-icon me-2" alt="OpenGL">
+                        <img src="img/unreal.svg" class="to-icon me-2" alt="Unreal">
+                        <img src="img/unity.svg" class="to-icon me-2" alt="Unity">
+                        <h4 class="h5 mb-0" id="skill_title_2"></h4>
+                    </div>
+                    <span class="badge bg-primary w-auto align-self-start mb-2" id="skill_lvl_2"></span>
+                    <p class="text-muted small mb-0" id="skill_desc_2">
+                        
+                    </p>
+                </div>
+            </div>
+
+            <!-- Core Skill 3 -->
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm p-3">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="img/cmake.svg" class="to-icon me-2" alt="CMake">
+                        <img src="img/godbolt.svg" class="to-icon me-2" alt="Godbolt">
+                        <h4 class="h5 mb-0" id="skill_title_3"></h4>
+                    </div>
+                    <span class="badge bg-secondary w-auto align-self-start mb-2" id="skill_lvl_3"></span>
+                    <p class="text-muted small mb-0" id="skill_desc_3">
+                        
+                    </p>
+                </div>
+            </div>
+
+            <!-- Core Skill 4 -->
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm p-3">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="img/powershell.svg" class="to-icon me-2" alt="PowerShell">
+                        <img src="img/js.svg" class="to-icon me-2" alt="JavaScript">
+                        <h4 class="h5 mb-0" id="skill_title_4"></h4>
+                    </div>
+                    <span class="badge bg-secondary w-auto align-self-start mb-2" id="skill_lvl_4"></span>
+                    <p class="text-muted small mb-0" id="skill_desc_4">
+                        
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Compact Tech Stack Badges -->
+        <h3 class="h5 mb-3">Complete Toolset</h3>
+        <div class="d-flex flex-wrap gap-2">
+            <span class="skill-pill"><img src="img/cpp.svg" class="to-icon-sm"> C++</span>
+            <span class="skill-pill"><img src="img/cs.svg" class="to-icon-sm"> C#</span>
+            <span class="skill-pill"><img src="img/opngl.svg" class="to-icon-sm"> OpenGL</span>
+            <span class="skill-pill"><img src="img/sdl.svg" class="to-icon-sm"> SDL</span>
+            <span class="skill-pill"><img src="img/sfml.svg" class="to-icon-sm"> SFML</span>
+            <span class="skill-pill"><img src="img/opensiv.svg" class="to-icon-sm"> OpenSiv3D</span>
+            <span class="skill-pill"><img src="img/cmake.svg" class="to-icon-sm"> CMake</span>
+            <span class="skill-pill"><img src="img/vstool.svg" class="to-icon-sm"> MSVC</span>
+            <span class="skill-pill"><img src="img/gcc.svg" class="to-icon-sm"> GCC</span>
+            <span class="skill-pill"><img src="img/godbolt.svg" class="to-icon-sm"> Godbolt</span>
+            <span class="skill-pill"><img src="img/unreal.svg" class="to-icon-sm"> Unreal</span>
+            <span class="skill-pill"><img src="img/unity.svg" class="to-icon-sm"> Unity</span>
+            <span class="skill-pill"><img src="img/powershell.svg" class="to-icon-sm"> PowerShell</span>
+            <span class="skill-pill"><img src="img/bat.svg" class="to-icon-sm"> Batch</span>
+            <span class="skill-pill"><img src="img/lua.svg" class="to-icon-sm"> Lua</span>
+            <span class="skill-pill"><img src="img/java.svg" class="to-icon-sm"> Java</span>
+            <span class="skill-pill"><img src="img/js.svg" class="to-icon-sm"> JavaScript</span>
+            <span class="skill-pill"><i class="fa-brands fa-php"></i> PHP</span>
+            <span class="skill-pill"><img src="img/blender.svg" class="to-icon-sm"> Blender</span>
+            <span class="skill-pill"><img src="img/gimp.svg" class="to-icon-sm"> GIMP</span>
+        </div>
+    </div>
+</section>
             <hr class="m-0" />
 			<!-- Certification -->
             <section class="resume-section" id="certification">
                 <div class="resume-section-content" id="cert">
-                    <h2 class="mb-5">Certifications</h2>
 					
                 </div>
             </section>
@@ -148,35 +205,19 @@
                 </div>
             </section>
             -->
-			<!-- Works -->
-            <section class="resume-section" id="works">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">Other Projects</h2>
-					<div class="d-flex flex-column flex-md-row justify-content-between">
-                        <div class="flex-grow-1 m-1 p-1">
-							<a class="btn btn-primary btn-lg text-white" id="wkButton1" role="button">1</a>
-							<a class="btn btn-primary btn-lg text-white" id="wkButton2" role="button">2</a>
-							<a class="btn btn-primary btn-lg text-white" id="wkButton3" role="button">3</a>
-						   <a class="btn btn-primary btn-lg text-white" id="moreWorks" href="works.html?lang=en" role="button">SEE ALL</a>
-						</div>
-					</div>
-					<div id="workscreen">
-						
-					</div>
-                   </div>
-            </section>
             <hr class="m-0" />
 			<!-- Blog -->
             <section class="resume-section" id="blog">
                 <div class="resume-section-content">
                     <h2 class="mb-5">Blogs</h2>
+
+					<div id="blogscreen"></div>
 					<div class="d-flex flex-column flex-md-row justify-content-between">
 						<div class="flex-grow-1 m-1 p-1">
 							<a class="btn btn-primary btn-lg text-white" id="blogBtn1" role="button">1</a>
-							<a class="btn btn-primary btn-lg text-white" id="moreBlogs" href="blogs.html?lang=en" role="button">SEE ALL</a>
+							<a class="btn btn-primary btn-lg text-white" id="moreBlogs" href="blogs.html?lang=en" role="button">SEE MORE</a>
 						</div>
 					</div>
-					<div id="blogscreen"></div>
                 </div>
             </section>
             
@@ -202,28 +243,6 @@
 			}
 			
 			document.addEventListener('DOMContentLoaded', () => {
-			
-				// Works Button
-				const wkButton1 = document.getElementById('wkButton1');
-				if (wkButton1) {
-					wkButton1.addEventListener('click', () => {
-						Works(1,lang);
-					} );
-				}
-				
-				const wkButton2 = document.getElementById('wkButton2');
-				if (wkButton2) {
-					wkButton2.addEventListener('click', () => {
-						Works(2,lang);
-					} );
-				}
-				
-				const wkButton3 = document.getElementById('wkButton3');
-				if (wkButton3) {
-					wkButton3.addEventListener('click', () => {
-						Works(3,lang);
-					} );
-				}
 				
 				// Blogs Button
 				const blogBtn1 = document.getElementById('blogBtn1');
@@ -236,8 +255,7 @@
 			
 			// On Load
 			window.addEventListener('load', () => {
-				Highlights(lang);
-				Works(1,lang);
+				Works(0,lang);
 				Blogs(0,lang);
 				Localize(lang);
 				

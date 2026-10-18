@@ -8,32 +8,24 @@ export function Works(page, type) {
 	jp = (type == "jp" ? true : false);
 	var data = enWorks;
 
-	page *= 4;
+	page *= 9;
 	var wkDiv = document.getElementById('workscreen');
 	wkDiv.innerHTML = '';
 	let htmlContent = '';
-	for (var i = page; i < page + 4; i++) {
+	for (var i = page; i < page + 9; i++) {
 
 		if (i >= data.length)
 			continue;
-
-		if (i % 2 === 0) {
-			htmlContent += `<div class="d-flex flex-column flex-md-row justify-content-between">`;
-		}
 
 		htmlContent += `
 			<div class="flex-grow-1 m-1 p-1 workItem">
 			<a class="workItem" href="./mdRenderer.html?mdurl=./data/worksMd/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.md&og=mw` + (jp ? "j" : "e") + `" role="button">
 			`+ (data[i].bannerEn ? `<span class="showcase-banner">` + (jp ? data[i].bannerJp : data[i].bannerEn) + `</span>` : ``) + `
 			<img class="showcase-image" src="img/showcase/`+ (data[i].img === "" ? "none.png" : data[i].img) + `" /></a>
-            <h3 class="mb-0">`+ data[i].title + `</h3>
-            <div class="subheading mb-3">`+ data[i].platform + `</div>
+            <h3 class="mb-0">`+ data[i].platform + `</h3>
+			<div class="subheading-works mb-3">`+ data[i].languages + `</div>
 			</div>
 			`;
-
-		if (i % 2 === 1 || i === data.length - 1) {
-			htmlContent += `</div>`;
-		}
 	}
 	wkDiv.innerHTML = htmlContent;
 }
@@ -61,7 +53,7 @@ export function Highlights(type) {
 			`+ (data[i].bannerEn ? `<span class="showcase-banner">` + (jp ? data[i].bannerJp : data[i].bannerEn) + `</span>` : ``) + `
 			<img class="showcase-image" src="img/showcase/`+ (data[i].img === "" ? "none.png" : data[i].img) + `" /></a>
             <h3 class="mb-0">`+ data[i].title + `</h3>
-            <div class="subheading mb-3">`+ data[i].platform + `</div>
+            <div class="subheading-works mb-3">`+ data[i].title + `</div>
 			</div>
 			`;
 
@@ -96,8 +88,8 @@ export function AllWorks(type) {
 			<a class="workItem" href="./mdRenderer.html?mdurl=./data/worksMd/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.md&og=aw` + (jp ? "j" : "e") + `" role="button">
 			`+ (data[i].bannerEn ? `<span class="showcase-banner">` + (jp ? data[i].bannerJp : data[i].bannerEn) + `</span>` : ``) + `
 			<img class="showcase-image" src="img/showcase/`+ (data[i].img === "" ? "none.png" : data[i].img) + `" /></a>
-            <h3 class="mb-0">`+ data[i].title + `</h3>
-            <div class="subheading mb-3">`+ data[i].platform + `</div>
+            <h3 class="mb-0">`+ data[i].platform + `</h3>
+            <div class="subheading-works mb-3">`+ data[i].languages + `</div>
 			</div>
 			`;
 	}
@@ -123,6 +115,7 @@ export function Localize(type) {
 	}
 	{
 		locDiv = document.getElementById('exp');
+		locDiv.innerHTML += `<h2 class="mb-5">`+ locConts[4].conts[0].type +`</h2>`;
 		for (var i = 0; i < locConts[1].conts.length; i++) {
 			if (locConts[1].conts.length < i)
 				continue;
@@ -142,6 +135,7 @@ export function Localize(type) {
 	}
 	{
 		locDiv = document.getElementById('cert');
+		locDiv.innerHTML += `<h2 class="mb-5">`+ locConts[4].conts[2].type +`</h2>`;
 		for (var i = 0; i < locConts[2].conts.length; i++) {
 			if (locConts[2].conts.length < i)
 				continue;
@@ -159,6 +153,7 @@ export function Localize(type) {
 	}
 	{
 		locDiv = document.getElementById('edu');
+		locDiv.innerHTML += `<h2 class="mb-5">`+ locConts[4].conts[1].type +`</h2>`;
 		for (var i = 0; i < locConts[3].conts.length; i++) {
 			if (locConts[3].conts.length < i)
 				continue;
@@ -176,8 +171,13 @@ export function Localize(type) {
 			`;
 		}
 	}
-
-
+	for (let i = 0; i < 4; i++) {
+		const index = i + 1; 
+	
+		document.getElementById(`skill_title_${index}`).innerHTML = locConts[5].conts[i].title;
+		document.getElementById(`skill_lvl_${index}`).innerHTML = locConts[5].conts[i].level;
+		document.getElementById(`skill_desc_${index}`).innerHTML = locConts[5].conts[i].desc;
+	}
 }
 
 export function getUrlParameter(name) {

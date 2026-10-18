@@ -82,12 +82,39 @@
 	]
 },
 {
-    "title" : "SPLASH!!!",
-    "img" : "splash.jpg",
-	"url" : "6Z6VitPUXv0",
-	"platform" : "Unity Engine",
-	"description" : "Game type: 2D Action Scroller<br>My role: Level Designer, Programmer<br>This game project has been present at the school festival and won as the most appreciated by school visitors.",
-	"git" : "https://github.com/NathanAung/SPLASH",
-	"about" : "https://github.com/NathanAung/SPLASH/releases/download/v1.0/SPLASH.zip"
+    "conts" : [{
+		"type" : "職歴"
+	},
+	{
+		"type" : "学歴"
+	},
+	{
+		"type" : "資格"
+	}
+	]
+},
+{
+    "conts": [
+        {
+            "title": "システム・ゲームプログラミング",
+            "level": "主要分野",
+            "desc": "低レベルのメモリ管理、オブジェクト指向プログラミング（OOP）、アルゴリズム設計における強固な基礎。最新のC++標準規格、ビルドパイプライン、およびエンジン環境でのC#スクリプティングの経験を有しています。"
+        },
+        {
+            "title": "グラフィックス・エンジンフレームワーク",
+            "level": "上級",
+            "desc": "OpenGL、SDL、SFMLを用いた2D/3Dグラフィックスパイプラインの構築。Unreal EngineやUnityにおけるゲームおよびインタラクティブアプリケーションの開発経験を有しています。"
+        },
+        {
+            "title": "ツール・ビルドパイプライン",
+            "level": "中級",
+            "desc": "CMakeを使用したマルチプラットフォームC++プロジェクトの設定、Compiler Explorer（Godbolt）を活用したアセンブリ出力の解析、MSVCおよびGCCによるクロスコンパイルの構築。"
+        },
+        {
+            "title": "スクリプティング・自動化",
+            "level": "中級",
+            "desc": "PowerShellやBatchを用いたワークフローおよびシステム環境の自動化。組み込み型Luaスクリプティングの知識、ならびに一般的なWeb連携のためのJavaScriptおよびPHPのスキル。"
+        }
+    ]
 }
 ]

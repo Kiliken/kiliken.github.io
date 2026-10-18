@@ -3,6 +3,7 @@
     "title" : "Francum Engine",
 	"img" : "francum.png",
 	"platform" : "OpenGL 4.6 Core & SPIR-V",
+	"languages" : "C++",
 	"bannerEn" : "CUSTOM GAME ENGINE",
 	"bannerJp" : "自作ゲームエンジン",
 	"aboutEn" : "FrancumEn",
@@ -12,6 +13,7 @@
     "title" : "Psychic Showdown",
 	"img" : "psyShow.jpg",
 	"platform" : "Unity Engine",
+	"languages" : "C#",
 	"bannerEn" : "TOKYO GAME SHOW 2025",
 	"bannerJp" : "TGS_2025 出展",
 	"aboutEn" : "PsyShowEn",
@@ -21,6 +23,7 @@
     "title" : "Sin No Hate",
 	"img" : "sinNoHate.jpg",
 	"platform" : "OpenSiv3D",
+	"languages" : "C++",
 	"bannerEn" : "BANDAI NAMCO STUDIO CUP",
 	"bannerJp" : "バンダイナムコスタジオ杯",
 	"aboutEn" : "SinNoHateEn",
@@ -30,6 +33,7 @@
     "title" : "Toy Pair",
 	"img" : "toyPair.jpg",
 	"platform" : "Unity Engine (Nintendo SDK)",
+	"languages" : "C#",
 	"bannerEn" : "TOKYO GAME SHOW 2026",
 	"bannerJp" : "TGS_2026 出展",
 	"aboutEn" : "ToyPairEn",
@@ -39,6 +43,7 @@
     "title" : "Reikai Revenge",
 	"img" : "tatakae.jpg",
 	"platform" : "Unity Engine & Apache",
+	"languages" : "C# & PHP",
 	"aboutEn" : "TatakaeEn",
 	"aboutJp" : "TatakaeJp"
 },
@@ -46,6 +51,7 @@
     "title" : "Kotodama Chronicle",
     "img" : "kotodama.jpg",
 	"platform" : "Unity Engine",
+	"languages" : "C#",
 	"bannerEn" : "INDUSTRY-LED PROJECT",
 	"bannerJp" : "企業プロジェクト",
 	"aboutEn" : "KotodamaEn",
@@ -55,6 +61,7 @@
     "title" : "Direct Rush",
 	"img" : "directRush.jpg",
 	"platform" : "Unity Engine",
+	"languages" : "C#",
 	"bannerEn" : "WE ARE JIKEI COM",
 	"bannerJp" : "滋慶 若きクリエイター 出展",
 	"aboutEn" : "DirectRushEn",
@@ -64,6 +71,7 @@
     "title" : "the Room Gradation Boundless",
 	"img" : "theRGB.jpg",
 	"platform" : "Unity Engine (Vket Cloud SDK)",
+	"languages" : "C# & Heliscript",
 	"bannerEn" : "INDUSTRY-LED PROJECT",
 	"bannerJp" : "企業プロジェクト",
 	"aboutEn" : "TheRGBEn",
@@ -73,6 +81,7 @@
     "title" : "Direct2D Raycaster",
 	"img" : "d2d1fps.jpg",
 	"platform" : "Direct2D & SDL3",
+	"languages" : "C++",
 	"aboutEn" : "D2d1RaycastEn",
 	"aboutJp" : "D2d1RaycastJp"
 },
@@ -80,13 +89,15 @@
     "title" : "Boss Select",
 	"img" : "",
 	"platform" : "devkitPro (GBA)",
+	"languages" : "C++",
 	"aboutEn" : "D2d1RaycastEn",
 	"aboutJp" : "D2d1RaycastJp"
 },
 {
     "title" : "SPLASH!!!",
     "img" : "splash.jpg",
-	"platform" : "Unity Engine",
+	"platform" : "Unity Engine & OpenSiv3D",
+	"languages" : "C# & C++",
 	"aboutEn" : "SplashEn",
 	"aboutJp" : "SplashJp"
 },
@@ -94,6 +105,7 @@
     "title" : "Gamble Densetsu",
 	"img" : "gamble.jpg",
 	"platform" : "Unity Engine",
+	"languages" : "C#",
 	"aboutEn" : "GambleEn",
 	"aboutJp" : "GambleJp"
 },
@@ -101,6 +113,7 @@
     "title" : "SaturJam Games",
 	"img" : "satjam.jpg",
 	"platform" : "Unity Engine (WebGL)",
+	"languages" : "C#",
 	"aboutEn" : "SaturJamEn",
 	"aboutJp" : "SaturJamJp"
 },
@@ -108,6 +121,7 @@
     "title" : "Parallel Panic",
 	"img" : "pp.jpg",
 	"platform" : "Unity Engine",
+	"languages" : "C#",
 	"aboutEn" : "ParallelEn",
 	"aboutJp" : "ParallelJp"
 },
@@ -115,6 +129,7 @@
     "title" : "Gravitius",
 	"img" : "gravitus.jpg",
 	"platform" : "Unity Engine",
+	"languages" : "C#",
 	"aboutEn" : "GravitusEn",
 	"aboutJp" : "GravitusJp"
 }

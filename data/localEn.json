@@ -80,5 +80,40 @@
 		"extra" : "Final Grade : 100 / 100"
 	}
 	]
+},
+{
+    "conts" : [{
+		"type" : "Experience"
+	},
+	{
+		"type" : "Education"
+	},
+	{
+		"type" : "Certifications"
+	}
+	]
+},
+{
+    "conts" : [{
+		"title" : "Systems & Game Programming",
+		"level" : "Primary Focus",
+		"desc" : "Strong foundation in low-level memory management, OOP, and algorithm design. Experienced with modern C++ standards, build pipelines, and C# scripting in engine environments."
+	},
+	{
+		"title" : "Graphics & Engine Frameworks",
+		"level" : "Advanced",
+		"desc" : "Building 2D/3D graphics pipelines with OpenGL, SDL, and SFML. Hands-on experience developing games and interactive applications in Unreal Engine and Unity."
+	},
+	{
+		"title" : "Tooling & Build Pipelines",
+		"level" : "Intermediate",
+		"desc" : "Configuring multi-platform C++ projects with CMake, analyzing assembly output using Compiler Explorer (Godbolt), and cross-compiling with MSVC and GCC."
+	},
+	{
+		"title" : "Scripting & Automation",
+		"level" : "Proficient",
+		"desc" : "Automating workflows and system setups using PowerShell and Batch. Knowledge of Lua embedded scripting, JavaScript, and PHP for general web integration."
+	}
+	]
 }
 ]
