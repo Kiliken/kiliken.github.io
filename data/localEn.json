@@ -1,7 +1,11 @@
 [
 {
-    "conts" : "I am a game programmer specializing in C++ and C#, with a focus on rendering systems, game mechanics, and production tools.<br>Beyond the technology itself, I value building development environments and workflows that enable creators to work comfortably and efficiently.",
-	"prof" : "Game Programmer | R&D Developer"
+    "conts" : "Ciao, I'm <b>Paolo</b>, an Italian programmer who came to Japan to pursue the art of game programming. I'm specializing in <b>C++</b> and <b>C#</b>, with a focus on <b>rendering systems</b>, <b>game mechanics</b>, and <b>production tools</b>.<br><br>Beyond the technology itself, I value building development environments and workflows that empower creators to work comfortably and efficiently.<br><br>Outside of programming, I enjoy spending time in nature, hiking, and diving. I speak several languages and love exploring different cultures.",
+	"title" : "About Me",
+	"prof" : "Game Programmer | R&D Developer",
+	"bedge1": "Tokyo, Japan",
+	"bedge2": "Italian",
+	"bedge3": "TOEIC 980"
 },
 {
     "conts" : [{

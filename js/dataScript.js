@@ -109,9 +109,24 @@ export function Localize(type) {
 		locDiv.innerHTML += locConts[0].prof;
 	}
 	{
+
+		locDiv = document.getElementById('badges');
+		locDiv.innerHTML = '';
+		locDiv.innerHTML += `
+		<span class="badge bg-secondary">`+ locConts[0].bedge1 +`</span>
+        <span class="badge bg-secondary">`+ locConts[0].bedge2 +`</span>
+        <span class="badge bg-primary">`+ locConts[0].bedge3 +`</span>
+		`
+	}
+	{
 		locDiv = document.getElementById('aboutMe');
 		locDiv.innerHTML = '';
-		locDiv.innerHTML += locConts[0].conts;
+		locDiv.innerHTML += `
+		<h4 class="mb-3 text-primary">` + locConts[0].title + `</h4>
+        <p class="mb-3" id="aboutMe">
+            ` + locConts[0].conts + `
+		</p>
+		`;
 	}
 	{
 		locDiv = document.getElementById('exp');
