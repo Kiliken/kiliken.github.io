@@ -11033,7 +11033,24 @@ section.section-works {
 	display: block;
 }
 
+.workItem-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
 
+.workItem-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,0.15) !important;
+}
+
+.showcase-image-large {
+    height: 220px;
+    width: 100%;
+    object-fit: contain;
+    background-color: #f0f0f0;
+}
 
 .workItem:hover a{
   filter: grayscale(100%);

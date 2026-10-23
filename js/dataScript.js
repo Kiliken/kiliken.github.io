@@ -10,6 +10,7 @@ export function Works(page, type) {
 
 	page *= 9;
 	var wkDiv = document.getElementById('workscreen');
+	var allButton = document.getElementById('moreWorks');
 	wkDiv.innerHTML = '';
 	let htmlContent = '';
 	for (var i = page; i < page + 9; i++) {
@@ -18,15 +19,33 @@ export function Works(page, type) {
 			continue;
 
 		htmlContent += `
-			<div class="flex-grow-1 m-1 p-1 workItem">
-			<a class="workItem" href="./mdRenderer.html?mdurl=./data/worksMd/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.md&og=mw` + (jp ? "j" : "e") + `" role="button">
-			`+ (data[i].bannerEn ? `<span class="showcase-banner">` + (jp ? data[i].bannerJp : data[i].bannerEn) + `</span>` : ``) + `
-			<img class="showcase-image" src="img/showcase/`+ (data[i].img === "" ? "none.png" : data[i].img) + `" /></a>
-            <h3 class="mb-0">`+ data[i].platform + `</h3>
-			<div class="subheading-works mb-3">`+ data[i].languages + `</div>
-			</div>
-			`;
+			<div class="card h-100 workItem-card shadow-sm m-1">
+            <a href="./mdRenderer.html?mdurl=./data/worksMd/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.md&amp;og=mw` + (jp ? "j" : "e") + `" class="text-decoration-none">
+                <div class="position-relative">
+					`+ (data[i].bannerEn ? `<span class="badge bg-danger position-absolute top-0 start-0 m-3">` + (jp ? data[i].bannerJp : data[i].bannerEn) + `</span>` : ``) + `
+                    <img src="img/showcase/`+ (data[i].img === "" ? "none.png" : data[i].img) + `" class="card-img-top showcase-image-large">
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title text-dark">`+ data[i].title + `</h3>
+                    <h6 class="text-muted mb-3">`+ data[i].languages + ` ・ ` +data[i].platform + `</h6>
+                    <p class="card-text text-secondary">
+                        `+ (jp ? data[i].descJp : data[i].descEn) + `
+					</p>
+                    
+                    <!-- Bullet points for quick readability -->
+                    <ul class="list-unstyled small text-muted mb-3">
+                        `+ (jp ? data[i].listJp : data[i].listEn) + `
+                    </ul>
+                    
+                    <span class="btn btn-outline-primary btn-sm"> `+ (jp ? `詳しく読む　&rarr;` : `Read Full Case Study &rarr;`) +`</span>
+                </div>
+            </a>
+        </div>
+		`;
 	}
+	allButton.href="works.html?lang="+ (jp ? "jp" : "en");
+	allButton.textContent=(jp ? "すべての作品を見る（全 " : "SEE ALL (") + data.length + " 件）";
+	
 	wkDiv.innerHTML = htmlContent;
 }
 
@@ -48,14 +67,29 @@ export function Highlights(type) {
 		}
 
 		htmlContent += `
-			<div class="flex-grow-1 m-1 p-1 workItem">
-			<a class="workItem" href="./mdRenderer.html?mdurl=./data/worksMd/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.md&og=mh` + (jp ? "j" : "e") + `" role="button">
-			`+ (data[i].bannerEn ? `<span class="showcase-banner">` + (jp ? data[i].bannerJp : data[i].bannerEn) + `</span>` : ``) + `
-			<img class="showcase-image" src="img/showcase/`+ (data[i].img === "" ? "none.png" : data[i].img) + `" /></a>
-            <h3 class="mb-0">`+ data[i].title + `</h3>
-            <div class="subheading-works mb-3">`+ data[i].title + `</div>
-			</div>
-			`;
+			<div class="card h-100 workItem-card shadow-sm m-1">
+            <a href="./mdRenderer.html?mdurl=./data/worksMd/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.md&amp;og=mw` + (jp ? "j" : "e") + `" class="text-decoration-none">
+                <div class="position-relative">
+					`+ (data[i].bannerEn ? `<span class="badge bg-danger position-absolute top-0 start-0 m-3">` + (jp ? data[i].bannerJp : data[i].bannerEn) + `</span>` : ``) + `
+                    <img src="img/showcase/`+ (data[i].img === "" ? "none.png" : data[i].img) + `" class="card-img-top showcase-image-large">
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title text-dark">`+ data[i].title + `</h3>
+                    <h6 class="text-muted mb-3">`+ data[i].languages + ` ・ ` +data[i].platform + `</h6>
+                    <p class="card-text text-secondary">
+                        `+ (jp ? data[i].descJp : data[i].descEn) + `
+					</p>
+                    
+                    <!-- Bullet points for quick readability -->
+                    <ul class="list-unstyled small text-muted mb-3">
+                        `+ (jp ? data[i].listJp : data[i].listEn) + `
+                    </ul>
+                    
+                    <span class="btn btn-outline-primary btn-sm"> `+ (jp ? `詳しく読む　&rarr;` : `Read Full Case Study &rarr;`) +`</span>
+                </div>
+            </a>
+        </div>
+		`;
 
 		if (i % 2 === 1 || i === data.length - 1) {
 			htmlContent += `</div>`;
@@ -84,14 +118,29 @@ export function AllWorks(type) {
 			searchData = data[i].title + data[i].bannerEn + data[i].platform;
 
 		htmlContent += `
-			<div class="flex-grow-1 m-1 p-1 workItem workList" id="`+ searchData + `">
-			<a class="workItem" href="./mdRenderer.html?mdurl=./data/worksMd/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.md&og=aw` + (jp ? "j" : "e") + `" role="button">
-			`+ (data[i].bannerEn ? `<span class="showcase-banner">` + (jp ? data[i].bannerJp : data[i].bannerEn) + `</span>` : ``) + `
-			<img class="showcase-image" src="img/showcase/`+ (data[i].img === "" ? "none.png" : data[i].img) + `" /></a>
-            <h3 class="mb-0">`+ data[i].platform + `</h3>
-            <div class="subheading-works mb-3">`+ data[i].languages + `</div>
-			</div>
-			`;
+			<div class="card h-100 workItem-card shadow-sm m-1">
+            <a href="./mdRenderer.html?mdurl=./data/worksMd/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.md&amp;og=mw` + (jp ? "j" : "e") + `" class="text-decoration-none">
+                <div class="position-relative">
+					`+ (data[i].bannerEn ? `<span class="badge bg-danger position-absolute top-0 start-0 m-3">` + (jp ? data[i].bannerJp : data[i].bannerEn) + `</span>` : ``) + `
+                    <img src="img/showcase/`+ (data[i].img === "" ? "none.png" : data[i].img) + `" class="card-img-top showcase-image-large">
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title text-dark">`+ data[i].title + `</h3>
+                    <h6 class="text-muted mb-3">`+ data[i].languages + ` ・ ` +data[i].platform + `</h6>
+                    <p class="card-text text-secondary">
+                        `+ (jp ? data[i].descJp : data[i].descEn) + `
+					</p>
+                    
+                    <!-- Bullet points for quick readability -->
+                    <ul class="list-unstyled small text-muted mb-3">
+                        `+ (jp ? data[i].listJp : data[i].listEn) + `
+                    </ul>
+                    
+                    <span class="btn btn-outline-primary btn-sm"> `+ (jp ? `詳しく読む　&rarr;` : `Read Full Case Study &rarr;`) +`</span>
+                </div>
+            </a>
+        </div>
+		`;
 	}
 
 	wkDiv.innerHTML = htmlContent;
