@@ -172,7 +172,7 @@ export function Localize(type) {
 		locDiv.innerHTML = '';
 		locDiv.innerHTML += `
 		<h4 class="mb-3 text-primary">` + locConts[0].title + `</h4>
-        <p class="mb-3" id="aboutMe">
+        <p class="mb-3">
             ` + locConts[0].conts + `
 		</p>
 		`;
@@ -185,14 +185,15 @@ export function Localize(type) {
 				continue;
 
 			locDiv.innerHTML += `
-			<div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+			<div class="justify-content-between mb-5">
 				<div class="flex-grow-1">
 					<h3 class="mb-0">`+ locConts[1].conts[i].job + `</h3>
+					<span class="text-primary fw-bold">`+ locConts[1].conts[i].time + `</span>
 					<div class="subheading mb-3">`+ locConts[1].conts[i].company + `</div>
+					
 					<p class="text-clamp">`+ locConts[1].conts[i].desc + `</p>
 					<a href="javascript:void(0);" class="read-more-btn text-primary font-weight-bold">More...</a>
 				</div>
-				<div class="flex-shrink-0"><span class="text-primary">`+ locConts[1].conts[i].time + `</span></div>
             </div>
 			`;
 		}
@@ -205,12 +206,12 @@ export function Localize(type) {
 				continue;
 
 			locDiv.innerHTML += `
-			<div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+			<div class="justify-content-between mb-5">
                         <div class="flex-grow-1">
                             <h3 class="mb-0">`+ locConts[2].conts[i].name + `</h3>
+							<span class="text-primary fw-bold">`+ locConts[2].conts[i].data + `</span>
                             <div class="subheading mb-3">`+ locConts[2].conts[i].extra + `</div>
                         </div>
-                        <div class="flex-shrink-0"><span class="text-primary">`+ locConts[2].conts[i].data + `</span></div>
             </div>
 			`;
 		}
@@ -223,14 +224,14 @@ export function Localize(type) {
 				continue;
 
 			locDiv.innerHTML += `
-			<div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+			<div class="justify-content-between mb-5">
                         <div class="flex-grow-1">
                             <h3 class="mb-0">`+ locConts[3].conts[i].school + `</h3>
+							<span class="text-primary fw-bold">`+ locConts[3].conts[i].time + `</span>
                             <div class="subheading mb-3">`+ locConts[3].conts[i].type + `</div>
                             <div>`+ locConts[3].conts[i].degree + `</div>
                             <p>`+ locConts[3].conts[i].extra + `</p>
                         </div>
-                        <div class="flex-shrink-0"><span class="text-primary">`+ locConts[3].conts[i].time + `</span></div>
                     </div>
 			`;
 		}
@@ -341,6 +342,20 @@ export function initReadMore() {
 				btn.textContent = 'More...';
 			}
 		});
+	});
+}
+
+export function disableReadMore() {
+	const readMoreBtns = document.querySelectorAll('.read-more-btn');
+	readMoreBtns.forEach(btn => {
+		const parent = btn.closest('.flex-grow-1');
+		const textEl = parent.querySelector('p');
+
+		if (textEl.classList.contains('text-clamp')) {
+			textEl.classList.remove('text-clamp');
+			textEl.classList.add('text-expanded');
+			btn.textContent = '';
+		}
 	});
 }
 

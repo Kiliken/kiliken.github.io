@@ -1,0 +1,53 @@
+
+
+body {
+	padding: 0 !important;
+}
+
+@media print {
+
+	body {
+		margin: 0;
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
+	
+	/* 2. Force each section to match exact A4 landscape dimensions (297mm x 210mm) */
+	section {
+		width: 297mm;
+		height: 210mm;
+		box-sizing: border-box;
+		padding: 15mm; /* Adjust internal spacing to taste */
+	
+		/* 3. Control page breaks */
+		break-after: page;        /* Forces a new page after every section */
+		page-break-after: always; /* Legacy fallback for older engines */
+	
+		break-inside: avoid;      /* Prevents sections from splitting internally */
+		page-break-inside: avoid; /* Legacy fallback */
+	
+		/* 4. Layout management */
+		position: relative;
+		overflow: hidden;
+	}
+	
+	#exp {
+		column-count: 2;
+		column-gap: 15mm;
+		direction: ltr;
+		text-align: left;
+		transform: scale(0.90); 
+		transform-origin: left center; 
+	}
+	
+	#cert {
+		transform: scale(0.78); 
+		transform-origin: left center; 
+	}
+	
+	/* Prevent an unnecessary blank page at the very end of the PDF */
+	section:last-of-type {
+		break-after: auto;
+		page-break-after: auto;
+	}
+}
