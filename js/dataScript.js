@@ -33,7 +33,7 @@ export function Works(page, type) {
 					</p>
                     
                     <!-- Bullet points for quick readability -->
-                    <ul class="list-unstyled small text-muted mb-3">
+                    <ul class="small text-muted mb-3">
                         `+ (jp ? data[i].listJp : data[i].listEn) + `
                     </ul>
                     
@@ -229,8 +229,10 @@ export function Localize(type) {
                             <h3 class="mb-0">`+ locConts[3].conts[i].school + `</h3>
 							<span class="text-primary fw-bold">`+ locConts[3].conts[i].time + `</span>
                             <div class="subheading mb-3">`+ locConts[3].conts[i].type + `</div>
-                            <div>`+ locConts[3].conts[i].degree + `</div>
-                            <p>`+ locConts[3].conts[i].extra + `</p>
+                            <div><b>`+ locConts[3].conts[i].degree + `</b></div>
+                            <p class="text-clamp">`+ locConts[3].conts[i].extra + `</p>
+							
+							<a href="javascript:void(0);" class="read-more-btn text-primary font-weight-bold">More...</a>
                         </div>
                     </div>
 			`;
@@ -240,7 +242,7 @@ export function Localize(type) {
 		const index = i + 1; 
 	
 		document.getElementById(`skill_title_${index}`).innerHTML = locConts[5].conts[i].title;
-		document.getElementById(`skill_lvl_${index}`).innerHTML = locConts[5].conts[i].level;
+		//document.getElementById(`skill_lvl_${index}`).innerHTML = locConts[5].conts[i].level;
 		document.getElementById(`skill_desc_${index}`).innerHTML = locConts[5].conts[i].desc;
 	}
 }
@@ -427,4 +429,18 @@ export function processCode() {
 			});
 		}
 	});
+}
+
+
+export async function loadHtml(url, elementId) {
+    try {
+        const res = await fetch(url);
+        const page = await res.text();
+        const el = document.getElementById(elementId);
+        if (el) {
+            el.innerHTML = page;
+        }
+    } catch (err) {
+        console.error(`Failed to load html from ${url}:`, err);
+    }
 }

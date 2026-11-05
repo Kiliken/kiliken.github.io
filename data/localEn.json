@@ -67,21 +67,21 @@
 		"type" : "Technical school",
 		"time" : "April 2024 - March 2027",
 		"degree" : "Game programmer Course",
-		"extra" : ""
+		"extra" : "I enrolled in the three-year Game Programmer course at TechC, where I deepened my knowledge of game development, expanding my skills beyond programming to include collaborative workflows, cross-disciplinary communication, and the overall game production process.<br>Among the courses I attended, two had a particularly significant impact on my development as a game programmer:<br><br><b>Friday Project — Collaborative Game Development:</b> This course brought together a large team of students to develop a game over six months, with the goal of exhibiting the finished project at events such as the Tokyo Game Show or 若きクリエーター展 at Makuhari Messe. Through this experience, I learned how to coordinate development workflows with other programmers, collaborate effectively within a large team, and interpret planners' technical specifications and task requests. It also helped me understand the importance of clear communication and coordination between different roles in a game development team.<br><br><b>Saturday Game Jam — Rapid Prototyping and New Technologies:</b> In this course, small teams were challenged to create a game within two to three weeks, often using unfamiliar technologies. The main objective was to experiment with new tools and frameworks while delivering a playable result under tight deadlines. This experience strengthened my ability to adapt quickly, learn new technologies independently, and collaborate under time constraints. I gained hands-on experience with a wide range of engines, frameworks, and graphics technologies, including Unity, Unreal Engine, OpenSiv3D, Ogre3D, SFML, devkitPro, WPF, DirectX, and OpenGL.<br><br>These experiences taught me that successful game development requires more than programming expertise. Effective communication, adaptability, teamwork, and the ability to translate ideas and specifications into working software are equally important. They shaped my approach to game development and prepared me to contribute more effectively to collaborative projects."
 	},
 	{
 		"school" : "intercultural institute of japan",
 		"type" : "Japanese language school",
 		"time" : "October 2021 - March 2024",
 		"degree" : "Long-term Course",
-		"extra" : "GPA: A"
+		"extra" : "During my studies at the Intercultural Institute of Japan, I developed not only my Japanese language proficiency but also a deeper understanding of Japanese culture and the academic environment. I also gained experience with Japanese examination formats and preparation methods for higher education.<br><br>During this period, I obtained JLPT N2 certification and achieved a score of 290 on the Examination for Japanese University Admission for International Students (EJU), strengthening my qualifications for pursuing higher education in Japan."
 	},
 	{
 		"school" : "ITT Altamura - Da Vinci High School",
 		"type" : "computer science and telecommunications",
 		"time" : "September 2014 - June 2020",
 		"degree" : "Computer Science Course",
-		"extra" : "Final Grade : 100 / 100"
+		"extra" : "In Italy, I attended ITT Altamura Da Vinci, a technical secondary school offering specialized education in information technology and telecommunications. I studied Computer Science and Telecommunications, gaining foundational knowledge in programming, systems engineering, electronics, and related technologies.<br>Throughout my studies, I participated in several hands-on projects that allowed me to apply my technical knowledge to practical challenges:<br><br><b>Unity Game Development Competition:</b> Developed a game using the Unity game engine as part of a programming competition, gaining experience in game development and problem-solving.<br><br><b>School Meeting Management System:</b> Designed and developed a MySQL database and a frontend web application to manage parent–teacher meeting bookings (colloqui). The system was adopted by the school and used for an entire academic year.<br><br><b>Gesture-Controlled Robotic Arm:</b> Built a robotic arm powered by Arduino and implemented gesture-based control using a Leap Motion device, enabling users to control the arm remotely through real-time hand movements.<br><br>These experiences helped me build a solid technical foundation and develop practical skills in software development, database management, web technologies, electronics, and hardware–software integration."
 	}
 	]
 },
@@ -100,22 +100,18 @@
 {
     "conts" : [{
 		"title" : "Systems & Game Programming",
-		"level" : "Primary Focus",
 		"desc" : "Strong foundation in low-level memory management, OOP, and algorithm design. Experienced with modern C++ standards, build pipelines, and C# scripting in engine environments."
 	},
 	{
 		"title" : "Graphics & Engine Frameworks",
-		"level" : "Advanced",
 		"desc" : "Building 2D/3D graphics pipelines with OpenGL, SDL, and SFML. Hands-on experience developing games and interactive applications in Unreal Engine and Unity."
 	},
 	{
 		"title" : "Tooling & Build Pipelines",
-		"level" : "Intermediate",
 		"desc" : "Configuring multi-platform C++ projects with CMake, analyzing assembly output using Compiler Explorer (Godbolt), and cross-compiling with MSVC and GCC."
 	},
 	{
 		"title" : "Scripting & Automation",
-		"level" : "Proficient",
 		"desc" : "Automating workflows and system setups using PowerShell and Batch. Knowledge of Lua embedded scripting, JavaScript, and PHP for general web integration."
 	}
 	]

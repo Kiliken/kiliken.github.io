@@ -1,0 +1,315 @@
+<section id="page-1" class="a4-landscape bg-white text-dark">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-start border-bottom border-dark border-opacity-10 pb-3 mb-3">
+        <div>
+            <div class="d-flex align-items-center gap-2">
+                <h1 class="h3 fw-bold mb-0 text-primary">Francum Engine</h1>
+                <span class="badge bg-primary text-light font-mono">C++20 Custom Engine</span>
+            </div>
+            <p class="text-muted small mt-1 mb-0" style="max-width: 700px;">
+                A portable, zero-dependency C++ game engine built from scratch to explore modern low-level graphics pipelines, SPIR-V bytecode execution, and isolated Lua scripting.
+            </p>
+        </div>
+        <div class="text-end font-mono small">
+            <a href="https://github.com/Kiliken/FrancumEngine" target="_blank" class="text-dark text-decoration-none d-block mb-1">
+                <svg class="bi me-1 text-primary" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+                github.com/Kiliken/FrancumEngine
+            </a>
+            <a href="https://kiliken.github.io/index.html?lang=jp" target="_blank" class="text-muted text-decoration-none d-block">
+                <svg class="bi me-1 text-primary" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 1.097-2.31 8.003 8.003 0 0 0-3.322 2.31h2.225z"/></svg>
+                kiliken.github.io
+            </a>
+        </div>
+    </div>
+
+    <!-- Page 1 Grid -->
+    <div class="row g-3 my-auto">
+        
+        <!-- Left Column (5 Cols) -->
+        <div class="col-md-5 d-flex flex-column gap-3">
+            
+            <!-- Demos Grid -->
+            <div>
+                <span class="font-mono text-muted uppercase text-uppercase small d-block mb-2" style="font-size: 0.7rem; letter-spacing: 0.05em;">Engine Visual Showcase</span>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <div class="bg-light border border-secondary border-opacity-10 rounded p-2 text-center">
+                            <div class="demo-box mb-1 bg-white border rounded py-1">
+                                <span class="text-primary font-mono small fw-semibold">Graphics Demo</span>
+                            </div>
+                            <span class="small text-muted" style="font-size: 0.75rem;">Pipeline View</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="bg-light border border-secondary border-opacity-10 rounded p-2 text-center">
+                            <div class="demo-box mb-1 bg-white border rounded py-1">
+                                <span class="text-purple font-mono small fw-semibold">Game Demo</span>
+                            </div>
+                            <span class="small text-muted" style="font-size: 0.75rem;">Scripting Hooks</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="bg-light border border-secondary border-opacity-10 rounded p-2 text-center">
+                            <div class="demo-box mb-1 bg-white border rounded py-1">
+                                <span class="text-success font-mono small fw-semibold">Shaders</span>
+                            </div>
+                            <span class="small text-muted" style="font-size: 0.75rem;">SPIR-V Module</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="bg-light border border-secondary border-opacity-10 rounded p-2 text-center">
+                            <div class="demo-box mb-1 bg-white border rounded py-1">
+                                <span class="text-warning font-mono small fw-semibold">Sandbox</span>
+                            </div>
+                            <span class="small text-muted" style="font-size: 0.75rem;">Runtime Exec</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech Stack Table -->
+            <div class="bg-light border border-secondary border-opacity-10 rounded p-3 flex-grow-1">
+                <span class="font-mono text-primary text-uppercase small d-block mb-2 fw-bold" style="font-size: 0.7rem;">Technical Stack</span>
+                <table class="table table-light table-borderless table-sm align-middle mb-0 text-dark" style="font-size: 0.75rem;">
+                    <tbody>
+                        <tr>
+                            <td class="text-muted font-mono px-0" style="width: 45%;">LANGUAGE</td>
+                            <td class="fw-semibold px-0">C++17 / C++20</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-mono px-0">TOOLCHAIN</td>
+                            <td class="fw-semibold px-0">w64devkit (GCC)</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-mono px-0">GRAPHICS API</td>
+                            <td class="fw-semibold px-0">OpenGL 4.6 (Core) / GLAD</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-mono px-0">WINDOWING</td>
+                            <td class="fw-semibold px-0">SDL3</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-mono px-0">SCRIPTING</td>
+                            <td class="fw-semibold px-0">Sol3 (LuaJIT 2.1)</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-mono px-0">ASSET PARSER</td>
+                            <td class="fw-semibold px-0">cgltf (glTF 2.0)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- Right Column (7 Cols) -->
+        <div class="col-md-7 d-flex flex-column gap-3">
+            
+            <!-- Feature 1: Modern OpenGL & SPIR-V Pipeline -->
+            <div class="bg-light border border-secondary border-opacity-10 rounded p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h2 class="h6 fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                        <span class="p-1 bg-primary rounded-circle d-inline-block"></span>
+                        1. Modern OpenGL & SPIR-V Shader Pipeline
+                    </h2>
+                    <span class="badge bg-primary text-light font-mono">Low-Overhead Pipeline</span>
+                </div>
+                <p class="small text-muted mb-2" style="font-size: 0.8rem; line-height: 1.4;">
+                    Structured around explicit memory buffers and state change minimization. Utilizes <strong class="text-dark">Uniform Buffer Objects (UBOs)</strong> explicitly aligned to <code class="text-primary bg-white border px-1 rounded">std140</code> rules to cleanly share camera matrices and material parameters across shaders.
+                </p>
+
+                <!-- Code Snippet -->
+                <div class="bg-white border border-secondary border-opacity-20 rounded p-2 mb-2 font-mono small" style="font-size: 0.725rem;">
+                    <div class="text-muted">// SPIR-V Binary Compilation & Loading (Offline GLSL/HLSL Pipeline)</div>
+                    <div><span class="text-danger">GLuint</span> vs = <span class="text-primary">glCreateShader</span>(GL_VERTEX_SHADER);</div>
+                    <div><span class="text-primary">glShaderBinary</span>(1, &vs, GL_SHADER_BINARY_FORMAT_SPIR_V, spirvData, size);</div>
+                    <div><span class="text-primary">glSpecializeShader</span>(vs, <span class="text-success">"VSMain"</span>, 0, <span class="text-secondary">nullptr</span>, <span class="text-secondary">nullptr</span>);</div>
+                </div>
+
+                <ul class="small text-muted mb-0 ps-3" style="font-size: 0.775rem;">
+                    <li><strong class="text-dark">Offline Execution:</strong> Uses <code class="text-dark">glslangvalidator</code> to bypass runtime GLSL parsing.</li>
+                    <li><strong class="text-dark">API Readiness:</strong> SPIR-V intermediate bytecode eases future migration to Vulkan.</li>
+                </ul>
+            </div>
+
+            <!-- Feature 2: Sol3 & Lua Scripting -->
+            <div class="bg-light border border-secondary border-opacity-10 rounded p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h2 class="h6 fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                        <span class="p-1 bg-primary rounded-circle d-inline-block" style="background-color: #6f42c1;"></span>
+                        2. Sol3 & Lua Dynamic Scripting Architecture
+                    </h2>
+                    <span class="badge bg-primary text-purple font-mono">LuaJIT Engine Binding</span>
+                </div>
+                <p class="small text-muted mb-2" style="font-size: 0.8rem; line-height: 1.4;">
+                    Decouples gameplay logic from C++ core binaries. Exposes engine transforms, asset loading, hardware inputs, and camera hooks directly into isolated Lua state environments.
+                </p>
+
+                <div class="row g-2">
+                    <div class="col-6">
+                        <div class="bg-white p-2 rounded border border-secondary border-opacity-15 h-100">
+                            <span class="text-primary font-mono small d-block fw-semibold mb-1" style="color: #6f42c1;">Sandboxed State</span>
+                            <span class="text-primary" style="font-size: 0.75rem;">Scripts run in isolated environments, eliminating global variable pollution.</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="bg-white p-2 rounded border border-secondary border-opacity-15 h-100">
+                            <span class="text-primary font-mono small d-block fw-semibold mb-1">C++ Reflection</span>
+                            <span class="text-muted" style="font-size: 0.75rem;">Binds native C++ classes (<code class="text-dark">Object</code>, <code class="text-dark">Model</code>, <code class="text-dark">Inputs</code>) via high-performance Sol3 wrappers.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Page 1 Footer -->
+    <div class="d-flex justify-content-between align-items-center border-top border-dark border-opacity-10 pt-2 font-mono text-muted" style="font-size: 0.7rem;">
+        <span>Page 1 of 2 — Technical Architecture & Engine Core</span>
+        <span>Francum Engine Portfolio</span>
+    </div>
+</section>
+
+<section id="page-2" class="a4-landscape bg-white text-dark">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-start border-bottom border-dark border-opacity-10 pb-3 mb-3">
+        <div>
+            <div class="d-flex align-items-center gap-2">
+                <h2 class="h4 fw-bold mb-0 text-dark">Build Systems, Technical Insights & Roadmap</h2>
+                <span class="badge bg-primary text-light font-mono">Engineering Focus</span>
+            </div>
+            <p class="text-muted small mt-1 mb-0">
+                Toolchain portability strategies, key architectural takeaways, and key development milestones.
+            </p>
+        </div>
+        <span class="text-muted font-mono small">Francum Engine v1.0</span>
+    </div>
+
+    <!-- Page 2 Grid -->
+    <div class="row g-3 my-auto">
+        
+        <!-- Left Column: Zero-Install Ecosystem (5 Cols) -->
+        <div class="col-md-5 flex-column d-flex gap-3">
+            <div class="bg-light border border-secondary border-opacity-10 rounded p-3 flex-grow-1 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h3 class="h6 fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                            <span class="p-1 bg-primary rounded-circle d-inline-block"></span>
+                            3. Portable 'Zero-Install' Environment
+                        </h3>
+                        <span class="badge bg-primary text-light font-mono">Automation</span>
+                    </div>
+                    <p class="small text-muted mb-3" style="font-size: 0.8rem; line-height: 1.4;">
+                        Engineered to eliminate bulky IDE dependencies. A single idempotent PowerShell script provisions <strong class="text-dark">w64devkit</strong> (GCC/Make), resolves pre-compiled dependencies (SDL3, GLM, Sol3), and setups a deterministic environment on clean Windows machines.
+                    </p>
+
+                    <div class="d-flex flex-column gap-2 font-mono small mb-3" style="font-size: 0.75rem;">
+                        <div class="bg-white p-2 rounded border border-secondary border-opacity-15 d-flex align-items-center gap-2">
+                            <span class="text-primary fw-bold">01</span>
+                            <span class="text-dark">Automated directory structure mapping</span>
+                        </div>
+                        <div class="bg-white p-2 rounded border border-secondary border-opacity-15 d-flex align-items-center gap-2">
+                            <span class="text-primary fw-bold">02</span>
+                            <span class="text-dark">Conditional dependency fetching (SDL3, GLM, ImGui)</span>
+                        </div>
+                        <div class="bg-white p-2 rounded border border-secondary border-opacity-15 d-flex align-items-center gap-2">
+                            <span class="text-primary fw-bold">03</span>
+                            <span class="text-dark">Standalone binary linking with GCC/MinGW</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-2 rounded border border-secondary border-opacity-15">
+                    <span class="font-mono text-muted uppercase text-uppercase small d-block mb-1" style="font-size: 0.65rem;">Asset Injection Pipeline</span>
+                    <p class="small text-muted mb-0" style="font-size: 0.75rem;">
+                        Features native support for <strong class="text-primary">glTF 2.0 (.gltf/.glb)</strong> via lightweight <code class="text-dark">cgltf</code> header parsing, alongside Wavefront OBJ legacy support.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Engineering Insights & Roadmap (7 Cols) -->
+        <div class="col-md-7 flex-column d-flex gap-3">
+            
+            <!-- Insights Card -->
+            <div class="bg-light border border-secondary border-opacity-10 rounded p-3">
+                <h3 class="h6 fw-bold text-dark mb-3 d-flex align-items-center gap-2">
+                    <svg class="bi text-primary" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3.5A.5.5 0 0 1 8 8V4.5A.5.5 0 0 1 8 4z"/></svg>
+                    Key Engineering Insights & Takeaways
+                </h3>
+
+                <div class="d-flex flex-column gap-2" style="font-size: 0.78rem;">
+                    <div class="border-start border-2 border-primary ps-2 py-0.5">
+                        <strong class="text-dark d-block">Low-Level Graphics & Hardware API Mental Model</strong>
+                        <span class="text-muted">Progressing from raw OpenGL 3.3 to 4.6 explicit state binding provided deep clarity on GPU driver interaction, manual function pointer loading via GLAD, and memory alignment—laying direct groundwork for Vulkan development.</span>
+                    </div>
+
+                    <div class="border-start border-2 border-primary ps-2 py-0.5">
+                        <strong class="text-dark d-block">Compilation & Build System Demystification</strong>
+                        <span class="text-muted">Working without IDE abstractions enabled a granular understanding of linkers, include paths, and compiler flags (<code class="text-dark">gcc/cl</code>). This knowledge translates directly to optimizing complex commercial builds (Unreal Engine / Unity).</span>
+                    </div>
+
+                    <div class="border-start border-2 border-primary ps-2 py-0.5">
+                        <strong class="text-dark d-block">Cross-Engine Optimization Mindset</strong>
+                        <span class="text-muted">Understanding exact draw-call costs, state changes, and memory layouts informs better asset structuring and rendering decisions inside commercial engines.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Roadmap Grid -->
+            <div class="bg-light border border-secondary border-opacity-10 rounded p-3 flex-grow-1">
+                <span class="font-mono text-primary text-uppercase small d-block mb-2 fw-bold" style="font-size: 0.7rem;">Engine Roadmap & Future Milestones</span>
+                
+                <div class="row g-2">
+                    <div class="col-6">
+                        <div class="bg-white p-2 rounded border border-secondary border-opacity-15 h-100">
+                            <div class="d-flex align-items-center gap-1.5 mb-1">
+                                <span class="p-1 bg-primary rounded-circle d-inline-block"></span>
+                                <strong class="p-1 text-dark small">Vulkan API Migration</strong>
+                            </div>
+                            <span class="text-muted d-block" style="font-size: 0.725rem;">Transitioning to Vulkan for explicit command buffer recording & explicit memory allocation.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="bg-white p-2 rounded border border-secondary border-opacity-15 h-100">
+                            <div class="d-flex align-items-center gap-1.5 mb-1">
+                                <span class="p-1 bg-primary rounded-circle d-inline-block" style="background-color: #6f42c1;"></span>
+                                <strong class="p-1 text-dark small">Scriptable UI Systems</strong>
+                            </div>
+                            <span class="text-muted d-block" style="font-size: 0.725rem;">Integrating ImGui bindings with Sol3 for realtime Lua-driven debug tools and editor UI.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="bg-white p-2 rounded border border-secondary border-opacity-15 h-100">
+                            <div class="d-flex align-items-center gap-1.5 mb-1">
+                                <span class="p-1 bg-primary rounded-circle d-inline-block"></span>
+                                <strong class="p-1 text-dark small">KTX2 Texture Pipeline</strong>
+                            </div>
+                            <span class="text-muted d-block" style="font-size: 0.725rem;">Upgrading texture compression from legacy DDS to modern Khronos KTX2 GPU textures.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="bg-white p-2 rounded border border-secondary border-opacity-15 h-100">
+                            <div class="d-flex align-items-center gap-1.5 mb-1">
+                                <span class="p-1 bg-primary rounded-circle d-inline-block"></span>
+                                <strong class="p-1 text-dark small">Physics Integration</strong>
+                            </div>
+                            <span class="text-muted d-block" style="font-size: 0.725rem;">Incorporating Bullet Physics / custom lightweight continuous collision detection.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Page 2 Footer -->
+    <div class="d-flex justify-content-between align-items-center border-top border-dark border-opacity-10 pt-2 font-mono text-muted" style="font-size: 0.7rem;">
+        <span>Page 2 of 2 — Toolchain, Engineering Takeaways & Roadmap</span>
+        <span>Francum Engine Portfolio</span>
+    </div>
+</section>

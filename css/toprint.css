@@ -18,7 +18,7 @@ body {
 		height: 210mm;
 		box-sizing: border-box;
 		padding: 15mm; /* Adjust internal spacing to taste */
-	
+		
 		/* 3. Control page breaks */
 		break-after: page;        /* Forces a new page after every section */
 		page-break-after: always; /* Legacy fallback for older engines */
@@ -40,6 +40,16 @@ body {
 		transform-origin: left center; 
 	}
 	
+	#edu {
+		column-count: 2;
+		column-gap: 15mm;
+		column-width: 125mm;
+		direction: ltr;
+		text-align: left;
+		transform: scale(0.62);
+		transform-origin: left center; 
+	}
+	
 	#cert {
 		transform: scale(0.78); 
 		transform-origin: left center; 
@@ -50,4 +60,69 @@ body {
 		break-after: auto;
 		page-break-after: auto;
 	}
+}
+
+
+/* Works */
+
+/* A4 Landscape Container Ratio (Light Mode) */
+.a4-landscape {
+    width: 100%;
+    max-width: 1400px;
+    min-height: calc(100vh - 120px);
+    aspect-ratio: 1.414 / 1;
+    margin: 0 auto;
+    background-color: #f0f0f0 !important;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Custom Light Accent Borders & Backgrounds */
+.card-custom {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+}
+
+.code-box {
+    background-color: #f1f3f5;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 0.725rem;
+    color: #212529;
+}
+
+/* High-Contrast Light Mode Accents */
+.text-cyan { color: #0891b2; }
+.text-violet { color: #7c3aed; }
+.text-emerald { color: #059669; }
+
+.bg-cyan-subtle-light { 
+    background-color: rgba(8, 145, 178, 0.1); 
+    color: #0e7490; 
+    border: 1px solid rgba(8, 145, 178, 0.25); 
+}
+.bg-violet-subtle-light { 
+    background-color: rgba(124, 58, 237, 0.1); 
+    color: #6d28d9; 
+    border: 1px solid rgba(124, 58, 237, 0.25); 
+}
+.bg-emerald-subtle-light { 
+    background-color: rgba(5, 150, 105, 0.1); 
+    color: #047857; 
+    border: 1px solid rgba(5, 150, 105, 0.25); 
+}
+
+.demo-box {
+    height: 75px;
+    background: linear-gradient(135deg, #f1f3f5 0%, #e9ecef 100%);
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

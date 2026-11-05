@@ -11123,3 +11123,7 @@ section.section-works {
     font-size: 0.875rem;
     font-weight: 500;
 }
+
+.empty-star {
+    color: rgba(255, 255, 255, 0.6);
+}
