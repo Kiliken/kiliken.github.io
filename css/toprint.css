@@ -41,13 +41,18 @@ body {
 	}
 	
 	#edu {
+		font-size: 0.75rem;
 		column-count: 2;
 		column-gap: 15mm;
-		column-width: 125mm;
 		direction: ltr;
 		text-align: left;
-		transform: scale(0.62);
+		transform: scale(0.90);
 		transform-origin: left center; 
+	}
+	
+	#workscreen {
+		transform: scale(0.73);
+		transform-origin: center; 
 	}
 	
 	#cert {
@@ -125,4 +130,31 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.showcase-image-large {
+	width: 100%;
+    aspect-ratio: 4 / 3; /* Locks the box to a clean 4:3 ratio */
+    object-fit: contain;  /* Preserves original proportions without cropping or stretching */
+    background-color: #f8f9fa; /* Fills any letterbox space neatly */
+}
+
+.print-section {
+	display: flex;
+	align-items: center;
+	padding-left: 1cm;
+	padding-right: 1cm;
+	padding-top: 1cm;
+	padding-bottom: 1cm;
+}
+
+.print-section-content {
+	width: 100%;
+}
+
+.workItem-card {
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+	font-size: 0.75rem;
 }

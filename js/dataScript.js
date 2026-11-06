@@ -146,6 +146,54 @@ export function AllWorks(type) {
 	wkDiv.innerHTML = htmlContent;
 }
 
+export function WorksPrint(type) {
+	var jp = false;
+	jp = (type == "jp" ? true : false);
+	var data = enWorks;
+	
+	var wkDiv = document.getElementById('workscreen');
+	wkDiv.innerHTML = '';
+	let htmlContent = '';
+	for (var i = 3; i < 9; i++) {
+
+		if (i >= data.length)
+			continue;
+
+		htmlContent += `
+			<div class="card workItem-card shadow-sm m-1">
+            <a href="https://kiliken.github.io/mdRenderer.html?mdurl=./data/worksMd/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.md&amp;og=mw` + (jp ? "j" : "e") + `" class="text-decoration-none">
+                <div class="row g-0 align-items-stretch">
+				<div class="col-md-5 position-relative">
+					`+ (data[i].bannerEn ? `<span class="badge bg-danger position-absolute top-0 start-0 m-3 z-1">` + (jp ? data[i].bannerJp : data[i].bannerEn) + `</span>` : ``) + `
+                    <img src="img/showcase/`+ (data[i].img === "" ? "none.png" : data[i].img) + `" class="img-fluid rounded-start h-100 w-100 object-fit-cover showcase-image-large">
+                </div>
+				<div class="col-md-7">
+                <div class="card-body">
+                    <h3 class="card-title text-dark">`+ data[i].title + `</h3>
+                    <h6 class="text-muted mb-3">`+ data[i].languages + ` ・ ` +data[i].platform + `</h6>
+                    <p class="card-text text-secondary">
+                        `+ (jp ? data[i].descJp : data[i].descEn) + `
+					</p>
+                    
+                    <!-- Bullet points for quick readability -->
+                    <ul class="small text-muted mb-3">
+                        `+ (jp ? data[i].listJp : data[i].listEn) + `
+                    </ul>
+                    
+                    <span class="btn btn-outline-primary btn-sm"> `+ (jp ? `詳しく読む　&rarr;` : `Read Full Case Study &rarr;`) +`</span>
+                </div>
+				</div>
+				</div>
+            </a>
+        </div>
+		`;
+	}
+	
+	htmlContent += `<a class="btn btn-primary btn-lg text-white m-2" href="https://kiliken.github.io/works.html?lang=`+ (jp ? `jp` : `en`) +`" role="button">`+ (jp ? `すべての作品をオンラインで見る（全 ` : `SEE ALL ONLINE (`) + data.length + ` 件）`+`</a>`;
+	
+	wkDiv.innerHTML = htmlContent;
+}
+
 export function Localize(type) {
 	var jp = false;
 	jp = (type == "jp" ? true : false);

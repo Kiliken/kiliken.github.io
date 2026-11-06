@@ -23,8 +23,8 @@
         <!-- Page Content-->
         <div class="container-fluid p-0">
             <!-- About-->
-            <section class="resume-section" id="about">
-                <div class="resume-section-content">
+            <section class="print-section" id="about">
+                <div class="print-section-content">
 					<div class="row align-items-center gy-5">
     <!-- Left Column: Image & Quick Specs Card -->
     <div class="col-lg-4 text-center">
@@ -58,8 +58,8 @@
                 </div>
 				
             </section>
-			<section class="resume-section" id="skills">
-    <div class="resume-section-content">
+			<section class="print-section" id="skills">
+    <div class="print-section-content">
         <h2 class="mb-4">Skills</h2>
 
         <!-- Featured Core Skill Categories -->
@@ -164,21 +164,31 @@
 </section>
 			<div id="work1">
 			</div>
+			<div id="work2">
+			</div>
+			<div id="work3">
+			</div>
+			
+            <section class="print-section">
+				<div class="print-section-content" id="workscreen">
+				</div>
+            </section>
+            
             <!-- Experience-->
-            <section class="resume-section" id="experience">
-                <div class="resume-section-content" id="exp">
+            <section class="print-section" id="experience">
+                <div class="print-section-content" id="exp">
 					
                 </div>
             </section>
 			<!-- Education -->
-            <section class="resume-section" id="education">
-                <div class="resume-section-content" id="edu">
+            <section class="print-section" id="education">
+                <div class="print-section-content" id="edu">
                     
                 </div>
             </section>
 			<!-- Certification -->
-            <section class="resume-section" id="certification">
-                <div class="resume-section-content" id="cert">
+            <section class="print-section" id="certification">
+                <div class="print-section-content" id="cert">
 					
                 </div>
             </section>
@@ -204,6 +214,7 @@
 			import { disableReadMore } from "./js/dataScript.js";
 			import { getUrlParameter } from "./js/dataScript.js";
 			import { loadHtml } from "./js/dataScript.js";
+			import { WorksPrint } from "./js/dataScript.js";
 			
 			let lang = getUrlParameter("lang");
 			if (lang == null) {
@@ -215,6 +226,7 @@
 			// On Load
 			window.addEventListener('load', () => {
 				Localize(lang);
+				WorksPrint(lang);
 				
 				disableReadMore();
 				
