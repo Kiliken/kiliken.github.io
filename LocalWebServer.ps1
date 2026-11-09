@@ -1,8 +1,11 @@
+
+$Port = $Args[1]
+
 $listener = New-Object System.Net.HttpListener
-$listener.Prefixes.Add("http://localhost:8000/")
+$listener.Prefixes.Add("http://localhost:$Port/")
 $listener.Start()
 
-Write-Host "Serving $PWD at http://localhost:8000/index.html"
+Write-Host "Serving $PWD at http://localhost:$Port/index.html"
 Write-Host "Press Ctrl+C to stop."
 
 try {

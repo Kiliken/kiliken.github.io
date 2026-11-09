@@ -50,6 +50,12 @@ body {
 		transform-origin: left center; 
 	}
 	
+	#psychic {
+		font-size: 0.75rem;
+		transform: scale(0.80);
+		transform-origin: center;
+	}
+	
 	#workscreen {
 		transform: scale(0.73);
 		transform-origin: center; 
