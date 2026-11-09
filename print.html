@@ -215,6 +215,7 @@
 			import { getUrlParameter } from "./js/dataScript.js";
 			import { loadHtml } from "./js/dataScript.js";
 			import { WorksPrint } from "./js/dataScript.js";
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@12.2.0/+esm';
 			
 			let lang = getUrlParameter("lang");
 			if (lang == null) {
@@ -237,21 +238,14 @@
 			} );
 			
 			await Promise.all([
-					loadHtml( "./data/worksPDF/FrancumEN.html", "work1")
+					loadHtml( "./data/worksPDF/FrancumEN.html", "work1"),
+                    loadHtml( "./data/worksPDF/PsychicJp.html", "work2"),
+                    loadHtml( "./data/worksPDF/SinNoHateJp.html", "work3")
 			]);
+            
+            mermaid.initialize({theme: 'dark' });
+            
+            await mermaid.run();
 		</script>
-		<script>
-            /*function Works(page) {
-				const xhttp = new XMLHttpRequest();
-				
-				xhttp.onload = function() {
-					document.getElementById("workscreen").innerHTML =  this.responseText;
-				}
-				xhttp.open('POST', "./workpage.php", true);
-				xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-				xhttp.send("page="+page);
-			}*/
-		</script>
-
     </body>
 </html>

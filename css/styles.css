@@ -11127,3 +11127,10 @@ section.section-works {
 .empty-star {
     color: rgba(255, 255, 255, 0.6);
 }
+
+.mermaid {
+    background-color: #2E3440 !important;
+    display: flex;
+    justify-content: center;
+    margin: -10px 0;
+}

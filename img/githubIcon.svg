@@ -7,7 +7,7 @@
      viewBox="0 0 1024 1024">
 	 <symbol id="icon" viewBox="0 0 1024 1024">
   <path id="Selection"
-        fill="fff" stroke="fff" stroke-width="1"
+        fill="currentColor" stroke="currentColor" stroke-width="1"
         d="M 385.16,878.00
            C 385.16,878.00 385.16,963.00 385.16,963.00
              385.16,963.00 385.16,972.00 385.16,972.00

@@ -1,0 +1,152 @@
+<section id="page-1" class="a4-landscape bg-white text-dark">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-start border-bottom border-dark border-opacity-10 pb-3 mb-3">
+        <div>
+            <div class="d-flex align-items-center gap-2">
+                <h1 class="h3 fw-bold mb-0 text-primary">PSYCHIC SHOWDOWN</h1>
+                <span class="badge bg-primary text-light font-mono">TGS 2025 · 3D Multiplayer Action</span>
+            </div>
+            <p class="text-muted small mt-1 mb-0" style="max-width: 700px;">
+                学術的なゲーム開発プロジェクトとして制作された、東京ゲームショウ 2025（TGS25）出展向けの3Dアクション対戦型マルチプレイヤーゲーム。プロシージャル生成されるステージと多彩なアイテムによるアリーナバトルを展開。
+            </p>
+        </div>
+        <div class="text-end font-mono small">
+            <a href="https://github.com/Kiliken/PsychicShowdown" target="_blank" class="text-dark text-decoration-underline d-block mb-1">
+               <svg style="color:#145d38;" aria-hidden="true" width="14" height="14">
+                <use xlink:href="./img/githubIcon.svg#icon"></use>
+               </svg>
+                Githubリポジトリ
+            </a>
+            <a href="https://kiliken.github.io/mdRenderer.html?mdurl=./data/worksMd/PsyShowJp.md" target="_blank" class="text-dark text-decoration-underline d-block mb-1">
+                <img src="img/mylogog.svg" class="bi me-1 text-primary" width="14" height="14" alt="GitHub"></svg>
+                オンラインで詳しく読む
+            </a>
+        </div>
+    </div>
+
+    <!-- Page 1 Grid -->
+    <div class="row g-3 my-auto">
+        
+        <!-- Left Column (5 Cols) -->
+        <div class="col-md-5 d-flex flex-column gap-3">
+            
+            <!-- Picture Slot 1 -->
+            <div>
+                <div class="bg-light border border-secondary border-opacity-10 rounded p-2 text-center">
+                    <img src="https://picsum.photos/400/220?random=1" alt="Psychic Showdown Arena Gameplay Preview" class="img-fluid rounded border mb-1" style="max-height: 780px; object-fit: cover; width: 100%;">
+                </div>
+            </div>
+
+            <!-- Tech Stack Table -->
+            <div class="bg-light border border-secondary border-opacity-10 rounded p-3 flex-grow-1">
+                <span class="font-mono text-primary text-uppercase small d-block mb-2 fw-bold" style="font-size: 0.7rem;">Technical Stack & Architecture</span>
+                <table class="table table-light table-borderless table-sm align-middle mb-0 text-dark" style="font-size: 0.75rem;">
+                    <tbody>
+                        <tr>
+                            <td class="text-muted font-mono px-0" style="width: 45%;">PROJECT TYPE</td>
+                            <td class="fw-semibold px-0">Academic Game Dev</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-mono px-0">EXHIBITION</td>
+                            <td class="fw-semibold px-0">Tokyo Game Show 2025 (TGS25)</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-mono px-0">LANGUAGE</td>
+                            <td class="fw-semibold px-0">C# (.NET)</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-mono px-0">NETWORKING</td>
+                            <td class="fw-semibold px-0">Custom UDP Routing Server</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-mono px-0">TOPOLOGY</td>
+                            <td class="fw-semibold px-0">Dedicated Client-Server (LAN)</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-mono px-0">GENERATION</td>
+                            <td class="fw-semibold px-0">Perlin Noise + fBm</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- Right Column (7 Cols) -->
+        <div class="col-md-7 d-flex flex-column gap-3">
+            
+            <!-- Feature 1: Network Architecture -->
+            <div class="bg-light border border-secondary border-opacity-10 rounded p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h2 class="h6 fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                        <span class="p-1 bg-primary rounded-circle d-inline-block"></span>
+                        1. ネット・アーキテクチャ (UDP Routing Server)
+                    </h2>
+                    <span class="badge bg-primary text-light font-mono">High-Frequency Tick</span>
+                </div>
+                <p class="small text-muted mb-2" style="font-size: 0.8rem; line-height: 1.4;">
+                    物理トポロジーには同期されたLANインフラ（物理スイッチングハブ）上の専用クライアント・サーバーモデルを採用。高頻度なチックスレート制約下で最小限のレイテンシとルーティングスループットの最大化を両立するため、<strong class="text-dark">C#で独自の超軽量UDPルーティングサーバー</strong>を開発しました。
+                </p>
+
+                <!-- Code / Flow info -->
+                <div class="bg-white border border-secondary border-opacity-20 rounded p-2 mb-2 font-mono small" style="font-size: 0.725rem;">
+                    <div class="mermaid">
+                        architecture-beta
+                            group network(cloud)[Local Network]
+                
+                            service clientA(internet)[Client A] in network
+                            service clientB(internet)[Client B] in network
+                            service switch(server)[Switch Hub] in network
+                            service server(server)[C# UDP Routing Server] in network
+                
+                            clientA:R -- L:switch
+                            clientB:L -- R:switch
+                            switch:T -- B:server
+                    </div>
+                </div>
+
+                <ul class="small text-muted mb-0 ps-3" style="font-size: 0.775rem;">
+                    <li><strong class="text-dark">クロスブリッジ:</strong> パケット化されたバイトペイロードをプレイヤー間で順次ルーティング。</li>
+                    <li><strong class="text-dark">パフォーマンス:</strong> ホストインターフェース上でのオーバーヘッドを最小化。</li>
+                </ul>
+            </div>
+
+            <!-- Feature 2: Deterministic Procedural Terrain Generation -->
+            <div class="bg-light border border-secondary border-opacity-10 rounded p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h2 class="h6 fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                        <span class="p-1 bg-primary rounded-circle d-inline-block" style="background-color: #6f42c1;"></span>
+                        2. 決定論的プロシージャル地形生成 (Perlin + fBm)
+                    </h2>
+                    <span class="badge bg-primary text-purple font-mono" style="background-color: #6f42c1; color: #fff;">Zero Network Cost</span>
+                </div>
+                <p class="small text-muted mb-2" style="font-size: 0.8rem; line-height: 1.4;">
+                    大量のネットワークシリアライズやメッシュストリーミングによるオーバーヘッドを回避するため、決定論的なプロシージャル地形ジェネレーターを設計。連続的なパーリンノイズ分布の上層に<strong class="text-dark">マルチオクターブの分数ブラウン運動（fBm）</strong>アルゴリズムを重ねています。
+                </p>
+
+                <!-- Picture Slot 2 -->
+                <div class="mb-2">
+                    <div class="bg-white border border-secondary border-opacity-15 rounded p-2 text-center">
+                        <img src="https://picsum.photos/500/180?random=2" alt="Perlin Noise and fBm Heightmap Generation" class="img-fluid rounded border mb-1" style="max-height: 240px; object-fit: cover; width: 100%;">
+                    </div>
+                </div>
+
+                <div class="row g-2">
+                    <div class="col-6">
+                        <div class="bg-white p-2 rounded border border-secondary border-opacity-15 h-100">
+                            <span class="text-primary font-mono small d-block fw-semibold mb-1" style="color: #6f42c1;">シード値共有</span>
+                            <span class="text-primary" style="font-size: 0.75rem;">マッチメイク時に抽象化されたランダムシード値を共有し、同一のオクターブオフセットを動的計算。</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="bg-white p-2 rounded border border-secondary border-opacity-15 h-100">
+                            <span class="text-primary font-mono small d-block fw-semibold mb-1">完全同期ハイトマップ</span>
+                            <span class="text-muted" style="font-size: 0.75rem;">ネットワークコストをゼロに抑えながら、同一地形をリアルタイム生成。</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

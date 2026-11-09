@@ -39,6 +39,7 @@
 	<script type="module">
 		import { getUrlParameter } from "./js/dataScript.js";
 		import { processCode } from "./js/dataScript.js";
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@12.2.0/+esm';
 
 		const mdUrl = getUrlParameter("mdurl");
 		const originUrl = getUrlParameter("og");
@@ -97,6 +98,8 @@
 				processCode();
 
 				hljs.highlightAll();
+                mermaid.initialize({ theme: 'dark' });
+                mermaid.run();
 			});
 
 	</script>

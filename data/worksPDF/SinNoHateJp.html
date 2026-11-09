@@ -1,0 +1,135 @@
+<section id="page-1" class="a4-landscape bg-white text-dark">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-start border-bottom border-dark border-opacity-10 pb-3 mb-3">
+        <div>
+            <div class="d-flex align-items-center gap-2">
+                <h1 class="h3 fw-bold mb-0 text-primary">罪の果て</h1>
+                <span class="badge bg-primary text-light font-mono">弾幕系シューティング · 生存サバイバル</span>
+            </div>
+            <p class="text-muted small mt-1 mb-0" style="max-width: 700px;">
+                各階層ごとに制限時間内を生き延びることで次の階層へと進む弾幕系シューティングゲーム。進むにつれ新たな“罪（SIN）”を象徴する敵が現れ、すべての罪が混ざり合い難易度が上昇。撃って、避けて、生き延びて――全階層制覇とハイスコアを目指す。
+            </p>
+        </div>
+        <div class="text-end font-mono small">
+            <a href="https://github.com/Kiliken/SinNoHate" target="_blank" class="text-dark text-decoration-underline d-block mb-1">
+               <svg style="color:#145d38;" aria-hidden="true" width="14" height="14">
+                <use xlink:href="./img/githubIcon.svg#icon"></use>
+               </svg>
+               Githubリポジトリ
+            </a>
+            <a href="https://kiliken.github.io/mdRenderer.html?mdurl=./data/worksMd/SinNoHateJp.md" target="_blank" class="text-dark text-decoration-underline d-block mb-1">
+                <img src="img/mylogog.svg" class="bi me-1 text-primary" width="14" height="14" alt="GitHub">
+                オンラインで詳しく読む
+            </a>
+        </div>
+    </div>
+
+    <!-- Page 1 Grid -->
+    <div class="row g-3 my-auto">
+        
+        <!-- Left Column (5 Cols) -->
+        <div class="col-md-5 d-flex flex-column gap-3">
+            
+            <!-- Picture Slot 1 -->
+            <div>
+                <div class="bg-light border border-secondary border-opacity-10 rounded p-2 text-center">
+                    <img src="https://picsum.photos/400/220?random=1" alt="罪の果て Gameplay Preview" class="img-fluid rounded border mb-1" style="max-height: 780px; object-fit: cover; width: 100%;">
+                </div>
+            </div>
+
+            <!-- Tech Stack Table -->
+            <div class="bg-light border border-secondary border-opacity-10 rounded p-3 flex-grow-1">
+                <span class="font-mono text-primary text-uppercase small d-block mb-2 fw-bold" style="font-size: 0.7rem;">Technical Stack & Architecture</span>
+                <table class="table table-light table-borderless table-sm align-middle mb-0 text-dark" style="font-size: 0.75rem;">
+                    <tbody>
+                        <tr>
+                            <td class="text-muted font-mono px-0" style="width: 45%;">GENRE</td>
+                            <td class="fw-semibold px-0">Bullet-Hell Shooter</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-mono px-0">FRAMEWORK</td>
+                            <td class="fw-semibold px-0">OpenSiv3D</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-mono px-0">LANGUAGE</td>
+                            <td class="fw-semibold px-0">C++ / HLSL</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-mono px-0">RENDERING</td>
+                            <td class="fw-semibold px-0">Custom Pixel Shader (LUT)</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-mono px-0">TOOLING</td>
+                            <td class="fw-semibold px-0">PowerShell & Batch Automation</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-mono px-0">IDE</td>
+                            <td class="fw-semibold px-0">VS Code + MSVC</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- Right Column (7 Cols) -->
+        <div class="col-md-7 d-flex flex-column gap-3">
+            
+            <!-- Feature 1: Palette Swap Pixel Shader -->
+            <div class="bg-light border border-secondary border-opacity-10 rounded p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h2 class="h6 fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                        <span class="p-1 bg-primary rounded-circle d-inline-block"></span>
+                        1. パレットスワップ・ピクセルシェーダー
+                    </h2>
+                    <span class="badge bg-primary text-light font-mono">Custom HLSL</span>
+                </div>
+                <p class="small text-muted mb-2" style="font-size: 0.8rem; line-height: 1.4;">
+                    テクスチャメモリのオーバーヘッドを最小限に抑えつつ、視覚的なバリエーションを最大化するために設計したカスタムHLSLピクセルシェーダーです。敵のバリエーションごとに個別のスプライトシートを保持せず、ベーススプライトと動的2Dテクスチャのルックアップテーブル（LUT）を参照しています。
+                </p>
+
+                <!-- Picture Slot 2 -->
+                <div class="mb-2">
+                    <div class="bg-white border border-secondary border-opacity-15 rounded p-2 text-center">
+                        <img src="https://picsum.photos/500/180?random=2" alt="Palette Swap Pixel Shader Preview" class="img-fluid rounded border mb-1" style="max-height: 200px; object-fit: cover; width: 100%;">
+                    </div>
+                </div>
+
+                <ul class="small text-muted mb-0 ps-3" style="font-size: 0.775rem;">
+                    <li><strong class="text-dark">カラーディスタンス判定:</strong> ベーステクスチャの画素とソースインデックスの色距離を正確に計算。</li>
+                    <li><strong class="text-dark">定数バッファ（b1）:</strong> 選択インデックスに基づき、実行時に色をターゲットのパレット行へと動的に置換。</li>
+                </ul>
+            </div>
+
+            <!-- Feature 2: Portable Setup -->
+            <div class="bg-light border border-secondary border-opacity-10 rounded p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h2 class="h6 fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                        <span class="p-1 bg-primary rounded-circle d-inline-block" style="background-color: #6f42c1;"></span>
+                        2. ポータブルセットアップ
+                    </h2>
+                    <span class="badge bg-primary text-purple font-mono" style="background-color: #6f42c1; color: #fff;">Automated Tooling</span>
+                </div>
+                <p class="small text-muted mb-2" style="font-size: 0.8rem; line-height: 1.4;">
+                    開発環境および実行環境の構築を簡略化するための一連のツール群を実装。OpenSiv3D環境の自動セットアップスクリプトや、VS Code上での快適な開発体験を支える環境構築を行っています。
+                </p>
+
+                <div class="row g-2">
+                    <div class="col-6">
+                        <div class="bg-white p-2 rounded border border-secondary border-opacity-15 h-100">
+                            <span class="text-primary font-mono small d-block fw-semibold mb-1" style="color: #6f42c1;">自動セットアップ</span>
+                            <span class="text-primary" style="font-size: 0.75rem;">PowerShellおよびバッチファイルスクリプトによるOpenSiv3D環境のその場での自動構築。</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="bg-white p-2 rounded border border-secondary border-opacity-15 h-100">
+                            <span class="text-primary font-mono small d-block fw-semibold mb-1">VS Code連携</span>
+                            <span class="text-muted" style="font-size: 0.75rem;">MSVCのコンパイルとインテリセンスが完全に機能する開発支援ツールの統合。</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

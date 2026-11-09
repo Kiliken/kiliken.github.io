@@ -1371,3 +1371,10 @@ a.btn:active {
 	display: none;
   }
 }
+
+.mermaid {
+    background-color: #2E3440 !important;
+    display: flex;
+    justify-content: center;
+    margin: -10px 0;
+}
