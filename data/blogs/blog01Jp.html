@@ -1,4 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="My personal website" />
+	<meta name="author" content="Mariani Francesco Paolo" />
+	<title>Paolo Mariani - Blogs</title>
+	<link rel="icon" type="image/x-icon" href="../../img/smolicon.png" />
+	<!-- Font Awesome icons (free version)-->
+	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+	<!-- Google fonts-->
+	<link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet"
+		type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link rel="stylesheet" href="../../css/github-markdown.css">
+	<link rel="stylesheet" href="../../highlight/styles/github-dark.css">
+	<script src="../../highlight/highlight.min.js"></script>
+</head>
+
+<body class="markdown-body">
+	<nav class="navbar navbar-dark bg-primary">
+		<div>
+			<a class="navbar-brand" href="../../index.html" id="returnButton">
+				<i class="fas fa-arrow-left"></i> Back to Portfolio
+			</a>
+		</div>
+	</nav>
+	<!-- README -->
+	<div class="renderer" id="content">
 # 高速な診断ツールとしてのPowerShell
 
 今回は、 Windows マシンが侵害された疑いがある場合に、悪意のあるソフトウェアがインストールされていないかを簡単にチェックできる、便利なスクリプトをいくつかご紹介します。
@@ -14,7 +45,7 @@
 次のコマンドは、 `C:\`  ドライブ内を再帰的にスキャンして特定のファイル名を探します。アクセス権限のエラーは自動的に無視されるため、ターミナルが赤文字のエラーメッセージで埋め尽くされることはありません。
 
 ```
-&copy&
+%copy%
 Get-ChildItem -Path C:\ -Recurse -Filter malware.dll -ErrorAction SilentlyContinue
 
 ```
@@ -22,7 +53,7 @@ Get-ChildItem -Path C:\ -Recurse -Filter malware.dll -ErrorAction SilentlyContin
 不審なファイルが見つかり、それが実際に悪意のあるものかどうかを確認する必要がある場合は、そのファイル固有の暗号化フィンガープリント（ハッシュ値）を生成して、 VirusTotal などのデータベースと照合できます。
 
 ```
-&copy&
+%copy%
 Get-FileHash -Path "C:\path\to\file" -Algorithm SHA256
 
 ```
@@ -32,7 +63,7 @@ Get-FileHash -Path "C:\path\to\file" -Algorithm SHA256
 マルウェアは多くの場合、指示を受け取ったりデータを外部に送信（エクスフィルトレーション）したりするために、C2（コマンド＆コントロール）サーバーと通信する必要があります。既知の悪意のあるIPアドレスのリストがある場合は、マシンが現在それらとアクティブに通信しているかどうかを確認できます。
 
 ```
-&copy&
+%copy%
 Get-NetTCPConnection | Where-Object {
     $_.RemoteAddress -in @(
         "127.1.1.0",
@@ -49,7 +80,7 @@ Get-NetTCPConnection | Where-Object {
 コマンドを実行したまさにその瞬間にマルウェアがアクティブに通信していなくても、 Windows はコンピューターが最近検索したドメイン名の履歴を一時的に保持しています。 DNS クライアントキャッシュを照会することで、マシンが最近、既知の悪意のあるドメインに接続しようとしたかどうかを確認できます。
 
 ```
-&copy&
+%copy%
 Get-DnsClientCache | Where-Object {
     $_.Entry -match "this|that|something"
 }
@@ -59,3 +90,27 @@ Get-DnsClientCache | Where-Object {
 ### おわりに
 
 PowerShellは、リアルタイムのインシデント対応において非常に汎用性の高いツールです。これらのような基本的なハンティング用スクリプトをいくつか手元に用意しておくことで、単なる「受動的なユーザー」から、自身のマシンを「能動的に守る防衛者」へと変わることができるのです。
+
+	</div>
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="../../js/marked.min.js"></script>
+	<script type="module">
+		import { getUrlParameter, processCode, returnPage } from "../../js/dataScript.js";
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@12.2.0/+esm';
+
+		const originUrl = getUrlParameter("og");
+		returnPage(originUrl);
+
+		document.getElementById("content").innerHTML = marked.parse(document.getElementById("content").textContent);
+		processCode();
+
+		hljs.highlightAll();
+        //mermaid.initialize({ theme: 'dark' });
+        //mermaid.run();
+
+	</script>
+</body>
+
+</html>

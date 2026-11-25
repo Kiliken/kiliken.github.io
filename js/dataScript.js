@@ -326,7 +326,7 @@ export function Blogs(page, type) {
             <h3 class="mb-0">`+ (jp ? data[i].titleJp : data[i].titleEn) + `</h3>
             <div class="subheading mb-3">`+ (jp ? data[i].topicJp : data[i].topicEn) + `</div>
             <p>`+ (jp ? data[i].descJp : data[i].descEn) + `</p>
-			<a class="btn btn-primary text-white" id="blogBtn1" href="./mdRenderer.html?mdurl=./data/blogsMd/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.md&og=mb` + (jp ? "j" : "e") + `">READ</a>
+			<a class="btn btn-primary text-white" id="blogBtn1" href="./data/blogs/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.html?og=mb` + (jp ? "j" : "e") + `">READ</a>
             </div>
             <div class="flex-shrink-0"><span class="text-primary">`+ data[i].date + `</span></div>
 			
@@ -363,7 +363,7 @@ export function AllBlogs(type) {
             <div class="subheading mb-3">`+ (jp ? data[i].topicJp : data[i].topicEn) + `</div>
             <p>`+ (jp ? data[i].descJp : data[i].descEn) + `</p>
 			<div><span class="text-primary">`+ data[i].date + `</span></div>
-			<a class="btn btn-primary text-white" id="blogBtn1" href="./mdRenderer.html?mdurl=./data/blogsMd/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.md&og=ab` + (jp ? "j" : "e") + `">READ</a>
+			<a class="btn btn-primary text-white" id="blogBtn1" href="./data/blogs/`+ (jp ? data[i].aboutJp : data[i].aboutEn) + `.html?og=ab` + (jp ? "j" : "e") + `">READ</a>
             </div>
 			<hr>
             </div>
@@ -371,6 +371,55 @@ export function AllBlogs(type) {
 	}
 
 	blgDiv.innerHTML = htmlContent;
+}
+
+export function returnPage(originUrl){
+	let returnUrl = "../../index.html";
+
+	if (originUrl != null) {
+		const baseCode = originUrl.slice(0, 2);
+		const langCode = originUrl.slice(2);
+
+		switch (baseCode) {
+			case "mh":
+				returnUrl = "../../index.html#highlights";
+				break;
+			case "mw":
+				returnUrl = "../../index.html#works";
+				break;
+			case "mb":
+				returnUrl = "../../index.html#blog";
+				break;
+			case "aw":
+				returnUrl = "../../works.html";
+				break;
+			case "ab":
+				returnUrl = "../../blogs.html";
+				break;
+			default:
+
+		}
+
+		if (langCode == "j") {
+			if (returnUrl.includes("#")) {
+				const [path, hash] = returnUrl.split("#");
+				returnUrl = `${path}?lang=jp#${hash}`;
+			} else {
+				returnUrl = `${returnUrl}?lang=jp`;
+			}
+		}
+
+		if (langCode == "e") {
+			if (returnUrl.includes("#")) {
+				const [path, hash] = returnUrl.split("#");
+				returnUrl = `${path}?lang=en#${hash}`;
+			} else {
+				returnUrl = `${returnUrl}?lang=en`;
+			}
+		}
+	}
+
+	document.getElementById("returnButton").href = returnUrl;
 }
 
 export function initReadMore() {
@@ -421,7 +470,7 @@ export function processCode() {
 		const firstLineIndex = lines.findIndex(line => line.trim() !== "");
 		const firstLine = lines[firstLineIndex]?.trim();
 
-		if (firstLine === "&copy&") isCopy = true;
+		if (firstLine === "%copy%") isCopy = true;
 		if (firstLine === "&scroll&") isScroll = true;
 
 		if (!(isCopy || isScroll)) return;

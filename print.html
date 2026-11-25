@@ -161,14 +161,7 @@
             <span class="skill-pill"><img src="img/gimp.svg" class="to-icon-sm"> GIMP</span>
         </div>
     </div>
-</section>
-			<section id="work1">
-			</section>
-			<section id="work2">
-			</section>
-			<section id="work3">
-			</section>
-			
+</section>			
             <section class="print-section">
 				<div class="print-section-content" id="workscreen">
 				</div>
@@ -236,16 +229,6 @@
 					webProt.innerHTML="本資料は個人サイトでも公開しております。Webサイト版では、デモ動画の再生に加え、他のプロジェクトについても詳細な技術解説や実機デモをご覧いただけます。<br>選考の際には、併せてご覧いただけますと幸いです。";
 				}	
 			} );
-			
-			await Promise.all([
-					loadHtml( "./data/worksPDF/FrancumEN.html", "work1"),
-                    loadHtml( "./data/worksPDF/PsychicJp.html", "work2"),
-                    loadHtml( "./data/worksPDF/SinNoHateJp.html", "work3")
-			]);
-            
-            mermaid.initialize({theme: 'dark' });
-            
-            await mermaid.run();
 		</script>
     </body>
 </html>
